@@ -1,0 +1,176 @@
+<! DOCTYPE html>
+<html  >
+<head>
+<meta charset="utf-8">
+<!-- Укажем браузеру, что текст данного HTML документа набран в типичной 
+для windows кирилической кодировке windows-1251 --> 
+
+ 
+	
+<title>Задача 1 к теме № 9</title>
+<base target="_self">
+<link rel="stylesheet" href="../../Scripts/css/micro.css">
+<script language=javascript>
+
+manufacturer=navigator.appName;
+if (manufacturer.indexOf('Microsoft')==-1)
+ document.write("<P class=text><font color=red><b>ВНИМАНИЕ! Эта страница не работает нормально в броузерах Netscape!<br> Используйте Internet Explorer 4.0 или выше, а также броузер Opera последних версий!</b><br><b>WARNING!!! This page work properly only in Internet Explorer 4.0 and higher or Opera!</b></font></p>");
+
+var tipvisible;var resvisible;var stip;var sres;
+var nv1;
+var nv2;
+var nv3;
+var nv4;
+var nv5;
+var nv6;
+var nv7;
+var nv8;
+var nv9;
+var nv10;
+var nv11;
+function onload(){tipvisible=0;resvisible=0;
+nv1=1;
+nv2=750;
+nv3=380;
+nv4=1750;
+nv5=0;
+nv6=300;
+nv7=120;
+nv8=50;
+nv9=1600;
+nv10=2100;
+nv11=1850;
+stip='<div class=text>Вспомните, как рассчитываются избыточные резервы коммерческого банка и как на их объем влияет покупка вкладчиком облигаций за счет срочного вклада.</div><BR><INPUT TYPE=BUTTON value=Посмотреть&nbsp;решение onclick=resclick()>'
+sres='<div class=text>1). "Да", так как в условиях задачи избыточные резервы банка позволяют ему предоставить дополнительный кредит в размере 100/0,2 = 500 млн. тенге<br><br>2). За счет сокращения депозитов на 500 млн. тенге избыточные резервы коммерческого банка возросли до 150 млн. тенге, и поэтому он может предоставить дополнительный кредит в размере 150/0,2 = 750 млн. тенге После этого его баланс примет следующий вид.<br><table width=100% border=1 cellspacing=0 cellpadding=0 bordercolor="#000000"><tr><td colspan=2 bgcolor=#d8d8d8><div class=table1>Актив</div></td><td colspan=2 bgcolor=#d8d8d8><div class=table1>Пассив</div></td></tr><tr><td width=40%><div class=table11>Обязательные резервы</div></td><td width=10%><div class=table1>380</div></td><td width=40%><div class=table11>Бессрочные депозиты</td><td width=10%><div class=table1>1750</div></td></tr><tr><td><div class=table11>Избыточные резервы</div></td><td><div class=table1>0</div></td><td><div class=table11>Срочные депозиты</div></td><td><div class=table1>300</div></td></tr><tr><td><div class=table11>Облигации</div></td><td><div class=table1>120</div></td><td><div class=table11>Собственный капитал</div></td><td><div class=table1>50</div></td></tr><tr><td><div class=table11>Кредиты</div></td><td><div class=table1>1600</div></td><td><div class=table11>&nbsp;</div></td><td><div class=table1>&nbsp;</div></td></tr><tr><td><div class=table11>Всего</div></td><td><div class=table1>2100</div></td><td><div class=table11>Всего</div></td><td><div class=table1>1850</div></td></tr></table></div>'
+}
+function okclick(){if (v1.value*1==nv1
+ && v2.value*1==nv2 && v3.value*1==nv3 && v4.value*1==nv4 && v5.value*1==nv5 && v6.value*1==nv6 && v7.value*1==nv7 && v8.value*1==nv8 && v9.value*1==nv9 && v10.value*1==nv10 && v11.value*1==nv11
+){alert("Верно!");rate.innerHTML="<p class=text><b><FONT  SIZE=3 COLOR=green>Верно!</FONT></b></p>";}
+else{alert("Неверно!"); rate.innerHTML="<p class=text><b><FONT SIZE=3 COLOR=red>Неверно!</FONT></b><br><INPUT TYPE=BUTTON value=Подсказка onclick=tipclick()>";}}
+function tipclick(){if (tipvisible==0){tip.innerHTML=stip;tipvisible=1;}else{ tipvisible=0;tip.innerHTML="&nbsp";}}
+function resclick(){if (resvisible==0){res.innerHTML=sres;resvisible=1;}else{resvisible=0;res.innerHTML="&nbsp";}}
+</script>
+</head>
+
+<body background="../../Images/fon_glossarii.jpg" bgproperties="fixed"  text="#000000" link="#008080" alink="#FF0000" vlink="#800000" topmargin="0" leftmargin="0" marginheight=0 marginwidth=0 onload=onload()>
+
+
+
+<TABLE  border=0 cellspacing=10 cellpadding=0 WIDTH=100%><TR><TD>
+
+<p class="header">Задача 1 <font color="maroon">[24]</font></p>
+
+<p class="text">Текущий баланс коммерческого банка имеет следующий вид (млн руб.).
+
+<table width=100% border=1 cellspacing=0 cellpadding=0 bordercolor="#000000">
+<tr>
+<td colspan="2" bgcolor="#d8d8d8"><div class="table1">Актив</div></td>
+<td colspan="2" bgcolor="#d8d8d8"><div class="table1">Пассив</div></td>
+</tr>
+<tr>
+<td width=40%><div class="table11">Обязательные резервы</div></td>
+<td width=10%><div class="table1">280</div></td>
+<td width=40%><div class="table11">Бессрочные депозиты</td>
+<td width=10%><div class="table1">1000</div></td>
+</tr>
+<tr>
+<td><div class="table11">Избыточные резервы</div></td>
+<td><div class="table1">100</div></td>
+<td><div class="table11">Срочные депозиты</div></td>
+<td><div class="table1">800</div></td>
+</tr>
+<tr>
+<td><div class="table11">Облигации</div></td>
+<td><div class="table1">620</div></td>
+<td><div class="table11">Собственный капитал</div></td>
+<td><div class="table1">50</div></td>
+</tr>
+<tr>
+<td><div class="table11">Кредиты</div></td>
+<td><div class="table1">850</div></td>
+<td><div class="table11">&nbsp;</div></td>
+<td><div class="table1">&nbsp;</div></td>
+</tr>
+<tr>
+<td><div class="table11">Всего</div></td>
+<td><div class="table1">1850</div></td>
+<td><div class="table11">Всего</div></td>
+<td><div class="table1">1850</div></td>
+</tr>
+</table>
+<br>
+Для бессрочных вкладов Центральный банк установил 20%-ную норму минимального резервного покрытия, а для срочных -10%-ную.</p>
+<p class="text"></p>
+
+
+<br>
+
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp;1) В этот банк обратились за очередной ссудой в размере 350 млн. руб. Может ли банк предоставить такую ссуду?<br>
+
+"Да" - вариант 1, "Нет" - вариант 2. Правильный вариант: <INPUT TYPE=TEXT name=v1 id=v1 SIZE=5></p>
+
+
+
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp;2) В связи с повышением рыночной ставки процента при неизменной депозитной ставке по срочным вкладам владельцы последних приобрели в своем банке облигаций на сумму 500 млн. руб. Какую максимальную ссуду может теперь предоставить рассматриваемый банк и как будет выглядеть его баланс после предоставления такой ссуды?<br>
+
+Возможен дополнительный кредит в размере <INPUT TYPE=TEXT name=v2 id=v2 SIZE=5> млн. руб.</p>
+
+<p class="text"><table width=100% border=1 cellspacing=0 cellpadding=0 bordercolor="#000000">
+<tr>
+<td colspan="2" bgcolor="#d8d8d8"><div class="table1">Актив</div></td>
+<td colspan="2" bgcolor="#d8d8d8"><div class="table1">Пассив</div></td>
+</tr>
+<tr>
+<td width=40%><div class="table11">Обязательные резервы</div></td>
+<td width=10%><div class="table1"><INPUT TYPE=TEXT name=v3 id=v3 SIZE=5></div></td>
+<td width=40%><div class="table11">Бессрочные депозиты</td>
+<td width=10%><div class="table1"><INPUT TYPE=TEXT name=v4 id=v4 SIZE=5></div></td>
+</tr>
+<tr>
+<td><div class="table11">Избыточные резервы</div></td>
+<td><div class="table1"><INPUT TYPE=TEXT name=v5 id=v5 SIZE=5></div></td>
+<td><div class="table11">Срочные депозиты</div></td>
+<td><div class="table1"><INPUT TYPE=TEXT name=v6 id=v6 SIZE=5></div></td>
+</tr>
+<tr>
+<td><div class="table11">Облигации</div></td>
+<td><div class="table1"><INPUT TYPE=TEXT name=v7 id=v7 SIZE=5></div></td>
+<td><div class="table11">Собственный капитал</div></td>
+<td><div class="table1"><INPUT TYPE=TEXT name=v8 id=v8 SIZE=5></div></td>
+</tr>
+<tr>
+<td><div class="table11">Кредиты</div></td>
+<td><div class="table1"><INPUT TYPE=TEXT name=v9 id=v9 SIZE=5></div></td>
+<td><div class="table11">&nbsp;</div></td>
+<td><div class="table1">&nbsp;</div></td>
+</tr>
+<tr>
+<td><div class="table11">Всего</div></td>
+<td><div class="table1"><INPUT TYPE=TEXT name=v10 id=v10 SIZE=5></div></td>
+<td><div class="table11">Всего</div></td>
+<td><div class="table1"><INPUT TYPE=TEXT name=v11 id=v11 SIZE=5></div></td>
+</tr>
+</table>
+
+
+
+<P class="text_red"><B>ПРИМЕЧАНИЕ</B>. В качестве десятичного разделителя используйте точку ( <B>.</B> ).<BR>
+Введите числа с точностью до десятых долей (один знак после разделительной точки)!</P>
+ 
+
+<INPUT TYPE=BUTTON value="Проверить" onclick=okclick()>
+<DIV id=rate>&nbsp;</DIV>
+<BR>
+
+<DIV id=tip></DIV>
+
+<DIV id=res></DIV>
+</TD>
+</TR>
+</TABLE>
+</body>
+
+
+</html>

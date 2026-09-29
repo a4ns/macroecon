@@ -1,0 +1,71 @@
+<! DOCTYPE html>
+<html  >
+<head>
+<meta charset="utf-8">
+<!-- Укажем браузеру, что текст данного HTML документа набран в типичной 
+для windows кирилической кодировке windows-1251 --> 
+
+ 
+	
+<title>Задача 2 к теме № 12</title>
+<base target="_self">
+<link rel="stylesheet" href="../../Scripts/css/micro.css">
+<script language=javascript>
+
+manufacturer=navigator.appName;
+if (manufacturer.indexOf('Microsoft')==-1)
+ document.write("<P class=text><font color=red><b>ВНИМАНИЕ! Эта страница не работает нормально в броузерах Netscape!<br> Используйте Internet Explorer 4.0 или выше, а также броузер Opera последних версий!</b><br><b>WARNING!!! This page work properly only in Internet Explorer 4.0 and higher or Opera!</b></font></p>");
+
+var tipvisible;var resvisible;var stip;var sres;
+var nv1;
+function onload(){tipvisible=0;resvisible=0;
+nv1=1.7;
+stip='<div class=text>Вспомните определение реального обменного курса национальной валюты.</div><BR><INPUT TYPE=BUTTON value=Посмотреть&nbsp;решение onclick=resclick()>'
+sres='<div class=text>По определению <i>e</i><sub><i>r</i></sub> = <i>e</i><i>P</i><sup><i>Z</i></sup>/<i>P</i>;  поэтому в январе 1998 г. <i>e</i><sub><i>r</i>,98</sub> = 6<i>P</i><sup><i>Z</i></sup><sub>98</sub>, а в январе 2001г. <i>e</i><sub><i>r</i>,01</sub> = 28,4&#183;1,074 <i>P</i><sup><i>Z</i></sup><sub>98</sub>/3<i>P</i><sub>98</sub>. Отсюда <i>e</i><sub><i>r</i>,01</sub>/<i>e</i><sub><i>r</i>,98</sub> = 1,7 т.е. реальный обменный курс рубля повысился в 1,7 раза.</div>'
+}
+function okclick(){if (v1.value*1==nv1
+){alert("Верно!");rate.innerHTML="<p class=text><b><FONT  SIZE=3 COLOR=green>Верно!</FONT></b></p>";}
+else{alert("Неверно!"); rate.innerHTML="<p class=text><b><FONT SIZE=3 COLOR=red>Неверно!</FONT></b><br><INPUT TYPE=BUTTON value=Подсказка onclick=tipclick()>";}}
+function tipclick(){if (tipvisible==0){tip.innerHTML=stip;tipvisible=1;}else{ tipvisible=0;tip.innerHTML="&nbsp";}}
+function resclick(){if (resvisible==0){res.innerHTML=sres;resvisible=1;}else{resvisible=0;res.innerHTML="&nbsp";}}
+</script>
+</head>
+
+<body background="../../Images/fon_glossarii.jpg" bgproperties="fixed"  text="#000000" link="#008080" alink="#FF0000" vlink="#800000" topmargin="0" leftmargin="0" marginheight=0 marginwidth=0 onload=onload()>
+
+
+
+<TABLE  border=0 cellspacing=10 cellpadding=0 WIDTH=100%><TR><TD>
+
+<p class="header">Задача 2 <font color="maroon">[24]</font></p>
+
+<p class="text">Обменный курс рубля к доллару в январе 1998 г.равнялся 6 руб/дол., а в январе 2001 г. - 28,4 руб/дол. За это время ИПЦ в США возрос в 1,074 раза, а в России - в 3 раза. </p>
+
+
+<br>
+
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp;Как за это время изменился реальный обменный курс рубля к доллару?</p>
+
+<p class="text">Реальный обменный курс рубля повысился в <INPUT TYPE=TEXT name=v1 id=v1 SIZE=5> раза.<br>
+(до десятых)</p>
+
+
+<P class="text_red"><B>ПРИМЕЧАНИЕ</B>. В качестве десятичного разделителя используйте точку ( <B>.</B> ).<BR>
+Введите числа с точностью до десятых долей (один знак после разделительной точки)!</P>
+ 
+
+<INPUT TYPE=BUTTON value="Проверить" onclick=okclick()>
+<DIV id=rate>&nbsp;</DIV>
+<BR>
+
+<DIV id=tip></DIV>
+
+<DIV id=res></DIV>
+</TD>
+</TR>
+</TABLE>
+</body>
+
+
+</html>

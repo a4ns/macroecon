@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<quiz>
+        <title>Sample Quiz</title>
+        <details>
+                <totalquestions>28</totalquestions> 
+                <questionstoask>10</questionstoask> 
+        </details>
+        <items>
+                <item>
+                        <question type="ms">Экстенсивный экономический рост: </question>
+                        <answer>связан с применением более совершенных факторов производства </answer>
+                        <answer>предполагает использование более совершенной технологии </answer>
+                        <answer>предполагает внедрение новой технологии в производство </answer>
+                        <answer correct="y">предполагает вовлечение в производство новых рабочих</answer>
+                        <answer>осуществляется за счет роста отдачи факторов производства</answer>
+                        <answer correct="y">осуществляется за счет привлечения дополнительных ресурсов</answer>
+                        <answer correct="y">не меняет среднюю производительность труда в экономике</answer>
+                </item>
+                <item>
+                        <question type="ms">Последствиями  инфляции являются:</question>
+                        <answer correct="y">ухудшение  платежного баланса</answer>
+                        <answer>падение  цен на ресурсы</answer>
+                        <answer>выравнивание  доходов  в обществе</answer>
+                        <answer>сокращение государственного долга</answer>
+                        <answer correct="y">перераспределение  дохода и богатства</answer>
+                        <answer correct="y">рост дефицита бюджета</answer>
+                        <answer>увеличение  налоговых  поступлений</answer>
+                </item>
+                <item>
+                        <question type="ms">Показатели  «запаса»: </question>
+                        <answer correct="y">количество денежной массы в стране на 1 мая 2012 г  </answer>
+                        <answer correct="y">размер  государственного долга </answer>
+                        <answer correct="y">накопленный  в стране физический капитал </answer>
+                        <answer>заработная плата за месяц </answer>
+                        <answer>совокупный доход за год </answer>
+                        <answer>инвестиции в обновление основного капитала </answer>
+                        <answer>объем ВВП за год </answer>
+                </item>
+                <item>
+                        <question type="ms">Макроэкономический  анализ  используется  при изучении: </question>
+                        <answer correct="y">равновесия на рынке денег </answer>
+                        <answer correct="y">уровня занятости в экономике </answer>
+                        <answer correct="y">состояния государственного бюджета </answer>
+                        <answer>механизма принятия эконмических решений на уровне фирм </answer>
+                        <answer>объема потребительских расходов домохозяйств </answer>
+                        <answer>поведение производителей </answer>
+                        <answer>равновесия фирмы в условиях совершенной конкуренции </answer>
+                </item>
+                <item>
+                        <question type="mc">Дефицит госбюджета это: </question>
+                        <answer>средства, одолженные коммерческими банками государству </answer>
+                        <answer>разница между средствами, поступившими из-за рубежа в виде кредитов и инвестициями за границу </answer>
+                        <answer>государственный долг </answer>
+                        <answer>расходы на содержание государственного аппарата </answer>
+                        <answer>международный долг </answer>
+                        <answer correct="y">увеличение расходов госбюджета над его доходами </answer>
+                </item>
+                <item>
+                        <question type="mc">Постулаты  теории  «экономики предложения»: </question>
+                        <answer>увеличение инвестиций обеспечивается сокращение сбережений и государственного бюджета </answer>
+                        <answer>необходимостьналогооблажения прибыли предпринимателей </answer>
+                        <answer>увеличение инвестиций обеспечивается увеличением сбережений и государственного бюджета </answer>
+                        <answer correct="y">увеличение инвестиций обеспечивается увеличением сбережений и уменьшением государственного бюджета </answer>
+                        <answer>необходимость замены потребительского налога подоходным налогом </answer>
+                </item>
+                <item>
+                        <question type="ms">Государственные закупки товаров и услуг:  </question>
+                        <answer>Дотации и льготы на приобретение лекарств </answer>
+                        <answer>Пенсионные выплаты </answer>
+                        <answer>Пособия по безработице </answer>
+                        <answer correct="y">Расходы на строительство новых школ </answer>
+                        <answer correct="y">Расходы на содержание государственных учреждений </answer>
+                        <answer correct="y">Жалованье врачей бюджетных организаций здравоохранения </answer>
+                        <answer>Помощь из государственного бюджета неполным семьям </answer>
+                </item>
+                <item>
+                        <question type="ms">Немонетарные  методы  антиинфляционной политики: </question>
+                        <answer correct="y">борьба с монополизацией в экономике </answer>
+                        <answer correct="y">сокращение дефицита бюджета </answer>
+                        <answer>недопущение эмиссионного финансирования дефицита бюджета </answer>
+                        <answer>увеличение нормы обязательных резервов </answer>
+                </item>
+                <item>
+                        <question type="ms">Трансферные платежи: </question>
+                        <answer correct="y">платежи частным предпринимателям и населению из государственного бюджета, форма перераспределения средств </answer>
+                        <answer correct="y">пособия, стипендии, пенсии, выплачиваемые населению </answer>
+                        <answer correct="y">выплаты домашним хозяйствам, не обусловленные  предоставлением с их стороны  товаров  и  услуг </answer>
+                        <answer>взносы на социальное страхование </answer>
+                        <answer>только выплаты государственным предпринимателям </answer>
+                </item>
+                <item>
+                        <question type="ms">Термин экономический цикл означает: </question>
+                        <answer correct="y">следующие один за другим подъемы и спады уровней экономической активности в течение нескольких лет </answer>
+                        <answer correct="y">рассмотрение спада и подъема экономики за определенный период </answer>
+                        <answer correct="y">когда за подъемом следует спад или наоборот  </answer>
+                        <answer>рассмотрение пика цикла, когда в экономике наблюдается полная занятость и производство работает на полную мощность </answer>
+                        <answer>низшую точку спада или депрессии </answer>
+                        <answer>фазу оживления, когда уровень производства повышается </answer>
+                        <answer>фазу спада </answer>
+                        <answer>фазу подъема </answer>
+                </item>
+                <item>
+                        <question type="ms">Экономический цикл связан с: </question>
+                        <answer correct="y">факторами, преимущественно влияющими на динамику предложения </answer>
+                        <answer correct="y">факторами, влияющих на объем предложения </answer>
+                        <answer correct="y">факторами, существенно изменяющий совокупное предложение </answer>
+                        <answer>действием только внешних факторов </answer>
+                        <answer>действием только внутренних факторов </answer>
+                        <answer>факторами, преимущественно влияющими на динамику совокупного спроса </answer>
+                </item>
+                <item>
+                        <question type="ms">Дефицит бюджета в период спада: </question>
+                        <answer>падает </answer>
+                        <answer>не меняется </answer>
+                        <answer>невозможно предсказать </answer>
+                        <answer>сначала падает, потом растет </answer>
+                        <answer correct="y">растет </answer>
+                        <answer correct="y">повышается </answer>
+                        <answer correct="y">увеличивается </answer>
+                </item>
+                <item>
+                        <question type="ms">В структуру расходов бюджета не входят: </question>
+                        <answer correct="y">налоги </answer>
+                        <answer correct="y">налоговые платежи </answer>
+                        <answer correct="y">обязательные государственные платежи </answer>
+                        <answer>расходы на оборону</answer>
+                        <answer>расходы на управление</answer>
+                        <answer>расходы на трансфертные платежи </answer>
+                </item>
+                <item>
+                        <question type="ms">К видам государственного долга не относятся: </question>
+                        <answer correct="y">социальный </answer>
+                        <answer correct="y">политический </answer>
+                        <answer correct="y">кадровый </answer>
+                        <answer>внутренний </answer>
+                        <answer>внешний </answer>
+                        <answer>текущий </answer>
+                        <answer>национальный </answer>
+                </item>
+                <item>
+                        <question type="ms">К видам государственного долга относятся: </question>
+                        <answer>социальный </answer>
+                        <answer>политический </answer>
+                        <answer>кадровый </answer>
+                        <answer correct="y">внутренний </answer>
+                        <answer correct="y">внешний </answer>
+                        <answer correct="y">текущий </answer>
+                        <answer correct="y">национальный </answer>
+                </item>
+                <item>
+                        <question type="ms">Бюджетный дефицит представляет собой: </question>
+                        <answer correct="y">увеличение госдолга за год </answer>
+                        <answer>сумму расходов государства </answer>
+                        <answer correct="y">повышение госдолга за год </answer>
+                        <answer>заработную плату госслужащим и трансфертные выплаты </answer>
+                        <answer correct="y">рост госдолга за год </answer>
+                        <answer>выплаты процентов по госдолгу </answer>
+                        <answer>капиталовложения </answer>
+                </item>
+                <item>
+                        <question type="ms">Правительство может избежать бюджетного дефицита путем: </question>
+                        <answer correct="y">сокращения налогов и увеличения госрасходов </answer>
+                        <answer>сокращения налогов и госрасходов </answer>
+                        <answer>увеличения налогов и госрасходов </answer>
+                        <answer>сокращения госрасходов и увеличения налогов </answer>
+                        <answer correct="y">уменьшения налогов и увеличения госрасходов </answer>
+                        <answer correct="y">сокращения налогов и повышения госрасходов </answer>
+                        <answer>сокращения госрасходов и повышения налогов </answer>
+                </item>
+                <item>
+                        <question type="mc">Дефицит госбюджета это: </question>
+                        <answer>средства, одолженные коммерческими банками государству </answer>
+                        <answer>разница между средствами, поступившими из-за рубежа в виде кредитов и инвестициями за границу </answer>
+                        <answer>государственный долг </answer>
+                        <answer>расходы на содержание государственного аппарата </answer>
+                        <answer>международный долг </answer>
+                        <answer correct="y">рост расходов госбюджета над его доходами </answer>
+                </item>
+                <item>
+                        <question type="mc">Один из способов покрытия бюджетного дефицита: </question>
+                        <answer>повышение процентной ставки </answer>
+                        <answer>понижение процентной ставки </answer>
+                        <answer>сокращение денежной базы </answer>
+                        <answer>понижение налогов </answer>
+                        <answer>уменьшение процентной ставки </answer>
+                        <answer correct="y">эмиссия денег </answer>
+                </item>
+                <item>
+                        <question type="mc">Один из способов покрытия бюджетного дефицита: </question>
+                        <answer>повышение процентной ставки </answer>
+                        <answer>понижение процентной ставки </answer>
+                        <answer>сокращение денежной базы </answer>
+                        <answer correct="y">выпуск денег</answer>
+                        <answer>уменьшение процентной ставки </answer>
+                        <answer>понижение налогов </answer>
+                </item>
+                <item>
+                        <question type="mc">Один из способов покрытия бюджетного дефицита: </question>
+                        <answer>повышение процентной ставки </answer>
+                        <answer>понижение процентной ставки </answer>
+                        <answer>сокращение денежной базы </answer>
+                        <answer>понижение налогов </answer>
+                        <answer>уменьшение процентной ставки </answer>
+                        <answer correct="y">увеличение денежной массы </answer>
+                </item>
+                <item>
+                        <question type="ms">Один из способов покрытия бюджетного дефицита: </question>
+                        <answer>повышение процентной ставки </answer>
+                        <answer>понижение процентной ставки </answer>
+                        <answer>сокращение денежной базы </answer>
+                        <answer>понижение налогов </answer>
+                        <answer>уменьшение процентной ставки </answer>
+                        <answer correct="y">эмиссия денег</answer>
+                        <answer correct="y">выпуск денег </answer>
+                        <answer correct="y">увеличение денежной массы </answer>
+                </item>
+                <item>
+                        <question type="ms">К способам финансирования государственных расходов не относят: </question>
+                        <answer correct="y">выплату пенсий </answer>
+                        <answer correct="y">выплату пенсионных отчислений </answer>
+                        <answer correct="y">выплату стипендий </answer>
+                        <answer>увеличение налогов </answer>
+                        <answer>займы у населения </answer>
+                        <answer>выпуск денег </answer>
+                </item>
+                <item>
+                        <question type="ms">Структурный бюджетный дефицит рассчитывается обычно при занятости в: </question>
+                        <answer>0,1 - 0,4% </answer>
+                        <answer>32 - 54% </answer>
+                        <answer>10 - 12% </answer>
+                        <answer>8 - 9% </answer>
+                        <answer>12 - 14% </answer>
+                        <answer correct="y">5 - 6% </answer>
+                        <answer correct="y">пять – шесть процентов </answer>
+                        <answer correct="y">пяти, шести % </answer>
+                </item>
+                <item>
+                        <question type="ms">Дефицит госбюджета может снизиться вследствие: </question>
+                        <answer correct="y">увеличения поступлений в бюджет за счет усовершенствования налоговой системы </answer>
+                        <answer>увеличения государственных капиталовложений </answer>
+                        <answer correct="y">повышения поступлений в бюджет за счет усовершенствования налоговой системы </answer>
+                        <answer>уменьшения ставок всех взимаемых государством налогов </answer>
+                        <answer>увеличения выплат социально уязвимым слоям населения </answer>
+                        <answer>решения государства срочно расплатиться со всеми долгами перед другими государствами </answer>
+                        <answer>повышения государственных капиталовложений </answer>
+                        <answer correct="y">роста поступлений в бюджет за счет усовершенствования налоговой системы </answer>
+                </item>
+                <item>
+                        <question type="mc">Дефицит госбюджета это: </question>
+                        <answer>средства, одолженные коммерческими банками государству </answer>
+                        <answer>разница между средствами, поступившими из-за рубежа в виде кредитов и инвестициями за границу </answer>
+                        <answer>государственный долг </answer>
+                        <answer>расходы на содержание государственного аппарата </answer>
+                        <answer>международный долг </answer>
+                        <answer correct="y">превышение расходов госбюджета над его доходами </answer>
+                </item>
+                <item>
+                        <question type="mc">Государственная политика, стимулирующая инвестиции:  </question>
+                        <answer correct="y">приводит к увеличению инвестиций за счет зарубежных займов  </answer>
+                        <answer>приводит к выдаче кредитов данной страной другим странам  </answer>
+                        <answer>приводит к превышению экспорта над импортом в данной стране  </answer>
+                        <answer>приводит к уменьшению инвестиций  </answer>
+                </item>
+                <item>
+                        <question type="ms">Государственные методы, стимулирующие экономический рост:  </question>
+                        <answer correct="y">сокращение налогов, увеличение государственных расходов  </answer>
+                        <answer correct="y">фискальная экспансия  </answer>
+                        <answer>увеличение налогов, сокращение государственных расходов  </answer>
+                        <answer>политика «дорогих» денег  </answer>
+                        <answer>фискальная рестрикция  </answer>
+                </item>
+ 
+        </items>
+</quiz>

@@ -1,0 +1,68 @@
+<! DOCTYPE html>
+<html  >
+<head>
+<meta charset="utf-8">
+<!-- Укажем браузеру, что текст данного HTML документа набран в типичной 
+для windows кирилической кодировке windows-1251 --> 
+
+ 
+	
+<title>Задача 1 к теме № 1</title>
+<base target="_self">
+<link rel="stylesheet" href="../../Scripts/css/micro.css">
+<script language=javascript>
+
+manufacturer=navigator.appName;
+if (manufacturer.indexOf('Microsoft')==-1)
+ document.write("<P class=text><font color=red><b>ВНИМАНИЕ! Эта страница не работает нормально в броузерах Netscape!<br> Используйте Internet Explorer 4.0 или выше, а также броузер Opera последних версий!</b><br><b>WARNING!!! This page work properly only in Internet Explorer 4.0 and higher or Opera!</b></font></p>");
+
+var tipvisible;var resvisible;var stip;var sres;
+var nv1;
+var nv2;
+var nv3;
+function onload(){tipvisible=0;resvisible=0;
+nv1=415;
+nv2=60;
+nv3=55;
+stip='<div class=text>Вспомните структуру используемого национального дохода, определение располагаемого дохода, различие между ВНП и ЧНП, а также основные статьи доходов и расходов государственного бюджета.</div><BR><INPUT TYPE=BUTTON value=Посмотреть&nbsp;решение onclick=resclick()>'
+sres='<div class=text>а) Определим величину НД на основе данных о его использовании:<br><i>y</i>&nbsp;=&nbsp;250&nbsp;+&nbsp;75&nbsp;+&nbsp;80&nbsp;+&nbsp;150&nbsp;-&nbsp;110&nbsp;=&nbsp;445.<br>Поскольку прямые налоги составляют 30&nbsp;ден.&nbsp;ед., то располагаемый доход равен:<br><i>y</i><sup><i>v</i></sup>&nbsp;=&nbsp;445&nbsp;-&nbsp;30&nbsp;=&nbsp;415.<br>б) Амортизационный фонд&nbsp;(<i>D</i>) соответствует разности ВНП-ЧНП. В свою очередь<br>ЧНП&nbsp;=&nbsp;445&nbsp;+&nbsp;20&nbsp;-&nbsp;25&nbsp;=&nbsp;440. Следовательно, <i>D</i>&nbsp;=&nbsp;500&nbsp;-&nbsp;440&nbsp;=&nbsp;60.<br>в) Состояние госбюджета характеризуется разностью между государственными расходами и поступлениями в бюджет:<br>&#948;&nbsp;=&nbsp;(80&nbsp;+&nbsp;25)&nbsp;-&nbsp;(30&nbsp;+&nbsp;20)&nbsp;=&nbsp;55.</div>'
+}
+function okclick(){if (v1.value*1==nv1
+ && v2.value*1==nv2 && v3.value*1==nv3
+){alert("Верно!");rate.innerHTML="<p class=text><b><FONT  SIZE=3 COLOR=green>Верно!</FONT></b></p>";}
+else{alert("Неверно!"); rate.innerHTML="<p class=text><b><FONT SIZE=3 COLOR=red>Неверно!</FONT></b><br><INPUT TYPE=BUTTON value=Подсказка onclick=tipclick()>";}}
+function tipclick(){if (tipvisible==0){tip.innerHTML=stip;tipvisible=1;}else{ tipvisible=0;tip.innerHTML="&nbsp";}}
+function resclick(){if (resvisible==0){res.innerHTML=sres;resvisible=1;}else{resvisible=0;res.innerHTML="&nbsp";}}
+</script>
+</head>
+
+<body background="../../Images/fon_glossarii.jpg" bgproperties="fixed"  text="#000000" link="#008080" alink="#FF0000" vlink="#800000" topmargin="0" leftmargin="0" marginheight=0 marginwidth=0 onload=onload()>
+
+
+<TABLE  border=0 cellspacing=10 cellpadding=0 WIDTH=100%><TR><TD>
+
+<p class="header">Задача 1 <font color="maroon">[24]</font></p>
+
+<p class="text">В прошедшем году страна имела следующие показатели (в ден.&nbsp;ед.):<br>
+ВНП - 500; чистые инвестиции частного сектора - 75; государственные закупки - 80; потребление домашних хозяйств - 250; поступление в государственный бюджет прямых налогов  -  30; косвенных налогов - 20; субвенции предпринимателям - 25; экспорт - 150; импорт - 110.</p>
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp;Определить:<br>
+а) располагаемый доход домашних хозяйств: <INPUT TYPE=TEXT name=v1 id=v1 SIZE=5><br>
+б) амортизационный фонд (<i>D</i>): <INPUT TYPE=TEXT name=v2 id=v2 SIZE=5><br>
+в) состояние государственного бюджета: <INPUT TYPE=TEXT name=v3 id=v3 SIZE=5></p>
+ 
+
+<INPUT TYPE=BUTTON value="Проверить" onclick=okclick()>
+<DIV id=rate>&nbsp;</DIV>
+<BR>
+
+<DIV id=tip></DIV>
+
+<DIV id=res></DIV>
+</TD>
+</TR>
+</TABLE>
+</body>
+
+
+</html>

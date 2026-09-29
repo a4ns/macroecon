@@ -1,0 +1,81 @@
+<! DOCTYPE html>
+<html  >
+<head>
+<meta charset="utf-8">
+<!-- Укажем браузеру, что текст данного HTML документа набран в типичной 
+для windows кирилической кодировке windows-1251 --> 
+
+ 
+	
+<title>Задача 1 к теме № 11</title>
+<base target="_self">
+<link rel="stylesheet" href="../../Scripts/css/micro.css">
+<script language=javascript>
+
+manufacturer=navigator.appName;
+if (manufacturer.indexOf('Microsoft')==-1)
+ document.write("<P class=text><font color=red><b>ВНИМАНИЕ! Эта страница не работает нормально в броузерах Netscape!<br> Используйте Internet Explorer 4.0 или выше, а также броузер Opera последних версий!</b><br><b>WARNING!!! This page work properly only in Internet Explorer 4.0 and higher or Opera!</b></font></p>");
+
+var tipvisible;var resvisible;var stip;var sres;
+var nv1;
+var nv2;
+function onload(){tipvisible=0;resvisible=0;
+nv1=-19;
+nv2=2;
+stip='<div class=text>Проведите расчеты по конечно-разностному уравнению в теоретическом разделе 11.1.</div><BR><INPUT TYPE=BUTTON value=Посмотреть&nbsp;решение onclick=resclick()>'
+sres='<div class=text><table width=100% border=1 cellspacing=0 cellpadding=0 bordercolor="#000000"><tr><td bgcolor=#d8d8d8 width=8%><div class=table1><i>t</i></div></td><td bgcolor=#d8d8d8 width=8%><div class=table1><i>C</i></div></td><td bgcolor=#d8d8d8 width=8%><div class=table1><i>I</i><sup><i>a</i></sup></div></td><td bgcolor=#d8d8d8 width=8%><div class=table1><i>I</i><sup><i>in</i></sup></div></td><td bgcolor=#d8d8d8 width=8%><div class=table1><i>y</i></div></td></tr><tr><td><div class=table1>0</div></td><td><div class=table1>500</div></td><td><div class=table1>100</div></td><td><div class=table1>0</div></td><td><div class=table1>600</div></td></tr><tr><td><div class=table1>1</div></td><td><div class=table1>500</div></td><td><div class=table1>150</div></td><td><div class=table1>0</div></td><td><div class=table1>650</div></td></tr><tr><td><div class=table1>2</div></td><td><div class=table1>535</div></td><td><div class=table1>100</div></td><td><div class=table1>40</div></td><td><div class=table1>675</div></td></tr><tr><td><div class=table1>3</div></td><td><div class=table1>552,5</div></td><td><div class=table1>100</div></td><td><div class=table1>20</div></td><td><div class=table1>672,5</div></td></tr><tr><td><div class=table1>4</div></td><td><div class=table1>550,8</div></td><td><div class=table1>100</div></td><td><div class=table1>-2</div></td><td><div class=table1>648,8</div></td></tr><tr><td><div class=table1>5</div></td><td><div class=table1>534,1</div></td><td><div class=table1>100</div></td><td><div class=table1>-19,0</div></td><td><div class=table1>615,1</div></td></tr><tr><td><div class=table1>6</div></td><td><div class=table1>510,6</div></td><td><div class=table1>100</div></td><td><div class=table1>-26,9</div></td><td><div class=table1>583,7</div></td></tr></table>Да, после восстановления динамического равновесия.</div>'
+}
+function okclick(){if (v1.value*1==nv1
+ && v2.value*1==nv2
+){alert("Верно!");rate.innerHTML="<p class=text><b><FONT  SIZE=3 COLOR=green>Верно!</FONT></b></p>";}
+else{alert("Неверно!"); rate.innerHTML="<p class=text><b><FONT SIZE=3 COLOR=red>Неверно!</FONT></b><br><INPUT TYPE=BUTTON value=Подсказка onclick=tipclick()>";}}
+function tipclick(){if (tipvisible==0){tip.innerHTML=stip;tipvisible=1;}else{ tipvisible=0;tip.innerHTML="&nbsp";}}
+function resclick(){if (resvisible==0){res.innerHTML=sres;resvisible=1;}else{resvisible=0;res.innerHTML="&nbsp";}}
+</script>
+</head>
+
+<body background="../../Images/fon_glossarii.jpg" bgproperties="fixed"  text="#000000" link="#008080" alink="#FF0000" vlink="#800000" topmargin="0" leftmargin="0" marginheight=0 marginwidth=0 onload=onload()>
+
+
+
+<TABLE  border=0 cellspacing=10 cellpadding=0 WIDTH=100%><TR><TD>
+
+<p class="header">Задача 1 <font color="maroon">[24]</font></p>
+
+<p class="text">При функции сбережений <i>S</i><sub><i>t</i></sub> = -80 + 0,3<i>y</i><sub><i>t</i>-1</sub> и функции инвестиций <i>I</i><sub><i>t</i></sub> = 100 + 0,8(<i>y</i><sub><i>t</i>-1</sub> - <i>y</i><sub><i>t</i>-2</sub>) до периода <i>t</i><sub>0</sub> на рынке благ существовало динамическое равновесие. В периоде <i>t</i><sub>1</sub> предприниматели увеличили автономные инвестиции до 150&nbsp;ед., а с периода <i>t</i><sub>2</sub>  вернулись к исходному их объему. </p>
+
+<p class="text"></p>
+
+
+<br>
+
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp;1) Основываясь на модели экономического цикла Самуэльсона-Хикса, определите величину индуцированных инвестиций в периоде <i>t</i><sub>5</sub>?</p>
+
+<p class="text"><i>I</i><sub>5</sub><sup><i>ind</i></sup> = <INPUT TYPE=TEXT name=v1 id=v1 SIZE=5></p>
+
+
+
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp;2) Будут ли в каком либо периоде после <i>t</i><sub>1</sub> отсутствовать индуцированные инвестиции?</p>
+
+<p class="text">Вариант 1 - нет;  вариант 2 - да<br>
+Правильный вариант: <INPUT TYPE=TEXT name=v2 id=v2 SIZE=5></p>
+
+
+
+
+<INPUT TYPE=BUTTON value="Проверить" onclick=okclick()>
+<DIV id=rate>&nbsp;</DIV>
+<BR>
+
+<DIV id=tip></DIV>
+
+<DIV id=res></DIV>
+</TD>
+</TR>
+</TABLE>
+</body>
+
+
+</html>

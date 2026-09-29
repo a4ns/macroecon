@@ -1,0 +1,110 @@
+<! DOCTYPE html>
+<html  >
+<head>
+<meta charset="utf-8">
+<!-- Укажем браузеру, что текст данного HTML документа набран в типичной 
+для windows кирилической кодировке windows-1251 --> 
+
+ 
+	
+<title>Задача 2 к теме № 10</title>
+<base target="_self">
+<link rel="stylesheet" href="../../Scripts/css/micro.css">
+<script language=javascript>
+
+manufacturer=navigator.appName;
+if (manufacturer.indexOf('Microsoft')==-1)
+ document.write("<P class=text><font color=red><b>ВНИМАНИЕ! Эта страница не работает нормально в броузерах Netscape!<br> Используйте Internet Explorer 4.0 или выше, а также броузер Opera последних версий!</b><br><b>WARNING!!! This page work properly only in Internet Explorer 4.0 and higher or Opera!</b></font></p>");
+
+var tipvisible;var resvisible;var stip;var sres;
+var nv1;
+var nv2;
+var nv3;
+var nv4;
+var nv5;
+var nv6;
+var nv7;
+var nv8;
+function onload(){tipvisible=0;resvisible=0;
+nv1=6;
+nv2=2060;
+nv3=140;
+nv4=936.3;
+nv5=63.6;
+nv6=3060;
+nv7=173.3;
+nv8=206.5;
+stip='<div class=text>Для получения уравнения кривой <i>LM</i> используйте условие равновесия на рынке денег; вспомните метод расчета рыночной цены облигации.</div><BR><INPUT TYPE=BUTTON value=Посмотреть&nbsp;решение onclick=resclick()>'
+sres='<div class=text>1)На рынке денег достигается равновесие при<br>150 + 5<i>r</i> = 0,04&#183;2900 + 0,01&#183;2900 + 47 - 2<i>r</i>  =>  <i>r</i> = 6.<br><br>2) Множество сочетаний <i>Y</i>, <i>r</i>, обеспечивающих равновесие на рынке денег, определяется из равенства<br>150 + 5<i>r</i> = 0,05<i>Y</i> + 47 - 2<i>r</i>, или <i>Y</i> = 2060 + 140<i>r</i> - уравнение линии <i>LM</i>.<br><br>3) При снижении скорости обращения денег в 2,5 раза равновесие на рынке денег достигается при<br>150 +5<i>r</i> =0,1<i>Y</i> + 0,01<i>Y</i> + 47 - 2<i>r</i>  =>  <i>Y</i> = 936,3 + 63,6<i>r</i>, т.е. линия <i>LM</i> сместится влево и уменьшит угол наклона к оси абсцисс. Это объясняется тем, что более крутым стал график <i>l</i><sub>сд</sub> = <i>l</i><sub>сд</sub>(<i>Y</i>).<br>При снижении 1/4 уровня цен уравнение линии <i>LM</i> определится из равенства<br>(150 + 5<i>r</i>)/0,75 = 0,05<i>Y</i> + 47 - 2<i>r</i>  =>  <i>Y</i> = 3060 + 173,3<i>r</i>, т.е. линия <i>LM</i> сместится вправо из-за увеличения реального предложения денег.<br><br>4) Поскольку при <i>r</i> = 6 облигацию можно было купить за 600 ден. ед., то годовой доход на нее составляет<br>600&#183;0,06 = 36 ден. ед. В ситуации 3) при <i>Y</i> = 2900 ставка процента определится из равенства<br>2900 = 1791 + 63,63<i>r</i>  =>  <i>r</i> = 17,43%. Следовательно, облигацию можно продать за 36/0,1743 = 206.5 ден. ед.</div>'
+}
+function okclick(){if (v1.value*1==nv1
+ && v2.value*1==nv2 && v3.value*1==nv3 && v4.value*1==nv4
+){alert("Верно!");rate.innerHTML="<p class=text><b><FONT  SIZE=3 COLOR=green>Верно!</FONT></b></p>";}
+else{alert("Неверно!"); rate.innerHTML="<p class=text><b><FONT SIZE=3 COLOR=red>Неверно!</FONT></b><br><INPUT TYPE=BUTTON value=Подсказка onclick=tipclick()>";}}
+function tipclick(){if (tipvisible==0){tip.innerHTML=stip;tipvisible=1;}else{ tipvisible=0;tip.innerHTML="&nbsp";}}
+function resclick(){if (resvisible==0){res.innerHTML=sres;resvisible=1;}else{resvisible=0;res.innerHTML="&nbsp";}}
+</script>
+</head>
+
+<body background="../../Images/fon_glossarii.jpg" bgproperties="fixed"  text="#000000" link="#008080" alink="#FF0000" vlink="#800000" topmargin="0" leftmargin="0" marginheight=0 marginwidth=0 onload=onload()>
+
+
+
+<TABLE  border=0 cellspacing=10 cellpadding=0 WIDTH=100%><TR><TD>
+
+<p class="header">Задача 2 <font color="maroon">[24]</font></p>
+
+<p class="text">Предложение денег осуществляется по формуле <i>M</i> = 150 + 5<i>r</i>; скорость их обращения равна 25&nbsp;оборотов за период, в течение которого создается реальный доход в размере 2900&nbsp;ед. Спрос домашних хозяйств на деньги по мотиву предосторожности равен&nbsp;1% получаемого ими дохода, а реальный спрос на деньги как имущество характеризуется формулой 47 - 2<i>r</i>.</p>
+
+<p class="text"></p>
+
+
+<br>
+
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp;1) Определите равновесную ставку  процента.<br>
+<i>r</i> =  <INPUT TYPE=TEXT name=v1 id=v1 SIZE=5>
+</p>
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp;2) Выведите уравнение линии <i>LM</i>.<br>
+<i>Y</i> = <INPUT TYPE=TEXT name=v2 id=v2 SIZE=5> + <INPUT TYPE=TEXT name=v3 id=v3 SIZE=5> <i>r</i>
+</p>
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp;3) Каково будет уравнение линии <i>LM</i>, если:<br>
+а) скорость обращения денег снизится в 2,5 раза?<br>
+
+<i>Y</i> = <INPUT TYPE=TEXT name=v4 id=v4 SIZE=5> + <INPUT TYPE=TEXT name=v5 id=v5 SIZE=5> <i>r</i><br>
+
+
+б) уровень цен снизится на 1/4?<br>
+
+<i>Y</i> = <INPUT TYPE=TEXT name=v6 id=v6 SIZE=5> + <INPUT TYPE=TEXT name=v7 id=v7 SIZE=5> <i>r</i>
+</p>
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp;4) За сколько в ситуации 3а) можно продать облигацию, купленную в исходных условиях за 600 ден. ед.?<br>
+
+Рыночная цена облигации: <INPUT TYPE=TEXT name=v8 id=v8 SIZE=5>
+</p>
+
+
+
+
+
+<P class="text_red"><B>ПРИМЕЧАНИЕ</B>. В качестве десятичного разделителя используйте точку ( <B>.</B> ).<BR>
+Введите числа с точностью до десятых долей (один знак после разделительной точки)!</P>
+ 
+
+<INPUT TYPE=BUTTON value="Проверить" onclick=okclick()>
+<DIV id=rate>&nbsp;</DIV>
+<BR>
+
+<DIV id=tip></DIV>
+
+<DIV id=res></DIV>
+</TD>
+</TR>
+</TABLE>
+</body>
+
+
+</html>

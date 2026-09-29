@@ -1,0 +1,70 @@
+<! DOCTYPE html>
+<html  >
+<head>
+<meta charset="utf-8">
+<!-- Укажем браузеру, что текст данного HTML документа набран в типичной 
+для windows кирилической кодировке windows-1251 --> 
+
+ 
+	
+<title>Задача 1 к теме № 4</title>
+<base target="_self">
+<link rel="stylesheet" href="../../Scripts/css/micro.css">
+<script language=javascript>
+
+manufacturer=navigator.appName;
+if (manufacturer.indexOf('Microsoft')==-1)
+ document.write("<P class=text><font color=red><b>ВНИМАНИЕ! Эта страница не работает нормально в броузерах Netscape!<br> Используйте Internet Explorer 4.0 или выше, а также броузер Opera последних версий!</b><br><b>WARNING!!! This page work properly only in Internet Explorer 4.0 and higher or Opera!</b></font></p>");
+
+var tipvisible;var resvisible;var stip;var sres;
+var nv1;
+function onload(){tipvisible=0;resvisible=0;
+nv1=12;
+stip='<div class=text>Повторите раздел 4.2.</div><BR><INPUT TYPE=BUTTON value=Посмотреть&nbsp;решение onclick=resclick()>'
+sres='<div class=text>Доля безработных в общем числе трудовых ресурсов до фазы подъема составляла 0,012/(0,1 + 0,012) = 0,107 = 10,7%. В результате экономического подъема эта доля снизилась до 0,008/(0,008 + 0,112) = 0,0667 = 6,7%. Коэффициент Оукена показывает, на сколько процентов изменится НД при изменении нормы безработицы на 1%. Следовательно, в фазе подъема НД увеличится на 3(10,7 - 6,7) = 12%.</div>'
+}
+function okclick(){if (v1.value*1==nv1
+){alert("Верно!");rate.innerHTML="<p class=text><b><FONT  SIZE=3 COLOR=green>Верно!</FONT></b></p>";}
+else{alert("Неверно!"); rate.innerHTML="<p class=text><b><FONT SIZE=3 COLOR=red>Неверно!</FONT></b><br><INPUT TYPE=BUTTON value=Подсказка onclick=tipclick()>";}}
+function tipclick(){if (tipvisible==0){tip.innerHTML=stip;tipvisible=1;}else{ tipvisible=0;tip.innerHTML="&nbsp";}}
+function resclick(){if (resvisible==0){res.innerHTML=sres;resvisible=1;}else{resvisible=0;res.innerHTML="&nbsp";}}
+</script>
+</head>
+
+<body background="../../Images/fon_glossarii.jpg" bgproperties="fixed"  text="#000000" link="#008080" alink="#FF0000" vlink="#800000" topmargin="0" leftmargin="0" marginheight=0 marginwidth=0 onload=onload()>
+
+
+
+<TABLE  border=0 cellspacing=10 cellpadding=0 WIDTH=100%><TR><TD>
+
+<p class="header">Задача 1 <font color="maroon">[24]</font></p>
+
+<p class="text">В ходе экономического подъема доля людей, оставляющих в единицу времени работу, в общем числе занятых снизилась с 0,012 до 0,008, а доля безработных, находящих работу, повысилась с 0,1 до 0,112.  </p>
+
+<p class="text"></p>
+
+
+<br>
+
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp;На сколько возрос НД в фазе подъема, если коэффициент Оукена равен 3? </p> 
+
+<p class="text">НД увеличится на: <INPUT TYPE=TEXT name=v1 id=v1 SIZE=5>%</p>
+
+
+
+
+<INPUT TYPE=BUTTON value="Проверить" onclick=okclick()>
+<DIV id=rate>&nbsp;</DIV>
+<BR>
+
+<DIV id=tip></DIV>
+
+<DIV id=res></DIV>
+</TD>
+</TR>
+</TABLE>
+</body>
+
+
+</html>

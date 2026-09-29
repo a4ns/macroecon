@@ -1,0 +1,54 @@
+
+
+/* body */
+
+
+body
+{
+background-color:#fff;
+float: center;
+margin:0px 5px 10px 5px;
+padding:0px 0px 0px 0px;
+box-sizing:border-box;max-width:900px;margin-left:auto;margin-right:auto;padding:0 12px;
+}
+
+
+
+p 
+{
+text-align:justify;
+color:#000080;
+font-family: Times New Roman;
+font-size: 16 px;
+text-indent:1.0cm;
+}
+
+
+.formula 
+{
+text-align:center;
+color:#000000;
+font-family: Times New Roman;
+font-size: 16px;
+font-style: italic;
+font-weight: bold;
+text-indent:0cm;
+}
+
+table 
+{
+color:#000080;
+font-family: Times New Roman;
+font-size: 16px;
+}
+
+
+
+
+
+
+
+
+
+
+

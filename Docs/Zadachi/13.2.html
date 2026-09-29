@@ -1,0 +1,84 @@
+<! DOCTYPE html>
+<html  >
+<head>
+<meta charset="utf-8">
+<!-- Укажем браузеру, что текст данного HTML документа набран в типичной 
+для windows кирилической кодировке windows-1251 --> 
+
+ 
+	
+<title>Задача 2 к теме № 13</title>
+<base target="_self">
+<link rel="stylesheet" href="../../Scripts/css/micro.css">
+<script language=javascript>
+
+manufacturer=navigator.appName;
+if (manufacturer.indexOf('Microsoft')==-1)
+ document.write("<P class=text><font color=red><b>ВНИМАНИЕ! Эта страница не работает нормально в броузерах Netscape!<br> Используйте Internet Explorer 4.0 или выше, а также броузер Opera последних версий!</b><br><b>WARNING!!! This page work properly only in Internet Explorer 4.0 and higher or Opera!</b></font></p>");
+
+var tipvisible;var resvisible;var stip;var sres;
+var nv1;
+var nv2;
+var nv3;
+var nv4;
+var nv5;
+function onload(){tipvisible=0;resvisible=0;
+nv1=33.3;
+nv2=6.7;
+nv3=6.7;
+nv4=40.7;
+nv5=5.8;
+stip='<div class=text>Исходные значения искомых параметров определяются из системы уравнений, описывающих совместное равновесие на рынках блага и денег и нулевое сальдо платежного баланса. Для выяснения того, как изменится количество денег, после появления государственных расходов определите состояние платежного баланса. Конкретное изменения количества денег рассчитайте из условия равновесия на денежном рынке.</div><BR><INPUT TYPE=BUTTON value=Посмотреть&nbsp;решение onclick=resclick()>'
+sres='<div class=text>1) Уравнение линии <i>IS</i><sub>0</sub>: <i>i</i><sub>0</sub> = 14 - 0,2<i>y</i><sub>0</sub>, Уравнение линии <i>LM</i><sub>0</sub>: <i>i</i><sub>0</sub> = 0,25<i>y</i><sub>0</sub> - 1. Уравнение линии <i>ZB</i>0: 10 - 0,1<i>y</i>= 25 - 2,5<i>i</i>  =>  <i>i</i><sub>0</sub> = 0,04<i>y</i><sub>0</sub> + 6.<br>Величина эффективного спроса определяется из уравнения <i>IS</i><sub>0</sub> = <i>LM</i><sub>0</sub>: 14 - 0,2<i>y</i><sub>0</sub> = 0,25<i>y</i><sub>0</sub> - 1  =>  <i>y</i><sub>0</sub> = 33,3; <i>i</i><sub>0</sub> = 7,3. Платежный баланс выровнен, так как <i>NE</i><sub>0</sub> = 10 - 0,1&#183;33,3 = 6,7; <i>NKE</i><sub>0</sub> = 25 - 2,5&#183;7,3 = 6,7.<br><br>2) <i>IS</i><sub>1</sub>: <i>y</i><sub>1</sub> = 5 + 0,8<i>y</i><sub>1</sub> + 6 - 1,5<i>i</i><sub>1</sub> + 10 - 0,1<i>y</i><sub>1</sub> + 5, или <i>i</i><sub>1</sub> = 17,33 - 0,2<i>y</i><sub>1</sub>.<br>Линия <i>IS</i> сдвинулась вправо. Определим точку пересечения <i>IS</i><sub>1</sub> с <i>LM</i><sub>0</sub>:<br>17,33 - 0,2<i>y</i><sub>1</sub> = 0,25<i>y</i><sub>1</sub> - 1   =>  <i>y</i><sub>1</sub>= 40,7; <i>i</i><sub>1</sub> = 9,2.<br>Точка с координатами <i>i</i><sub>1</sub>, <i>y</i><sub>1</sub> находится выше линии <i>ZB</i>0, что свидетельствует об избытке платежного баланса:<br><i>NE</i><sub>1</sub> = 10 - 0,1&#183;40,7 = 5,9; <i>NKE</i><sub>1</sub> = 25 - 2,5&#183;9,2 = 2, т.е. &#916;<i>R</i> = 3,9.<br>В результате увеличения денежной базы количество находящихся в обращении денег будет расти до тех пор, пока линия <i>LM</i> не пересечет линию <i>ZB</i>0 в точке пересечения последней с <i>IS</i><sub>1</sub>. Эта точка определяется из уравнения <i>IS</i><sub>1</sub> = <i>ZB</i>0:<br>17,3 - 0,2<i>y</i><sub>2</sub> = 0,04<i>y</i><sub>2</sub> + 6  =>  <i>y</i><sub>2</sub>= 47,1; <i>i</i><sub>2</sub> = 7,9.<br>Чтобы при <i>y</i><sub>2</sub>, <i>i</i><sub>2</sub> на денежном рынке было равновесие, необходимо соблюдение равенства <i>M</i><sub>1</sub> = 0,5&#183;47,1 + 40 - 2&#183;7,9 = 47,8. Таким образом, после увеличения находящихся в обращении денег на 5,8 ед. платежей баланс снова выравнивается:<br><i>NE</i><sub>2</sub> = 10 - 0,1&#183;47,1 = 5,3; <i>NKE</i><sub>2</sub> = 25 - 2,5&#183;7,9 = 5,3.<br><img src="../../Images/Zadachi/z_13_2.jpg" border="0" alt="?" align="middle"></div>'
+}
+function okclick(){if (v1.value*1==nv1
+ && v2.value*1==nv2 && v3.value*1==nv3  && v4.value*1==nv4  && v5.value*1==nv5
+){alert("Верно!");rate.innerHTML="<p class=text><b><FONT  SIZE=3 COLOR=green>Верно!</FONT></b></p>";}
+else{alert("Неверно!"); rate.innerHTML="<p class=text><b><FONT SIZE=3 COLOR=red>Неверно!</FONT></b><br><INPUT TYPE=BUTTON value=Подсказка onclick=tipclick()>";}}
+function tipclick(){if (tipvisible==0){tip.innerHTML=stip;tipvisible=1;}else{ tipvisible=0;tip.innerHTML="&nbsp";}}
+function resclick(){if (resvisible==0){res.innerHTML=sres;resvisible=1;}else{resvisible=0;res.innerHTML="&nbsp";}}
+</script>
+</head>
+
+<body background="../../Images/fon_glossarii.jpg" bgproperties="fixed"  text="#000000" link="#008080" alink="#FF0000" vlink="#800000" topmargin="0" leftmargin="0" marginheight=0 marginwidth=0 onload=onload()>
+
+
+
+<TABLE  border=0 cellspacing=10 cellpadding=0 WIDTH=100%><TR><TD>
+
+<p class="header">Задача 2 <font color="maroon">[24]</font></p>
+
+<p class="text"><p class="text">При фиксированных значениях обменного курса валюты, заграничной ставки процента, уровней цен в отечестве и за границей спрос домашних хозяйств на отечественные блага характеризуется функцией <i>C</i> = 5 + 0,8<i>y</i>, а на импортные: <i>Z</i> = 0,1<i>y</i>. Спрос на деньги отображается функцией <i>l</i> = 0,5<i>y</i> + 40 - 2<i>i</i>; инвестиционный спрос предпринимателей - функцией <i>I</i> = 6 - 1,5<i>i</i>. Функция чистого экспорта капитала имеет вид <i>NKE</i>  =  25 - 2,5<i>i</i>, а экспорт благ равен 10 ед. В обращении находятся 42 ден. ед.</p>
+<br>
+
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp;1) Определить величину эффективного спроса и состояние платежного баланса при такой величине эффективного спроса?</p>  
+
+<p class="text"><i>y</i> = <INPUT TYPE=TEXT name=v1 id=v1 SIZE=5>; <i>NE</i> = <INPUT TYPE=TEXT name=v2 id=v2 SIZE=5>;<i>NKE</i> = <INPUT TYPE=TEXT name=v3 id=v3 SIZE=5>;<br>
+(до десятых)</p>
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp;2) Какова будет величина эффективного спроса, если государственные расходы, финансируемые путем размещения облигаций среди населения, будут равны 5 и как это повлияет на количество денег в стране? </p> 
+
+<p class="text"><i>y</i> = <INPUT TYPE=TEXT name=v4 id=v4 SIZE=5>; &#916;<i>M</i> = <INPUT TYPE=TEXT name=v5 id=v5 SIZE=5><br>
+(до десятых)</p>
+
+
+
+<P class="text_red"><B>ПРИМЕЧАНИЕ</B>. В качестве десятичного разделителя используйте точку ( <B>.</B> ).<BR>
+Введите числа с точностью до десятых долей (одного знака после разделительной точки)!</P>
+ 
+
+<INPUT TYPE=BUTTON value="Проверить" onclick=okclick()>
+<DIV id=rate>&nbsp;</DIV>
+<BR>
+
+<DIV id=tip></DIV>
+
+<DIV id=res></DIV>
+</TD>
+</TR>
+</TABLE>
+</body>
+
+
+</html>

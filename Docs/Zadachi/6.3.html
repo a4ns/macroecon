@@ -1,0 +1,101 @@
+<! DOCTYPE html>
+<html  >
+<head>
+<meta charset="utf-8">
+<!-- Укажем браузеру, что текст данного HTML документа набран в типичной 
+для windows кирилической кодировке windows-1251 --> 
+
+ 
+	
+<title>Задача 3 к теме № 6</title>
+<base target="_self">
+<link rel="stylesheet" href="../../Scripts/css/micro.css">
+<script language=javascript>
+
+manufacturer=navigator.appName;
+if (manufacturer.indexOf('Microsoft')==-1)
+ document.write("<P class=text><font color=red><b>ВНИМАНИЕ! Эта страница не работает нормально в броузерах Netscape!<br> Используйте Internet Explorer 4.0 или выше, а также броузер Opera последних версий!</b><br><b>WARNING!!! This page work properly only in Internet Explorer 4.0 and higher or Opera!</b></font></p>");
+
+var tipvisible;var resvisible;var stip;var sres;
+var nv1;
+var nv2;
+var nv3;
+function onload(){tipvisible=0;resvisible=0;
+nv1=200;
+nv2=0.5;
+nv3=400;
+stip='<div class=text>Определите по исходным данным предельную склонность к потреблению и вспомните, что сбережения равны нулю, когда весь доход потребляется.<br></div><BR><INPUT TYPE=BUTTON value=Посмотреть&nbsp;решение onclick=resclick()>'
+sres='<div class=text>а) Из таблицы видно, что <i> &#916; C</i>/ <i> &#916; Y</i>&nbsp;=&nbsp;0,5. Следовательно, <i>C</i>&nbsp;=&nbsp;200&nbsp;+&nbsp;0,5<i>Y</i>.<br>б) Сбережения равны нулю при <i>C</i>&nbsp;=&nbsp;<i>Y</i>, т.е. 200&nbsp;+&nbsp;0,5<i>Y</i>&nbsp;=&nbsp;<i>Y</i>&nbsp;  => &nbsp;<i>Y</i>&nbsp;=&nbsp;400.</div>'
+}
+function okclick(){if (v1.value*1==nv1
+ && v2.value*1==nv2 && v3.value*1==nv3
+){alert("Верно!");rate.innerHTML="<p class=text><b><FONT  SIZE=3 COLOR=green>Верно!</FONT></b></p>";}
+else{alert("Неверно!"); rate.innerHTML="<p class=text><b><FONT SIZE=3 COLOR=red>Неверно!</FONT></b><br><INPUT TYPE=BUTTON value=Подсказка onclick=tipclick()>";}}
+function tipclick(){if (tipvisible==0){tip.innerHTML=stip;tipvisible=1;}else{ tipvisible=0;tip.innerHTML="&nbsp";}}
+function resclick(){if (resvisible==0){res.innerHTML=sres;resvisible=1;}else{resvisible=0;res.innerHTML="&nbsp";}}
+</script>
+</head>
+
+<body background="../../Images/fon_glossarii.jpg" bgproperties="fixed"  text="#000000" link="#008080" alink="#FF0000" vlink="#800000" topmargin="0" leftmargin="0" marginheight=0 marginwidth=0 onload=onload()>
+
+
+
+<TABLE  border=0 cellspacing=10 cellpadding=0 WIDTH=100%><TR><TD>
+
+<p class="header">Задача 3 <font color="maroon">[23, стр. 73]</font></p>
+
+<p class="text">Зависимость между величиной национального дохода и объемом потребления домашних хозяйств задана следующей таблицей.<br><br>
+
+ <table width="100%" border="1" cellspacing="0" cellpadding="0" bordercolor="#000000">
+	<TBODY align=center>
+	<tr>
+		<td bgcolor=#d8d8d8><i>Y</i></td>
+		<td bgcolor=#d8d8d8>200</td>
+		<td bgcolor=#d8d8d8>350</td>
+		<td bgcolor=#d8d8d8>500</td>
+	<td bgcolor=#d8d8d8>650</td>
+	</tr>
+	<tr>
+		<td><i>C</i></td>
+		<td>300</td>
+		<td>375</td>
+		<td>450</td>
+		<td>525</td>
+	</tr>
+	</TBODY> 
+ </table>
+
+</p>
+
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp;Определить:<br>
+а) алгебраический вид функции потребления;<br>
+б) при каком доходе сбережения равны нулю? </p>
+
+<p class="text">а) алгебраический вид функции потребления: <i>C</i>&nbsp;=&nbsp;<INPUT TYPE=TEXT name=v1 id=v1 SIZE=5>&nbsp;+&nbsp;<INPUT TYPE=TEXT name=v2 id=v2 SIZE=5><i>Y</i>.<br>
+б) при доходе: <INPUT TYPE=TEXT name=v3 id=v3 SIZE=5></p>
+
+
+<p class="text"></p>
+
+
+<P class="text_red"><B>ПРИМЕЧАНИЕ</B>. В качестве десятичного разделителя используйте точку ( <B>.</B> ).<BR>
+Введите числа с точностью до десятых долей (один знак после разделительной точки)!
+
+</P>
+ 
+
+<INPUT TYPE=BUTTON value="Проверить" onclick=okclick()>
+<DIV id=rate>&nbsp;</DIV>
+<BR>
+
+<DIV id=tip></DIV>
+
+<DIV id=res></DIV>
+</TD>
+</TR>
+</TABLE>
+</body>
+
+
+</html>

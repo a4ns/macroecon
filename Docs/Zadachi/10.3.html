@@ -1,0 +1,104 @@
+<! DOCTYPE html>
+<html  >
+<head>
+<meta charset="utf-8">
+<!-- Укажем браузеру, что текст данного HTML документа набран в типичной 
+для windows кирилической кодировке windows-1251 --> 
+
+ 
+	
+<title>Задача 3 к теме № 10</title>
+<base target="_self">
+<link rel="stylesheet" href="../../Scripts/css/micro.css">
+<script language=javascript>
+
+manufacturer=navigator.appName;
+if (manufacturer.indexOf('Microsoft')==-1)
+ document.write("<P class=text><font color=red><b>ВНИМАНИЕ! Эта страница не работает нормально в броузерах Netscape!<br> Используйте Internet Explorer 4.0 или выше, а также броузер Opera последних версий!</b><br><b>WARNING!!! This page work properly only in Internet Explorer 4.0 and higher or Opera!</b></font></p>");
+
+var tipvisible;var resvisible;var stip;var sres;
+
+var nv1;
+var nv2;
+var nv3;
+var nv4;
+var nv5;
+var nv6;
+function onload(){tipvisible=0;resvisible=0;
+nv1=150;
+nv2=250;
+nv3=-14.3;
+nv4=53.6;
+nv5=-5.7;
+nv6=-8.6;
+stip='<div class=text>Используйте условие совместного равновесия на рынках благ и денег; при ответе на 2-й и 3-й вопросы вспомните об &#171;эффекте вытеснения&#187;.</div><BR><INPUT TYPE=BUTTON value=Посмотреть&nbsp;решение onclick=resclick()>'
+sres='<div class=text>1) <i>S</i> = <i>Y</i> - <i>C</i>; значит, <i>S</i> = 0,4<i>Y</i> - 50, Тогда <i>IS</i>: 0,4<i>Y</i> - 50 = 200 - 20<i> r </i>, или <i> r </i> =12,5 - 0,02<i>Y</i>. На финансовых рынках равновесие достигается при 0,4<i>Y</i> + 500 - 50<i> r </i> = 400; уравнение линии <i>LM</i>: <i> r </i> = 0,008<i>Y</i> + 2. Условие совместного равновесия: 12,5 - 0,02<i>Y</i> = 0,008<i>Y</i> + 2  =>  <i>Y</i>* = 375; <i> r </i>* = 5; <i>I</i>* =100; <i>C</i>* = 275; <i>l</i><sub>сд</sub>* = 150; <i>l</i><sub>им</sub>* = 250.<br><br>2) Теперь при каждом уровне дохода объем сбережений сокращается на 50 ед., т.е. <i>S</i> = 0,4<i>Y</i> - 100, и условие равновесия на рынке благ принимает вид 0,4<i>Y</i> - 100 = 200 - 20<i> r </i>; <i>IS</i>: <i> r </i> = 15 - 0,02<i>Y</i>. Условие равновесия на денежном рынке не меняется. Поэтому условие совместного равновесия: 15 - 0,02<i>Y</i> = 0,008<i>Y</i> + 2  =>  <i>Y</i>* = 464,3; <i> r </i>* = 5,7; <i>I</i>* = 85,7; <i>C</i>* = 328,6. Следовательно, <i>I</i> = 85,7 - 100 = - 14,3; <i>C</i> = 328,6 - 275 = 53,6.<br><br>3) Поскольку mpc = 0,6, а <i>G</i> = <i>t</i> <i>Y</i> = 50, то на рынке благ достигается равновесие при <i>Y</i> = 50 + 0,6(<i>Y</i> - 50) + 200 - 20<i> r </i> + 50  =>  <i> r </i> = 13,5 - 0,02<i>Y</i>. Подставив это значение <i> r </i> в уравнение линии <i>LM</i>, найдем равновесное сочетание значений <i> r </i>, <i>Y</i>: 13,5 - 0,02<i>Y</i> = 0,008<i>Y</i> + 2  =>  <i>Y</i>* = 410,7; <i> r </i>* = 5,3. Соответственно <i>I</i>* = 94,3; <i>C</i>* = 266,4. Следовательно, <i>I</i> = 94,3 - 100 = - 5,7;  <i>C</i> = 266,4 - 275 = - 8,6.</div>'
+}
+function okclick(){if (v1.value*1==nv1
+ && v2.value*1==nv2 && v3.value*1==nv3 && v4.value*1==nv4 && v5.value*1==nv5 && v6.value*1==nv6 
+){alert("Верно!");rate.innerHTML="<p class=text><b><FONT  SIZE=3 COLOR=green>Верно!</FONT></b></p>";}
+else{alert("Неверно!"); rate.innerHTML="<p class=text><b><FONT SIZE=3 COLOR=red>Неверно!</FONT></b><br><INPUT TYPE=BUTTON value=Подсказка onclick=tipclick()>";}}
+function tipclick(){if (tipvisible==0){tip.innerHTML=stip;tipvisible=1;}else{ tipvisible=0;tip.innerHTML="&nbsp";}}
+function resclick(){if (resvisible==0){res.innerHTML=sres;resvisible=1;}else{resvisible=0;res.innerHTML="&nbsp";}}
+</script>
+</head>
+
+<body background="../../Images/fon_glossarii.jpg" bgproperties="fixed"  text="#000000" link="#008080" alink="#FF0000" vlink="#800000" topmargin="0" leftmargin="0" marginheight=0 marginwidth=0 onload=onload()>
+
+
+
+<TABLE  border=0 cellspacing=10 cellpadding=0 WIDTH=100%><TR><TD>
+
+<p class="header">Задача 3 <font color="maroon">[24]</font></p>
+
+<p class="text">Заданы функции, определяющие поведение экономических субъектов на рынках благ и денег: <i>C</i> = 0,6<i>Y</i> + 50; <i>I</i> = 200 - 20<i> r </i>; <i>l</i><sub>сд</sub> = 0,4<i>Y</i>; <i>l</i><sub>им</sub> = 500 - 50<i> r </i>. В обращении находится 400&nbsp;ден. ед.</p>
+
+
+<p class="text"></p>
+
+
+<br>
+
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp;1) Как они распределятся между <i>l</i><sub>сд</sub> и <i>l</i><sub>им</sub> при достижении совместного равновесия на рынке благ и финансовых рынках?</p>
+
+</p>
+
+<p class="text">Cпрос на деньги для сделок <INPUT TYPE=TEXT name=v1 id=v1 SIZE=5><br>
+Cпрос на деньги  как имущество <INPUT TYPE=TEXT name=v2 id=v2 SIZE=5></p>
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp;2) На рынке благ, кроме спроса домашних хозяйств и предпринимателей, появляется спрос государства в размере 50&nbsp;ед., который финансируется за счет займов у населения. Как это изменит величину частных инвестиции и потребления при прежнем поведении предпринимателей и домашних хозяйств?</p>
+
+<p class="text">&#916; <i>I</i> = <INPUT TYPE=TEXT name=v3 id=v3 SIZE=5>; &#916; <i>C</i> = <INPUT TYPE=TEXT name=v4 id=v4 SIZE=5><br>
+(до десятых)</p>
+
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp;3) Как изменятся объемы инвестиций и потребления, если государственные расходы будут финансироваться за счет налогов с дохода при предельной склонности к потреблению от располагаемого дохода равной 0,6?</p>
+
+<p class="text">&#916; <i>I</i> = <INPUT TYPE=TEXT name=v5 id=v5 SIZE=7>; &#916; <i>C</i> = <INPUT TYPE=TEXT name=v6 id=v6 SIZE=7><br>
+(до десятых)</p>
+
+
+
+
+
+
+
+<P class="text_red"><B>ПРИМЕЧАНИЕ</B>. В качестве десятичного разделителя используйте точку ( <B>.</B> ).<BR>
+Введите числа с точностью до десятых долей (один знак после разделительной точки)!</P>
+ 
+
+<INPUT TYPE=BUTTON value="Проверить" onclick=okclick()>
+<DIV id=rate>&nbsp;</DIV>
+<BR>
+
+<DIV id=tip></DIV>
+
+<DIV id=res></DIV>
+</TD>
+</TR>
+</TABLE>
+</body>
+
+
+</html>

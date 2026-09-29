@@ -1,0 +1,164 @@
+<! DOCTYPE html>
+<html  >
+<head>
+<meta charset="utf-8">
+<!-- Укажем браузеру, что текст данного HTML документа набран в типичной 
+для windows кирилической кодировке windows-1251 --> 
+
+ 
+	
+<title>Задача 2 к теме № 1</title>
+<base target="_self">
+<link rel="stylesheet" href="../../Scripts/css/micro.css">
+<script language=javascript>
+
+manufacturer=navigator.appName;
+if (manufacturer.indexOf('Microsoft')==-1)
+ document.write("<P class=text><font color=red><b>ВНИМАНИЕ! Эта страница не работает нормально в броузерах Netscape!<br> Используйте Internet Explorer 4.0 или выше, а также броузер Opera последних версий!</b><br><b>WARNING!!! This page work properly only in Internet Explorer 4.0 and higher or Opera!</b></font></p>");
+
+var tipvisible;var resvisible;var stip;var sres;
+var nv1;
+var nv2;
+var nv3;
+var nv4;
+function onload(){tipvisible=0;resvisible=0;
+nv1=414;
+nv2=414;
+nv3=404;
+nv4=384;
+stip='<div class=text>Вспомните структуру используемого национального дохода, определение располагаемого дохода, различие между ВНП и ЧНП.</div><BR><INPUT TYPE=BUTTON value=Посмотреть&nbsp;решение onclick=resclick()>'
+sres='<div class=text>а) ВНП по доходам = Проценты за кредит + Зарплата и жалование + Прибыль корпорации + Доходы от собственности + Рентные платежи + Косвенные налоги, неналоговые обязательства и трансфертные платежи, выплачиваемые частными предприятиями - Чистые субсидии государственным предприятиям + Плата за потребление капитала<br>   ВНП по доходам=12+218+113+21+20+22–2+(55–45)=414 (ден. ед.).<br><br>б) ВНП по расходам=C+I+G+Nx<br>ВНП по расходам=260+55+90+9=414 (ден. ед.)     <br> <br>в) ЧНП=ВНП-Амортизационные отчисления<br> ЧНП=414–(55-45)=404 (ден. ед.)<br> <br>г)НД = ЧНП - (Косвенные налоги, неналоговые обязательства и трансфертные платежи, выплачиваемые частными предприятиями - Чистые субсидии государственным предприятиям)<br>НД=404–20=384 (ден. ед)<br></div>'
+}
+function okclick(){if (v1.value*1==nv1
+ && v2.value*1==nv2 && v3.value*1==nv3 && v4.value*1==nv4
+){alert("Верно!");rate.innerHTML="<p class=text><b><FONT  SIZE=3 COLOR=green>Верно!</FONT></b></p>";}
+else{alert("Неверно!"); rate.innerHTML="<p class=text><b><FONT SIZE=3 COLOR=red>Неверно!</FONT></b><br><INPUT TYPE=BUTTON value=Подсказка onclick=tipclick()>";}}
+function tipclick(){if (tipvisible==0){tip.innerHTML=stip;tipvisible=1;}else{ tipvisible=0;tip.innerHTML="&nbsp";}}
+function resclick(){if (resvisible==0){res.innerHTML=sres;resvisible=1;}else{resvisible=0;res.innerHTML="&nbsp";}}
+</script>
+</head>
+
+<body background="../../Images/fon_glossarii.jpg" bgproperties="fixed"  text="#000000" link="#008080" alink="#FF0000" vlink="#800000" topmargin="0" leftmargin="0" marginheight=0 marginwidth=0 onload=onload()>
+
+
+
+<TABLE  border=0 cellspacing=10 cellpadding=0 WIDTH=100% ><TR><TD>
+
+<p class="header">Задача 2 <font color="maroon">[23, стр. 24]</font></p>
+
+<table border=1 cellspacing=0 cellpadding=1  WIDTH=100% bordercolor="#000000">
+    <tr>
+	<TD WIDTH=80% align=center bgcolor="#d0d0d0">Счет
+	</td>
+	<TD WIDTH=20% align=center bgcolor="#d0d0d0">Ден. ед.
+	</td>
+    </tr>  
+    <tr>
+	<TD >Процент за кредит
+	</td>
+	<TD  align=center>12
+	</td>
+    </tr>  
+   <tr>
+	<TD >Валовые частные инвестиции
+	</td>
+	<TD  align=center>55
+	</td>
+    </tr>  
+   <tr>
+	<TD >Зарплата и жалование
+	</td>
+	<TD  align=center>218
+	</td>
+    </tr>  
+   <tr>
+	<TD >Прибыль корпорации
+	</td>
+	<TD  align=center>113
+	</td>
+    </tr>  
+   <tr>
+	<TD >Косвенные налоги, неналоговые обязательства и трансфертные платежи, выплачиваемые частными предприятиями
+	</td>
+	<TD  align=center>22
+	</td>
+    </tr>  
+   <tr>
+	<TD >Рентные платежи владельцам арендуемого имущества
+	</td>
+	<TD  align=center>20
+	</td>
+    </tr>  
+   <tr>
+	<TD >Налоги на прибыль корпораций
+	</td>
+	<TD  align=center>50
+	</td>
+    </tr>  
+    <tr>  
+	<TD >Чистый экспорт товаров и услуг
+	</td>
+	<TD  align=center>9
+	</td>
+    </tr>  
+    <tr>  
+	<TD >Государственные закупки товаров и услуг
+	</td>
+	<TD  align=center>90
+	</td>
+    </tr>  
+    <tr>  
+	<TD >Чистые частные инвестиции
+	</td>
+	<TD  align=center>45
+	</td>
+    </tr>  
+    <tr>  
+	<TD >Доходы от собственности
+	</td>
+	<TD  align=center>21
+	</td>
+    </tr>  
+    <tr>  
+	<TD >Чистые субсидии государственным предприятиям
+	</td>
+	<TD  align=center>2
+	</td>
+    </tr>  
+    <tr>  
+	<TD >Трансфертные платежи населению
+	</td>
+	<TD  align=center>23
+	</td>
+    </tr>  
+    <tr>  
+	<TD >Потребительские расходы
+	</td>
+	<TD  align=center>260
+	</td>
+    </tr>  
+
+</table >
+
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp;По данным таблицы определить:<br>
+а) Объем ВНП по потоку доходов: <INPUT TYPE=TEXT name=v1 id=v1 SIZE=5> ден. единиц <br>
+б) Объем ВНП по потоку расходов: <INPUT TYPE=TEXT name=v2 id=v2 SIZE=5> ден. единиц <br>
+в) Объем ЧНП: <INPUT TYPE=TEXT name=v3 id=v3 SIZE=5> ден. единиц </p>
+г) Объем НД: <INPUT TYPE=TEXT name=v4 id=v4 SIZE=5> ден. единиц </p>
+  
+
+<INPUT TYPE=BUTTON value="Проверить" onclick=okclick()>
+<DIV id=rate>&nbsp;</DIV>
+<BR>
+
+<DIV id=tip></DIV>
+
+<DIV id=res></DIV>
+</TD>
+</TR>
+</TABLE>
+</body>
+
+
+</html>

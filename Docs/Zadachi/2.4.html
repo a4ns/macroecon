@@ -1,0 +1,110 @@
+<! DOCTYPE html>
+<html  >
+<head>
+<meta charset="utf-8">
+<!-- Укажем браузеру, что текст данного HTML документа набран в типичной 
+для windows кирилической кодировке windows-1251 --> 
+
+ 
+	
+<title>Задача 4 к теме № 2</title>
+<base target="_self">
+<link rel="stylesheet" href="../../Scripts/css/micro.css">
+<script language=javascript>
+
+manufacturer=navigator.appName;
+if (manufacturer.indexOf('Microsoft')==-1)
+ document.write("<P class=text><font color=red><b>ВНИМАНИЕ! Эта страница не работает нормально в броузерах Netscape!<br> Используйте Internet Explorer 4.0 или выше, а также броузер Opera последних версий!</b><br><b>WARNING!!! This page work properly only in Internet Explorer 4.0 and higher or Opera!</b></font></p>");
+
+var tipvisible;var resvisible;var stip;var sres;
+var nv1;
+var nv2;
+var nv3;
+
+function onload(){tipvisible=0;resvisible=0;
+nv1=1.46;
+nv2=1.43;
+nv3=1.44;
+
+stip='<div class=text>Вспомните определение названных в задаче показателей. Повторите формулы расчета индексов цен.</div><BR><INPUT TYPE=BUTTON value=Посмотреть&nbsp;решение onclick=resclick()>'
+sres='<div class=text><img src="../../Images/Zadachi/z_2_4.jpg" border="0" alt="?" align="middle"><br></div>'
+}
+function okclick(){if (v1.value*1==nv1
+ && v2.value*1==nv2  && v3.value*1==nv3 
+){alert("Верно!");rate.innerHTML="<p class=text><b><FONT  SIZE=3 COLOR=green>Верно!</FONT></b></p>";}
+else{alert("Неверно!"); rate.innerHTML="<p class=text><b><FONT SIZE=3 COLOR=red>Неверно!</FONT></b><br><INPUT TYPE=BUTTON value=Подсказка onclick=tipclick()>";}}
+function tipclick(){if (tipvisible==0){tip.innerHTML=stip;tipvisible=1;}else{ tipvisible=0;tip.innerHTML="&nbsp";}}
+function resclick(){if (resvisible==0){res.innerHTML=sres;resvisible=1;}else{resvisible=0;res.innerHTML="&nbsp";}}
+</script>
+</head>
+
+<body background="../../Images/fon_glossarii.jpg" bgproperties="fixed"  text="#000000" link="#008080" alink="#FF0000" vlink="#800000" topmargin="0" leftmargin="0" marginheight=0 marginwidth=0 onload=onload()>
+
+
+
+<TABLE  border=0 cellspacing=10 cellpadding=0 WIDTH=100%><TR><TD>
+
+<p class="header">Задача 4</p>
+
+<p class="text">Предположим, что производятся и потребляются 3 блага. В таблице представлено количество и цена (за единицу) каждого из них на 2 периода. </p>
+
+
+<p class="textc1">Экономические показатели</p>
+
+<TABLE width="100%" border="1" cellspacing="0" cellpadding="0" bordercolor="#000000">
+        <TBODY align=center>
+        <TR >
+          <TD bgcolor="#d8d8d8" rowspan="2" >Товар</TD>
+          <TD bgcolor="#d8d8d8" colspan="2" >2000 г.</TD>
+          <TD bgcolor="#d8d8d8" colspan="2" >2007 г.</TD></TR>
+        <TR>
+          <TD>цена, ден. ед.</TD>
+          <TD>количество, шт.</TD>
+          <TD>цена, ден. ед.</TD>
+          <TD>количество, шт.</TD>
+        <TR>
+          <TD>Хлеб</TD>
+          <TD>15</TD>
+          <TD>10</TD>
+          <TD>20</TD>
+          <TD>8</TD></TR>
+        <TR>
+          <TD>Молоко</TD>
+          <TD>20</TD>
+          <TD>6</TD>
+          <TD>30</TD>
+          <TD>4</TD></TR>
+        <TR>
+          <TD>Мясо</TD>
+          <TD>100</TD>
+          <TD>3</TD>
+          <TD>150</TD>
+          <TD>1</TD></TR></TBODY></TABLE>
+
+<br>
+
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp; Определите:  <br>
+индекс Ласпейреса: <INPUT TYPE=TEXT name=v1 id=v1 SIZE=5><br>
+индекс Пааше: <INPUT TYPE=TEXT name=v2 id=v2 SIZE=5><br>
+индекс Фишера: <INPUT TYPE=TEXT name=v3 id=v3 SIZE=5><br>
+
+</p>
+
+<P class="text_red"><B>ПРИМЕЧАНИЕ</B>. В качестве десятичного разделителя используйте точку ( <B>.</B> ).<BR>
+Введите числа с точностью до сотых долей (два знака после разделительной точки)!</P>
+
+<INPUT TYPE=BUTTON value="Проверить" onclick=okclick()>
+<DIV id=rate>&nbsp;</DIV>
+<BR>
+
+<DIV id=tip></DIV>
+
+<DIV id=res></DIV>
+</TD>
+</TR>
+</TABLE>
+</body>
+
+
+</html>

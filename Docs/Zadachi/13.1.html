@@ -1,0 +1,79 @@
+<! DOCTYPE html>
+<html  >
+<head>
+<meta charset="utf-8">
+<!-- Укажем браузеру, что текст данного HTML документа набран в типичной 
+для windows кирилической кодировке windows-1251 --> 
+
+ 
+	
+<title>Задача 1 к теме № 13</title>
+<base target="_self">
+<link rel="stylesheet" href="../../Scripts/css/micro.css">
+<script language=javascript>
+
+manufacturer=navigator.appName;
+if (manufacturer.indexOf('Microsoft')==-1)
+ document.write("<P class=text><font color=red><b>ВНИМАНИЕ! Эта страница не работает нормально в броузерах Netscape!<br> Используйте Internet Explorer 4.0 или выше, а также броузер Opera последних версий!</b><br><b>WARNING!!! This page work properly only in Internet Explorer 4.0 and higher or Opera!</b></font></p>");
+
+var tipvisible;var resvisible;var stip;var sres;
+var nv1;
+var nv2;
+var nv3;
+function onload(){tipvisible=0;resvisible=0;
+nv1=2;
+nv2=1.2;
+nv3=4.8;
+stip='<div class=text>Запишите условие равновесия на рынке блага в открытой экономике при нулевом сальдо платежного баланса. Из условия равновесия на рынке денег определите ставку процента и подставьте полученное выражение в условие равновесия на рынке блага. Это позволит определить величину национального дохода и другие эндогенные параметры.</div><BR><INPUT TYPE=BUTTON value=Посмотреть&nbsp;решение onclick=resclick()>'
+sres='<div class=text>При плавающем валютном курсе платежный баланс имеет нулевое сальдо т.е.<br><i>E</i> - <i>Z</i> = <i>NKE</i> (1).<br>Поскольку государство не проявляет экономической активности, то условие равновесия на рынке благ<br><i>S</i> + <i>Z</i> = <i>I</i> + <i>E</i> (2).<br>Сложив левые и правые части равенств (1)  и (2), получим<br><i>S</i> - <i>I</i> = <i>NKE</i> (3).<br>В условиях задачи <i>S</i> = <i>y</i> - <i>C</i> - <i>Z</i> = <i>y</i> - 5 - 0,7<i>y</i> - 0,1<i>y</i> = - 5 + 0,2<i>y</i>.<br>Поэтому выражение (3) имеет вид<br> - 5 + 0,2<i>y</i> - 16 + 2<i>i</i> = 27 - 3<i>i</i>  =>  0,2<i>y</i> = 48 - 5<i>i</i>.  (4).<br>Определим ставку процента из условия равновесия на рынке денег:<br>0,5<i>y</i> + 40 - <i>i</i> = 60  =>  <i>i</i> = 0,5<i>y</i> - 20. (5).<br>Подставив (5) в (4), получим 2,7<i>y</i> = 148  =>  <i>y</i>* = 54,8. Из (4) найдем <i>i</i>* = 7,4.<br>Тогда из (1) следует:<br>10<i>e</i> - 10 - 0,1&#183;54,8 = 27 - 3 7,4  =>  <i>e</i> = 2.<br>Объем сбережений:  - 5 + 0,2&#183;54,8 = 6. Инвестиции внутри страны: 16 - 2&#183;7,4 = 1,2.<br>Чистый экспорт капитала:  27 - 3&#183;7,4 = 4,8.</div>'
+}
+function okclick(){if (v1.value*1==nv1
+ && v2.value*1==nv2 && v3.value*1==nv3
+){alert("Верно!");rate.innerHTML="<p class=text><b><FONT  SIZE=3 COLOR=green>Верно!</FONT></b></p>";}
+else{alert("Неверно!"); rate.innerHTML="<p class=text><b><FONT SIZE=3 COLOR=red>Неверно!</FONT></b><br><INPUT TYPE=BUTTON value=Подсказка onclick=tipclick()>";}}
+function tipclick(){if (tipvisible==0){tip.innerHTML=stip;tipvisible=1;}else{ tipvisible=0;tip.innerHTML="&nbsp";}}
+function resclick(){if (resvisible==0){res.innerHTML=sres;resvisible=1;}else{resvisible=0;res.innerHTML="&nbsp";}}
+</script>
+</head>
+
+<body background="../../Images/fon_glossarii.jpg" bgproperties="fixed"  text="#000000" link="#008080" alink="#FF0000" vlink="#800000" topmargin="0" leftmargin="0" marginheight=0 marginwidth=0 onload=onload()>
+
+
+
+<TABLE  border=0 cellspacing=10 cellpadding=0 WIDTH=100%><TR><TD>
+
+<p class="header">Задача 1  <font color="maroon">[24]</font></p>
+
+<p class="text"><p class="text">В открытой и маленькой относительно мирового хозяйства экономике с плавающим валютным курсом и совершенной эластичностью совокупного предложения благ при <i>Р</i> = 1 спрос домашних хозяйств на отечественные блага отображается функцией <i>С</i> = 5 + 0,7<i>у</i>, а на импортные блага функцией <i>Z</i> = 0,1<i>y</i>. Функция спроса на деньги имеет вид <i>l</i> = 0,5<i>y</i> + 40 - <i>i</i>, а реальные кассовые остатки <i>M</i>/<i>P</i> = 60. Функция спроса предпринимателей на инвестиции <i>I</i> = 16 - 2<i>i</i>; функция экспорта благ <i>E</i> = 10<i>e</i> - 10, а функция чистого экспорта капитала <i>NKE</i> = 27 - 3<i>i</i>.</p>
+
+<br>
+
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp;1) Какой обменный курс валюты данной страны установится в заданных условиях?</p>
+
+<p class="text"><i>e</i> = <INPUT TYPE=TEXT name=v1 id=v1 SIZE=5></p>
+
+<p class="text"><img src="../../Images/navigator/finger1.gif" border="0" alt="?" align="middle">&nbsp;2) Как объем национальных сбережений распределится между вложениями внутри страны и за границей?</p>
+
+<p class="text">Вложения внутри страны <INPUT TYPE=TEXT name=v2 id=v2 SIZE=5><br>
+    Чистый экспорт капитала  <INPUT TYPE=TEXT name=v3 id=v3 SIZE=5><br>
+(до десятых)</p>
+
+<P class="text_red"><B>ПРИМЕЧАНИЕ</B>. В качестве десятичного разделителя используйте точку ( <B>.</B> ).<BR>
+Введите числа с точностью до десятых долей (одного знака после разделительной точки)!</P>
+ 
+
+<INPUT TYPE=BUTTON value="Проверить" onclick=okclick()>
+<DIV id=rate>&nbsp;</DIV>
+<BR>
+
+<DIV id=tip></DIV>
+
+<DIV id=res></DIV>
+</TD>
+</TR>
+</TABLE>
+</body>
+
+
+</html>

@@ -1,0 +1,137 @@
+<! DOCTYPE html>
+<html  >
+<head>
+<meta charset="utf-8">
+<!-- Укажем браузеру, что текст данного HTML документа набран в типичной 
+для windows кирилической кодировке windows-1251 --> 
+
+ 
+	
+<title>Задача 2 к теме № 6</title>
+<base target="_self">
+<link rel="stylesheet" href="../../Scripts/css/micro.css">
+<script language=javascript>
+
+manufacturer=navigator.appName;
+if (manufacturer.indexOf('Microsoft')==-1)
+ document.write("<P class=text><font color=red><b>ВНИМАНИЕ! Эта страница не работает нормально в броузерах Netscape!<br> Используйте Internet Explorer 4.0 или выше, а также броузер Opera последних версий!</b><br><b>WARNING!!! This page work properly only in Internet Explorer 4.0 and higher or Opera!</b></font></p>");
+
+var tipvisible;var resvisible;var stip;var sres;
+var nv1;
+var nv2;
+var nv3;
+var nv4;
+var nv5;
+var nv6;
+var nv7;
+var nv8;
+var nv9;
+var nv10;
+var nv11;
+var nv12;
+var nv13;
+var nv14;
+var nv15;
+function onload(){tipvisible=0;resvisible=0;
+nv1=160;
+nv2=40;
+nv3=0.4;
+nv4=0.6;
+nv5=200;
+nv6=100;
+nv7=0.4;
+nv8=0.6;
+nv9=240;
+nv10=160;
+nv11=0.4;
+nv12=0.6;
+nv13=1.67;
+nv14=-80;
+nv15=0.6;
+stip='<div class=text>Повторите тему потребление и сбережение. </div><BR><INPUT TYPE=BUTTON value=Посмотреть&nbsp;решение onclick=resclick()>'
+sres='<div class=text><img src="../../Images/Zadachi/z_6_2.jpg" border="0" alt="?" align="middle"><br></div>'
+}
+function okclick(){if (v1.value*1==nv1
+ && v2.value*1==nv2 && v3.value*1==nv3 && v4.value*1==nv4 && v5.value*1==nv5 && v6.value*1==nv6 && v7.value*1==nv7 && v8.value*1==nv8 && v9.value*1==nv9 && v10.value*1==nv10 && v11.value*1==nv11 && v12.value*1==nv12 && v13.value*1==nv13 && v14.value*1==nv14 && v15.value*1==nv15 
+){alert("Верно!");rate.innerHTML="<p class=text><b><FONT  SIZE=3 COLOR=green>Верно!</FONT></b></p>";}
+else{alert("Неверно!"); rate.innerHTML="<p class=text><b><FONT SIZE=3 COLOR=red>Неверно!</FONT></b><br><INPUT TYPE=BUTTON value=Подсказка onclick=tipclick()>";}}
+function tipclick(){if (tipvisible==0){tip.innerHTML=stip;tipvisible=1;}else{ tipvisible=0;tip.innerHTML="&nbsp";}}
+function resclick(){if (resvisible==0){res.innerHTML=sres;resvisible=1;}else{resvisible=0;res.innerHTML="&nbsp";}}
+</script>
+</head>
+
+<body background="../../Images/fon_glossarii.jpg" bgproperties="fixed"  text="#000000" link="#008080" alink="#FF0000" vlink="#800000" topmargin="0" leftmargin="0" marginheight=0 marginwidth=0 onload=onload()>
+
+
+
+<TABLE  border=0 cellspacing=10 cellpadding=0 WIDTH=100%><TR><TD>
+
+<p class="header">Задача 2 <font color="maroon">[23, стр. 73]</font></p>
+
+<p class="text">Функция потребления имеет вид: <b>C=80+0,4Yd</b>. Заполните таблицу и определите предельную склонность к потреблению и сбережению, мультипликатор Кейнса, функцию сбережения.  </p>
+
+<TABLE width="100%" border="1" cellspacing="0" cellpadding="0" bordercolor="#000000">
+        <TBODY align=center>
+        <TR >
+          <TD bgcolor="#d8d8d8" >Располагаемый доход (Yd)</TD>
+          <TD bgcolor="#d8d8d8" >Потребление (С)</TD>
+          <TD bgcolor="#d8d8d8" >Сбережения (S)</TD>
+          <TD bgcolor="#d8d8d8" >MPC</TD>
+          <TD bgcolor="#d8d8d8" >MPS</TD>
+	</TR>
+        <TR>
+          <TD>200</TD>
+          <TD><INPUT TYPE=TEXT name=v1 id=v1 SIZE=5></TD>
+          <TD><INPUT TYPE=TEXT name=v2 id=v2 SIZE=5></TD>
+          <TD><INPUT TYPE=TEXT name=v3 id=v3 SIZE=5></TD>
+          <TD><INPUT TYPE=TEXT name=v4 id=v4 SIZE=5></TD>	
+	</TR>
+        <TR>
+          <TD>300</TD>
+          <TD><INPUT TYPE=TEXT name=v5 id=v5 SIZE=5></TD>
+          <TD><INPUT TYPE=TEXT name=v6 id=v6 SIZE=5></TD>
+          <TD><INPUT TYPE=TEXT name=v7 id=v7 SIZE=5></TD>
+          <TD><INPUT TYPE=TEXT name=v8 id=v8 SIZE=5></TD>	
+	</TR>
+        <TR>
+          <TD>400</TD>
+          <TD><INPUT TYPE=TEXT name=v9 id=v9 SIZE=5></TD>
+          <TD><INPUT TYPE=TEXT name=v10 id=v10 SIZE=5></TD>
+          <TD><INPUT TYPE=TEXT name=v11 id=v11 SIZE=5></TD>
+          <TD><INPUT TYPE=TEXT name=v12 id=v12 SIZE=5></TD>	
+	</TR>
+
+	</TBODY>
+</TABLE>
+
+<br>
+
+
+<p class="text"> mult = <INPUT TYPE=TEXT name=v13 id=v13 SIZE=5></p>
+
+<p class="text"> S = <INPUT TYPE=TEXT name=v14 id=v14 SIZE=5> + <INPUT TYPE=TEXT name=v15 id=v15 SIZE=5> Yd</p>
+
+
+<p class="text"></p>
+
+
+<P class="text_red"><B>ПРИМЕЧАНИЕ</B>. В качестве десятичного разделителя используйте точку ( <B>.</B> ).<BR>
+Введите числа с точностью до десятых долей (один знак после разделительной точки)!
+<br>Введите значения для мультиплкатора с точностью до сотых долей (два знака после разделительной точки)!
+</P>
+ 
+
+<INPUT TYPE=BUTTON value="Проверить" onclick=okclick()>
+<DIV id=rate>&nbsp;</DIV>
+<BR>
+
+<DIV id=tip></DIV>
+
+<DIV id=res></DIV>
+</TD>
+</TR>
+</TABLE>
+</body>
+
+
+</html>

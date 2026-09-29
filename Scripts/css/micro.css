@@ -1,0 +1,85 @@
+
+A { color : #ccaacc; } 
+A:Hover { color : #8f8f80; text-decoration : none } 
+A { color : #40208f; text-decoration : none } 
+
+.copywrite {  font: 10px Times New Roman, Verdana, Arial, Helvetica, sans-serif}
+.subText {  font: 8pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 3pt; padding-left: 6pt}
+.subText1 {  font: 8pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; text-align: center; margin-left: 0pt; margin-top: 3pt; padding-left: 6pt}
+.subText2 {  font: 8pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; text-align: right; margin-left: 0pt; margin-bottom: 3pt; margin-top: 3pt; padding-left: 6pt}
+.subText3 {  font: 8pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; text-align: center; margin-left: 0pt; margin-bottom: 0pt; margin-top: 0pt; padding-left: 0pt}
+.subText4 {  font: 8pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; text-align: right; color: green; margin-left: 0pt; margin-bottom: 3pt; margin-top: 3pt; padding-left: 6pt}
+.spice {  font: 10pt Times New Roman, Verdana, Arial, Helvetica, sans-serif; color: #505050; text-decoration: underline; text-align: right}
+
+.header {  font: bold 12pt Times New Roman, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 3pt; text-align: left; color: #000000; margin-bottom: 10pt; margin-top: 2pt}
+
+.header_gl {  font: bold 12pt Times New Roman, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 3pt; text-align: center; color: #000000; margin-bottom: 2pt; margin-top: 2pt}
+
+.header_gl0 {  font: bold 12pt Times New Roman, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 3pt; text-align: center; color: red; margin-bottom: 2pt; margin-top: 2pt}
+
+.header0 {  font: bold 14pt Times New Roman, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 3pt; text-align: left; color: #000000; margin-bottom: 10pt; margin-top: 2pt}
+
+.header1 {  font: bold 11pt Times New Roman, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 3pt; text-align: left; color: #000000; margin-bottom: 0pt; margin-top: 2pt}
+
+.h1 {  font: 9pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; text-align: center; color: #505050}
+
+.h2 {  font: bold 11pt Times New Roman, Arial, Helvetica, sans-serif;  text-decoration: none; margin-right: 5pt; text-align: right; color: #000000; margin-bottom: 1pt; margin-top: 1pt}
+
+.date {  font: 8pt Times New Roman, Verdana, Arial, Helvetica, sans-serif; padding-top: 3pt; margin-top: 3pt; color: #505050}
+
+.htabl {  font: italic 10pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 0pt; margin-bottom: 0pt; text-align: right; color: #000000}
+
+.htabl1 {  font: italic 10pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 0pt; margin-bottom: 0pt; text-align: left; color: #000000}
+
+.htabl2 {  font: bold 10pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 3pt; text-align: left; padding-left: 2pt; color: #000000}
+
+.table1 {  font: 12pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 0pt; padding-left: 0pt; text-align: center}
+
+.table11 {  font: 12pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 3pt; margin-top: 0pt; padding-left: 0pt; text-align: left}
+
+.table2 {  font: 9pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none;  text-align: center; margin-left: 0pt; margin-top: 0pt; padding-left: 0pt}
+
+.time {  font: 8pt Times New Roman, Arial, Helvetica, sans-serif; color: #666666;  text-decoration: none}
+
+.text {  font: 12pt   Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 3pt; text-align: justify; padding-left: 2pt; color: #000000}
+
+.text_red {  font: 12pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 3pt; text-align: justify; padding-left: 2pt; color: brown}
+
+
+.textc {  font: 10pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 3pt; text-align: center; padding-left: 2pt; color: #000000}
+
+.textc1 {  font: 12pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 0pt; text-align: center; padding-left: 0pt; color: #000000}
+
+.ris1 {  font: bold 10pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 3pt; text-align: center; padding-left: 2pt; color: #000000}
+
+.equat {  font: 11pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 6pt; margin-bottom: 6pt; text-align: center; padding-left: 2pt; color: #000000}
+
+.equat1 {  font: italic 10pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 6pt; margin-bottom: 6pt; text-align: center; padding-left: 2pt; color: #000000}
+
+.equat2 {  font: 10pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-right: 10pt; margin-top: 0pt; text-align: right; color: #000000}
+
+.perem {  font: italic 10pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 3pt; text-align: justify; padding-left: 2pt; color: #000000}
+
+.textb {  font: bold 8pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 3pt; padding-left: 6pt}
+.attention {  font: bold 10pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 3pt; margin-bottom: 0pt;  padding-left: 6pt; text-align: center; color: red}
+.text2 {  font: 8pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-top: 3pt}
+
+.list {  font: 10pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 0pt; text-align: right; padding-right: 2pt; color: #000000}
+
+.list1 {  font: 10pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 10pt; margin-top: 0pt; text-align: left; padding-left: 10pt; color: #000000}
+
+.gloss {  font: 12pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 3pt; text-align: justify; padding-left: 5pt; color: #000000}
+
+.gloss1 {  font: 12pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 3pt; text-align: justify; padding-left: 15pt; color: #000000}
+
+.content0 {  font:  bold 11pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 5pt; text-align: left; padding-left: 2pt; color: #000000}
+
+.content1 {  font:  bold 11pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 3pt; margin-bottom: 3pt; text-align: left; padding-left: 2pt; color: #000000}
+
+.content2 {  font: 10pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 0pt; text-align: left; padding-left: 2pt; color: #000000}
+
+.content3 {  font: 8pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 1pt; text-align: left; padding-left: 30pt; color: #000000}
+
+.content4 {  font: italic 10pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 2pt; text-align: left; padding-left: 2pt; color: #000000}
+
+.content5 {  font: 10pt Times New Roman, Verdana, Arial, Helvetica, sans-serif;  text-decoration: none; margin-left: 0pt; margin-top: 0pt; text-align: left; padding-left: 15pt; color: #000000}
