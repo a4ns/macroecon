@@ -1,4 +1,17 @@
 
+@font-face{font-family:"Times New Roman";font-style:normal;font-weight:400;src:local("Times New Roman"),local("TimesNewRomanPSMT"),url(../../fonts/Serif-Regular.woff) format("woff")}
+@font-face{font-family:"Times New Roman";font-style:normal;font-weight:700;src:local("Times New Roman Bold"),local("TimesNewRomanPS-BoldMT"),url(../../fonts/Serif-Bold.woff) format("woff")}
+@font-face{font-family:"Times New Roman";font-style:italic;font-weight:400;src:local("Times New Roman Italic"),local("TimesNewRomanPS-ItalicMT"),url(../../fonts/Serif-Italic.woff) format("woff")}
+@font-face{font-family:"Times New Roman";font-style:italic;font-weight:700;src:local("Times New Roman Bold Italic"),local("TimesNewRomanPS-BoldItalicMT"),url(../../fonts/Serif-BoldItalic.woff) format("woff")}
+@font-face{font-family:"Segoe UI";font-style:normal;font-weight:400;src:local("Segoe UI"),url(../../fonts/Sans-Regular.woff) format("woff")}
+@font-face{font-family:"Segoe UI";font-style:normal;font-weight:700;src:local("Segoe UI Bold"),url(../../fonts/Sans-Bold.woff) format("woff")}
+
+html,body{margin:0;height:100%;min-height:100dvh;overscroll-behavior:none;background:#2b2f36;overflow:hidden;font-family:"Times New Roman",Times,serif}
+#wrap{position:fixed;left:0;top:0;right:0;bottom:0;overflow:hidden}
+html,body{overflow:hidden;width:100%}
+#stage{position:absolute;width:800px;height:600px;transform-origin:0 0;background:#c0c0c0;overflow:hidden;box-shadow:0 8px 40px #0008;user-select:none}
+
+
 
 /* body */
 

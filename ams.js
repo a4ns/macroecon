@@ -12,9 +12,16 @@ const dlgLayer = document.createElement('div'); dlgLayer.className = 'layer dlgs
 AMS.pageLayer = pageLayer; AMS.overlay = overlay; AMS.dlgLayer = dlgLayer;
 
 const px = n => n + 'px';
+// GDI metrics (win ascent/descent as em fractions) -> line pitch of DrawText = round(asc*size)+ceil(desc*size)
+const GDI_METRICS = { 'times new roman': [0.8911, 0.2163], 'segoe ui': [1.0791, 0.2510], 'arial': [0.9053, 0.2119], 'tahoma': [1.0005, 0.2061], 'verdana': [1.0054, 0.2152] };
+function gdiLineHeight(f) {
+  const m = GDI_METRICS[String(f.face || '').toLowerCase()] || GDI_METRICS['times new roman'];
+  return Math.round(m[0] * f.size) + Math.ceil(m[1] * f.size - 0.05);
+}
+const SANS = /^(segoe ui|arial|tahoma|verdana|calibri|microsoft sans serif|ms sans serif)$/i;
 function fontCss(f, el) {
   if (!f) return;
-  el.style.fontFamily = `"${f.face}", "Times New Roman", Times, serif`;
+  el.style.fontFamily = SANS.test(f.face || '') ? `"${f.face}", Arial, "Liberation Sans", Helvetica, sans-serif` : `"${f.face}", "Times New Roman", Times, serif`;
   el.style.fontSize = px(f.size);
   el.style.fontWeight = f.weight >= 600 ? 'bold' : 'normal';
   el.style.fontStyle = f.italic ? 'italic' : 'normal';
@@ -92,12 +99,18 @@ MK.Paragraph = function (o) {
   e.classList.add('para');
   const t = document.createElement('div'); t.className = 'ptext'; e.appendChild(t); o.text = t;
   o.props = { color: d.color, colorHover: d.colorHover, colorDown: d.colorDown, border: d.borderColor, bg: d.bg, opaque: d.opaque, weight: d.font ? d.font.weight : 400, borderStyle: 0 };
-  o.setText = s => { t.textContent = s; o.textValue = s; };
+  // GDI DrawText: CR LF is one break, a lone CR is a break too (so CR CR LF = two breaks)
+  o.setText = s => { o.textValue = s; t.textContent = String(s == null ? '' : s).replace(/\r\n|\n\r|\r|\n/g, '\n'); };
   o.setText(d.text || '');
   fontCss(d.font, e);
+  if (d.font && d.font.size) e.style.lineHeight = gdiLineHeight(d.font) + 'px';
   e.style.textAlign = ['left', 'center', 'right', 'justify'][d.align] || 'left';
-  e.style.alignItems = ['flex-start', 'center', 'flex-end'][d.valign] || 'flex-start';
-  e.style.whiteSpace = d.wrap === 0 ? 'pre' : 'pre-wrap';
+  // vertical alignment enum in the project file: 0 = top, 1 = bottom, 2 = middle (value boxes use 2)
+  e.style.alignItems = ['flex-start', 'flex-end', 'center'][d.valign] || 'flex-start';
+  // DrawText(DT_WORDBREAK) counts trailing spaces toward the line width and wraps them (break-spaces)
+  e.style.whiteSpace = d.wrap === 0 ? 'pre' : 'break-spaces';
+  e.style.overflowWrap = 'break-word';
+  e.style.padding = (d.valign === 2 || d.valign === 1) ? '0' : (d.wrap === 0 ? '3px 0 0' : '3px 2px 0');
   if (d.scroll) { e.style.overflowY = 'auto'; }
   o.refresh = function () {
     const p = o.props;
@@ -113,7 +126,7 @@ MK.Paragraph = function (o) {
   }
 };
 MK.Label = function (o) {
-  MK.Paragraph(o); o.el.classList.add('label'); o.el.style.whiteSpace = 'pre';
+  MK.Paragraph(o); o.el.classList.add('label'); o.el.style.whiteSpace = 'pre'; o.el.style.padding = '0';
   const d = o.def; o.props.opaque = !!d.bg && d.bg !== '#c0c0c0'; o.props.bg = d.bg; o.props.color = d.color; o.refresh();
   o.el.style.textAlign = 'left'; o.el.style.alignItems = 'center';
 };
@@ -170,6 +183,12 @@ MK.xButton = function (o) {
   const d = o.def; o.el.classList.add('xbtn');
   if (d.imgs && d.imgs.length) {
     const im = document.createElement('img'); im.src = d.imgs[0]; im.style.width = '100%'; im.style.height = '100%'; im.draggable = false; o.el.appendChild(im);
+    if (d.text) { // skinned button with a caption: caption is drawn centred over the image
+      o.el.style.position = 'absolute';
+      const t = document.createElement('span'); t.className = 'btxt'; t.textContent = d.text;
+      t.style.cssText = 'position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;white-space:pre;pointer-events:none';
+      fontCss(d.font, t); t.style.color = d.color || '#000'; o.el.appendChild(t); o.txt = t;
+    }
     if (d.imgs[0].indexOf('vverx.jpg') >= 0 || d.imgs[0].indexOf('vniz.jpg') >= 0) { const alt = d.imgs[0].replace(/\.jpg$/, '1.jpg'); o.el.addEventListener('mouseenter', () => { im.src = alt; }); o.el.addEventListener('mouseleave', () => { im.src = d.imgs[0]; }); }
   } else {
     const t = document.createElement('span'); t.className = 'btxt'; t.textContent = d.text || ''; o.el.appendChild(t); o.txt = t;
@@ -255,6 +274,8 @@ function parseCsvLine(line) {
 function createObj(ctx, def, parentEl) {
   const o = { def, cls: def.cls, name: def.name, ctx, rect: def.rect.slice(), visible: def.visible !== false, enabled: def.enabled !== false };
   const el = document.createElement('div'); el.className = 'obj ' + def.cls; o.el = el;
+  // xButton is a plugin (real child window) in the original: it always paints above built-in objects (spin-arrows sit on top of value boxes)
+  if (def.cls === 'xButton') el.style.zIndex = String(500 + ctx.list.length);
   applyBox(o);
   const mk = MK[def.cls]; if (mk) mk(o);
   setVis(o, o.visible); setEn(o, o.enabled);
