@@ -1,0 +1,136 @@
+/* ─────────────────────────────────────────────────────────────
+   «Макро» — design tokens
+   Night Atlas (dark, default) · Paper (light)
+   ───────────────────────────────────────────────────────────── */
+
+@font-face { font-family: "Literata"; src: url(../fonts/literata.woff2) format("woff2"); font-weight: 300 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Literata"; src: url(../fonts/literata-italic.woff2) format("woff2"); font-weight: 300 700; font-style: italic; font-display: swap; }
+@font-face { font-family: "Sofia Sans"; src: url(../fonts/sofia.woff2) format("woff2"); font-weight: 300 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Sofia Sans XC"; src: url(../fonts/sofia-xc.woff2) format("woff2"); font-weight: 300 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "JetBrains Mono"; src: url(../fonts/mono.woff2) format("woff2"); font-weight: 300 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "MX Math"; src: url(../fonts/math.woff2) format("woff2"); font-display: swap; }
+
+@property --angle { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@property --spot-x { syntax: "<percentage>"; inherits: true; initial-value: 50%; }
+@property --spot-y { syntax: "<percentage>"; inherits: true; initial-value: 50%; }
+
+:root {
+  /* type */
+  --f-serif: "Literata", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --f-sans: "Sofia Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --f-display: "Sofia Sans XC", "Sofia Sans", "Arial Narrow", Impact, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  --f-math: "MX Math", "Latin Modern Math", "STIX Two Math", "Cambria Math", "Literata", serif;
+
+  /* layout */
+  --gutter: clamp(1.1rem, 4.2vw, 3.25rem);
+  --wrap: 1360px;
+  --wrap-narrow: 1040px;
+  --top-h: 68px;
+
+  /* radii */
+  --r-xs: 6px; --r-s: 10px; --r-m: 16px; --r-l: 24px; --r-xl: 36px; --r-pill: 999px;
+
+  /* motion */
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+  --spring: cubic-bezier(.34, 1.56, .64, 1);
+  --t-fast: .16s;
+  --t-med: .38s;
+  --t-slow: .8s;
+
+  /* z */
+  --z-top: 40; --z-pop: 60; --z-modal: 80; --z-cursor: 100;
+}
+
+/* ── Night Atlas (dark) ─────────────────────────────────────── */
+:root, :root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #07090d;
+  --bg-2: #0a0d13;
+  --bg-sunk: #05070a;
+  --surface: #0e131b;
+  --surface-2: #141b25;
+  --surface-3: #1b2431;
+  --line: rgb(255 255 255 / .085);
+  --line-2: rgb(255 255 255 / .16);
+  --line-3: rgb(255 255 255 / .28);
+
+  --ink: #ece8dd;
+  --ink-2: #b9b6ab;
+  --ink-3: #828a98;
+  --ink-4: #555d6b;
+  --ink-inv: #07090d;
+
+  --accent: #ffb547;
+  --accent-ink: #1a1204;
+  --accent-soft: rgb(255 181 71 / .14);
+
+  --d1: #ffb547; /* amber   — деньги, доходы */
+  --d2: #4fe3c1; /* mint    — товары, рост   */
+  --d3: #ff6a55; /* coral   — шоки, дефицит */
+  --d4: #8f80ff; /* violet  — сбережения    */
+  --d5: #5bb3ff; /* sky     — госсектор     */
+  --d6: #c8f06b; /* lime    — внешний сектор*/
+  --d1-soft: rgb(255 181 71 / .16); --d2-soft: rgb(79 227 193 / .16); --d3-soft: rgb(255 106 85 / .16);
+  --d4-soft: rgb(143 128 255 / .18); --d5-soft: rgb(91 179 255 / .16); --d6-soft: rgb(200 240 107 / .16);
+
+  --ok: #4fe3a1; --warn: #ffb547; --bad: #ff6a55;
+
+  --glow: 0 0 0 1px rgb(255 255 255 / .06), 0 10px 40px -10px rgb(0 0 0 / .8);
+  --shadow-1: 0 1px 0 rgb(255 255 255 / .05) inset, 0 12px 32px -12px rgb(0 0 0 / .7);
+  --shadow-2: 0 1px 0 rgb(255 255 255 / .07) inset, 0 28px 70px -24px rgb(0 0 0 / .9);
+  --plate: #f4efe3;       /* paper plates for legacy figures */
+  --plate-ink: #15120c;
+  --grain-op: .055;
+  --hero-fade: #07090d;
+  --sel: rgb(255 181 71 / .35);
+}
+
+/* ── Paper (light) ──────────────────────────────────────────── */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f2ece0;
+  --bg-2: #ece5d6;
+  --bg-sunk: #e6dfcf;
+  --surface: #faf6ec;
+  --surface-2: #fffdf7;
+  --surface-3: #f0e9da;
+  --line: rgb(23 20 15 / .12);
+  --line-2: rgb(23 20 15 / .22);
+  --line-3: rgb(23 20 15 / .4);
+
+  --ink: #17140f;
+  --ink-2: #4a463c;
+  --ink-3: #7e786a;
+  --ink-4: #aaa493;
+  --ink-inv: #f7f2e7;
+
+  --accent: #d8401c;
+  --accent-ink: #fff7ee;
+  --accent-soft: rgb(216 64 28 / .12);
+
+  --d1: #d8401c; /* vermilion */
+  --d2: #0c7a6b; /* teal      */
+  --d3: #b97a08; /* ochre     */
+  --d4: #4a4fc4; /* indigo    */
+  --d5: #1f74b8; /* blue      */
+  --d6: #6b8a1c; /* olive     */
+  --d1-soft: rgb(216 64 28 / .12); --d2-soft: rgb(12 122 107 / .13); --d3-soft: rgb(185 122 8 / .14);
+  --d4-soft: rgb(74 79 196 / .12); --d5-soft: rgb(31 116 184 / .12); --d6-soft: rgb(107 138 28 / .14);
+
+  --ok: #0c7a52; --warn: #b97a08; --bad: #c4321a;
+
+  --glow: 0 0 0 1px rgb(23 20 15 / .06), 0 10px 40px -12px rgb(60 40 10 / .25);
+  --shadow-1: 0 1px 0 rgb(255 255 255 / .8) inset, 0 12px 30px -14px rgb(60 40 10 / .28);
+  --shadow-2: 0 1px 0 rgb(255 255 255 / .8) inset, 0 30px 70px -26px rgb(60 40 10 / .4);
+  --plate: #fffdf6;
+  --plate-ink: #17140f;
+  --grain-op: .09;
+  --hero-fade: #f2ece0;
+  --sel: rgb(216 64 28 / .25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --t-fast: .01s; --t-med: .01s; --t-slow: .01s; }
+}

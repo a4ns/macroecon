@@ -1,1 +1,17 @@
-{"name":"Макроэкономика — электронный учебник","short_name":"Макроэкономика","start_url":".","display":"standalone","orientation":"landscape","background_color":"#2b2f36","theme_color":"#2b2f36","icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png"},{"src":"icon-512.png","sizes":"512x512","type":"image/png"}]}
+{
+  "name": "Макро — интерактивный учебник макроэкономики",
+  "short_name": "Макро",
+  "description": "Лекции, живые модели, задачи и тесты по макроэкономике. СКГУ им. М. Козыбаева.",
+  "lang": "ru",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#07090d",
+  "theme_color": "#07090d",
+  "icons": [
+    { "src": "app/img/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "app/img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "app/img/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -1,0 +1,15 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">
+<style>html,body{margin:0;height:100%;background:#07090d}canvas{position:fixed;inset:0;width:100%;height:100%}</style>
+<canvas id=c></canvas>
+<script type=module>
+import { createHero } from '../js/gl/hero.js';
+const q = new URLSearchParams(location.search);
+const hero = createHero(document.getElementById('c'), { theme: q.get('theme')||'dark', count: +(q.get('n')||60000), dpr: +(q.get('dpr')||1), preserve: true });
+window.__hero = hero;
+hero.resize(); hero.setLayoutMix(+(q.get('mix')||0)); hero.snap();
+hero.setScene(+(q.get('scene')||0)); hero.scene.cur = hero.scene.target;
+hero.intro = q.get('intro') ? +q.get('intro') : 1;
+hero.start();
+window.addEventListener('resize', () => hero.resize());
+window.__ready = true;
+</script>
