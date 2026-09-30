@@ -181,20 +181,20 @@ MK.Button = function (o) {
 };
 MK.xButton = function (o) {
   const d = o.def; o.el.classList.add('xbtn');
-  if (d.imgs && d.imgs.length) {
-    const im = document.createElement('img'); im.src = d.imgs[0]; im.style.width = '100%'; im.style.height = '100%'; im.draggable = false; o.el.appendChild(im);
-    if (d.text) { // skinned button with a caption: caption is drawn centred over the image
-      o.el.style.position = 'absolute';
-      const t = document.createElement('span'); t.className = 'btxt'; t.textContent = d.text;
-      t.style.cssText = 'position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;white-space:pre;pointer-events:none';
-      fontCss(d.font, t); t.style.color = d.color || '#000'; o.el.appendChild(t); o.txt = t;
-    }
-    if (d.imgs[0].indexOf('vverx.jpg') >= 0 || d.imgs[0].indexOf('vniz.jpg') >= 0) { const alt = d.imgs[0].replace(/\.jpg$/, '1.jpg'); o.el.addEventListener('mouseenter', () => { im.src = alt; }); o.el.addEventListener('mouseleave', () => { im.src = d.imgs[0]; }); }
-  } else {
+  // fon_objekt.png is the page background itself: the plugin paints it under the caption so the button looks transparent -> nothing to draw
+  const img = (d.imgs && d.imgs[0] && !/fon_objekt\.png$/i.test(d.imgs[0])) ? d.imgs[0] : null;
+  if (img) {
+    // glyph images (spin arrows 5x4, print icon 20x20) are drawn at natural size, centred in the button rectangle
+    const im = document.createElement('img'); im.src = img; im.draggable = false; o.el.appendChild(im);
+    o.el.style.justifyContent = 'center';
+  }
+  if (!img || d.text) {
     const t = document.createElement('span'); t.className = 'btxt'; t.textContent = d.text || ''; o.el.appendChild(t); o.txt = t;
     fontCss(d.font, o.el); o.el.style.color = d.color || '#000';
-    o.el.addEventListener('mouseenter', () => { o.el.style.textDecoration = 'underline'; });
-    o.el.addEventListener('mouseleave', () => { o.el.style.textDecoration = ''; });
+    if (d.text) {
+      o.el.addEventListener('mouseenter', () => { o.el.style.textDecoration = 'underline'; });
+      o.el.addEventListener('mouseleave', () => { o.el.style.textDecoration = ''; });
+    }
   }
   o.setText = s => { if (o.txt) o.txt.textContent = s; };
   if (d.tooltip) o.el.title = d.tooltip;
