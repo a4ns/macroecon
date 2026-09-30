@@ -194,7 +194,7 @@ export function button(o = {}) {
 /* ── callout ────────────────────────────────────────────────── */
 export function callout(o = {}) {
   return h('aside.co.co--' + (o.tone || 'info'), { role: o.tone === 'bad' ? 'alert' : null },
-    o.title ? h('strong.co__t', o.title) : null, o.html ? h('div.co__b', { html: o.html }) : (o.text ? h('div.co__b', o.text) : null));
+    o.title ? h('strong.co__t', o.title) : null, h('div.co__b', o.html ? { html: o.html } : null, o.text || null));
 }
 
 /* ── legend ─────────────────────────────────────────────────── */

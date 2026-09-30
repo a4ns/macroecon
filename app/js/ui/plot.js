@@ -110,7 +110,7 @@ export function createChart(host, opts = {}) {
   /* layout ----------------------------------------------------- */
   function layout() {
     const w = Math.max(240, host.clientWidth || 600);
-    const hh = o.height ? o.height : Math.max(o.minH, Math.round(w / o.aspect));
+    const hh = o.height ? o.height : Math.min(o.maxH || 1e9, Math.max(o.minH, Math.round(w / o.aspect)));
     W = w; H = hh; innerW = W - M.l - M.r; innerH = H - M.t - M.b;
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('height', H);
     clipRect.setAttribute('x', M.l - 1); clipRect.setAttribute('y', M.t - 2); clipRect.setAttribute('width', innerW + 2); clipRect.setAttribute('height', innerH + 4);
@@ -228,7 +228,7 @@ export function createChart(host, opts = {}) {
       step(k) { let mv = false; for (const q of ['v', 'a', 'b']) { const d = e.tgt[q] - e.cur[q]; if (Math.abs(d) > 1e-4 * (Math.abs(e.tgt[q]) + 1)) { e.cur[q] += d * k; mv = true; } else e.cur[q] = e.tgt[q]; } return mv; },
       paint() {
         const c = e.cur; node.setAttribute('stroke', op.color); node.setAttribute('stroke-dasharray', op.dash || ''); node.setAttribute('stroke-width', op.width);
-        if (vertical) { node.setAttribute('x1', sx(c.v)); node.setAttribute('x2', sx(c.v)); node.setAttribute('y1', sy(c.a)); node.setAttribute('y2', sy(c.b)); if (lab) { lab.setAttribute('x', sx(c.v) + op.labelDx); lab.setAttribute('y', M.t + innerH + 18); lab.setAttribute('fill', op.color); } }
+        if (vertical) { node.setAttribute('x1', sx(c.v)); node.setAttribute('x2', sx(c.v)); node.setAttribute('y1', sy(c.a)); node.setAttribute('y2', sy(c.b)); if (lab) { lab.setAttribute('x', sx(c.v) + op.labelDx); lab.setAttribute('y', M.t + 16); lab.setAttribute('text-anchor', 'start'); lab.setAttribute('fill', op.color); } }
         else { node.setAttribute('y1', sy(c.v)); node.setAttribute('y2', sy(c.v)); node.setAttribute('x1', sx(c.a)); node.setAttribute('x2', sx(c.b)); if (lab) { lab.setAttribute('x', M.l + innerW - 4); lab.setAttribute('y', sy(c.v) + op.labelDy); lab.setAttribute('fill', op.color); } }
       },
     };
@@ -280,22 +280,28 @@ export function createChart(host, opts = {}) {
     return addEl(id, 'bars', e);
   }
 
-  /* ghosts -------------------------------------------------- */
+  /* ghosts: frozen copies of the lines, kept in data space so they survive resizes and domain changes */
   const ghosts = [];
+  const pathOf = (c) => {
+    if (c.kind === 'pts') { let d = ''; for (let i = 0; i < c.n; i++) d += (i ? 'L' : 'M') + sx(c.v[2 * i]).toFixed(1) + ',' + sy(c.v[2 * i + 1]).toFixed(1); return d; }
+    return pathFromYs(c.from, c.to, c.v, c.n);
+  };
+  function paintGhosts() { ghosts.forEach((g) => g.p.setAttribute('d', pathOf(g.c))); }
   function snapshot() {
     clearGhosts();
     els.forEach((e) => {
-      if (e.kind !== 'line' || !e.op.ghost) return;
-      const p = el('path', { d: e.ghostPath(), fill: 'none', stroke: e.op.color, 'stroke-width': Math.max(1.6, e.op.width - 1), 'stroke-dasharray': '6 6', opacity: .42, 'stroke-linecap': 'round', class: 'ghost' }, L.ghosts);
-      ghosts.push(p);
+      if (e.kind !== 'line' || !e.op.ghost || !e.cur) return;
+      const c = { kind: e.cur.kind, v: Float64Array.from(e.cur.v), n: e.cur.n, from: e.cur.from, to: e.cur.to };
+      const p = el('path', { fill: 'none', stroke: e.op.color, 'stroke-width': Math.max(1.6, e.op.width - 1), 'stroke-dasharray': '6 6', opacity: .45, 'stroke-linecap': 'round', class: 'ghost' }, L.ghosts);
+      ghosts.push({ p, c });
     });
+    paintGhosts();
     return api;
   }
-  function clearGhosts() { while (ghosts.length) ghosts.pop().remove(); return api; }
-  function redrawGhosts() { /* ghosts are static paths in pixel space → re-snapshot not possible after resize; clear instead */ if (ghosts.length) clearGhosts(); }
+  function clearGhosts() { while (ghosts.length) ghosts.pop().p.remove(); return api; }
 
   /* loop ----------------------------------------------------- */
-  function paintAll() { els.forEach((e) => e.paint()); }
+  function paintAll() { els.forEach((e) => e.paint()); paintGhosts(); }
   function start() { if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); } }
   function tick(now) {
     const dt = Math.min(.05, (now - last) / 1000); last = now;
@@ -336,14 +342,14 @@ export function createChart(host, opts = {}) {
     drawAxes(); els.forEach((e) => e.sync && e.sync(!animate)); paintAll(); start(); return api;
   }
 
-  const ro = new ResizeObserver(() => { const w = host.clientWidth; if (Math.abs(w - W) > 1 || !innerW) { clearGhosts(); layout(); } });
+  const ro = new ResizeObserver(() => { const w = host.clientWidth; if (Math.abs(w - W) > 1 || !innerW) layout(); });
   ro.observe(host);
   layout();
 
   const api = {
     svg, line, area, point, vline, hline, text, arrow, bars, remove, update, snapshot, clearGhosts, setDomain, enableHover, toPNG,
     sx, sy, ix, iy, get W() { return W; }, get H() { return H; }, get inner() { return { l: M.l, t: M.t, w: innerW, h: innerH }; }, domain: () => ({ x: [X.min, X.max], y: [Y.min, Y.max] }),
-    get(id) { return els.get(id); },
+    has: (id) => els.has(id), get(id) { return els.get(id); }, get ghostCount() { return ghosts.length; },
     destroy() { cancelAnimationFrame(raf); ro.disconnect(); svg.remove(); els.clear(); },
   };
   return api;
