@@ -281,3 +281,9 @@
 .simview__pn-a b { font: 500 1.4rem/1.2 var(--f-serif); }
 .simview__pn-a.is-next { text-align: right; }
 @media (max-width: 720px) { .simview__head { flex-direction: column-reverse; align-items: flex-start; gap: 1rem; } .simview__pn { grid-template-columns: 1fr; } }
+
+/* hero on phones: bigger poster title */
+@media (max-width: 700px) {
+  .hero__title { font-size: 31vw; }
+  .hero__eye { letter-spacing: .1em; line-height: 1.7; }
+}

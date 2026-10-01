@@ -103,8 +103,8 @@ export function renderFooter() {
         h('div', h('a.brand', { href: '#/', 'aria-label': 'Макро — на главную' }, h('span', h('span.brand__word', 'Макро'))),
           h('p.foot__about', { style: { marginTop: '1.1rem' } }, 'Электронный учебник по макроэкономике Северо-Казахстанского государственного университета имени Манаша Козыбаева — заново, для экрана.')),
         col('Учебник', SECTIONS.slice(0, 4).map((s) => [s.label, s.href])),
-        col('Справка', [[SECTIONS[4].label, SECTIONS[4].href], ['СРО и приложения', '#/more/sro'], ['Источники', '#/more/sources'], ['Авторы', '#/more/authors']]),
-        col('Ещё', [['Поиск по учебнику', '#/?k=1'], ['Классическая версия', 'classic/', true], ['Руководство', '#/more/guide']]),
+        col('Справка', [[SECTIONS[4].label, SECTIONS[4].href], ['СРО и приложения', '#/more/sro'], ['Источники', '#/more/sources'], ['Об учебнике', '#/more/about']]),
+        col('Ещё', [['Поиск по учебнику', '#/?k=1'], ['Классическая версия', 'classic/', true], ['Приложения', '#/more/appendix']]),
       ),
       h('div.foot__mega', { 'aria-hidden': 'true' }, 'Макро'),
       h('div.foot__legal', h('span', '© СКГУ им. М. Козыбаева · Макроэкономика · 2018'), h('span', 'Версия 2026 · тёмная и светлая темы · ' + (read ? 'прочитано лекций: ' + read : 'всё работает офлайн')))));

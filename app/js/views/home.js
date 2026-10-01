@@ -334,7 +334,7 @@ function initDemo(viz, ctl) {
   function runRounds(dA) {
     timers.forEach(clearTimeout); timers = []; rounds.textContent = '';
     const m = st.mpc, n = 8; let tot = 0; const max = Math.abs(dA) / (1 - m);
-    rounds.append(h('span.rounds__t', 'Раунды: каждый рубль расходов становится чьим-то доходом'));
+    rounds.append(h('span.rounds__t', 'Раунды: каждый тенге расходов становится чьим-то доходом'));
     const row = h('div.rounds__row'); rounds.append(row);
     for (let i = 0; i < n; i++) {
       const v = dA * Math.pow(m, i); tot += v;
