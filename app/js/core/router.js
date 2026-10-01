@@ -22,6 +22,30 @@ const routes = [
   R('/glossary/:letter', () => import('../views/glossary.js'), 'glossary'),
   R('/more', () => import('../views/more.js'), 'more'),
   R('/more/:page', () => import('../views/doc.js'), 'more'),
+  /* v3 — оболочка «ведёт» */
+  R('/start', () => import('../views/start.js'), 'today'),
+  R('/today', () => import('../views/today.js'), 'today'),
+  R('/course', () => import('../views/course.js'), 'course'),
+  R('/course/:topic', () => import('../views/topic.js'), 'course'),
+  R('/library', () => import('../views/library.js'), 'library'),
+  R('/diag', () => import('../views/diag.js'), 'today'),
+  R('/review', () => import('../views/review.js'), 'review'),
+  R('/review/:stage', () => import('../views/review.js'), 'review'),
+  R('/exam', () => import('../views/exam.js'), 'me'),
+  R('/exam/:stage', () => import('../views/exam.js'), 'me'),
+  R('/me', () => import('../views/me.js'), 'me'),
+  R('/me/:page', () => import('../views/me.js'), 'me'),
+  R('/settings', () => import('../views/settings.js'), 'me'),
+  R('/a/:payload', () => import('../views/assign.js'), 'today'),
+  R('/teach', () => import('../views/teach.js'), 'teach'),
+  R('/teach/plan/:id', () => import('../views/pair.js'), 'teach'),
+  R('/teach/vote/:topic', () => import('../views/vote.js'), 'teach'),
+  R('/teach/variants', () => import('../views/variants.js'), 'teach'),
+  R('/teach/assign', () => import('../views/tassign.js'), 'teach'),
+  R('/teach/summary', () => import('../views/summary.js'), 'teach'),
+  R('/present/:id', () => import('../views/present.js'), 'teach'),
+  R('/print/:kind', () => import('../views/print.js'), 'teach'),
+  R('/print/:kind/:arg', () => import('../views/print.js'), 'teach'),
 ];
 
 export function parseHash(hash = location.hash) {
@@ -60,6 +84,7 @@ function setNav(nav) {
 export async function navigate() {
   const my = ++token;
   const { path, query } = parseHash();
+  const rd = path.match(/^\/theory\/(\d+)\/?$/); if (rd) { history.replaceState(null, '', '#/course/' + rd[1]); return navigate(); }
   let route = null, params = {};
   for (const r of routes) {
     const m = path.match(r.re);
