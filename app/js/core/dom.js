@@ -114,6 +114,14 @@ export function whenVisible(el, fn, opts = { rootMargin: '0px 0px -8% 0px', thre
   return () => io.disconnect();
 }
 
+/** load a stylesheet once; resolves when applied (views call it in load() so there is no flash of unstyled content) */
+const _css = new Map();
+export function loadCSS(href) {
+  if (_css.has(href)) return _css.get(href);
+  const p = new Promise((res) => { const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = href; l.onload = l.onerror = () => res(); document.head.append(l); });
+  _css.set(href, p); return p;
+}
+
 /** simple event emitter */
 export function emitter() {
   const m = new Map();
