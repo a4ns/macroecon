@@ -87,7 +87,7 @@ export function fmt(n, d = 0) {
   if (!isFinite(n)) return '—';
   const k = 'd' + d;
   const nf = nfCache[k] || (nfCache[k] = new Intl.NumberFormat('ru-RU', { minimumFractionDigits: d, maximumFractionDigits: d }));
-  return nf.format(Math.abs(n) < 5e-13 ? 0 : n).replace('−', '−').replace(/ /g, ' ');
+  return nf.format(Math.abs(n) < 5e-13 ? 0 : n).replace(/[-\u2010\u2011\u2012]/g, '\u2212').replace(/[\u202f\u00a0]/g, '\u00a0');
 }
 export const pct = (n, d = 1) => fmt(n * 100, d) + ' %';
 
