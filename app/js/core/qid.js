@@ -43,3 +43,11 @@ export function prepare(Q, rand = Math.random) {
   const a = Q.positional ? Q.a.map((o) => ({ ...o })) : shuffled(Q.a.map((o) => ({ ...o })), rand);
   return { ...Q, a };
 }
+
+/** ukey вопроса по тексту и вариантам (как в bank()); a — [{t}] в любом порядке */
+export const ukeyOf = (q, a) => b36(fnv1a(norm(q) + '|' + a.map((o) => norm(o.t)).sort().join('|')));
+/** найти вопрос банка по показанному вопросу { q, a:[{t}] }; вернёт Q с group (все записи-дубликаты) или null */
+export function findQ(b, { q, a }) {
+  const list = b.byUkey.get(ukeyOf(q, a));
+  return list ? { ...list[0], group: list } : null;
+}

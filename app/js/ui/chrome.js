@@ -3,6 +3,9 @@ import { $, $$, h, bus, lerp, isTouch, reduced, clamp } from '../core/dom.js';
 import { onScroll } from '../core/motion.js';
 import { SECTIONS, TOPICS } from '../data/topics.js';
 import { store } from '../core/store.js';
+import { S, bus as sbus } from '../core/state.js';
+import { ctx } from '../core/plan.js';
+import { countDue } from '../core/sr.js';
 
 /* ── header ─────────────────────────────────────────────────── */
 export function initHeader() {
@@ -20,10 +23,12 @@ export function initHeader() {
   top.addEventListener('focusin', () => { hidden = false; top.classList.remove('is-hidden'); });
 }
 
-/* ── nav pill ───────────────────────────────────────────────── */
+/* ── nav pill, library dropdown, role order ─────────────────── */
+const topItems = (nav) => Array.from(nav.querySelectorAll(':scope > a, :scope > .nav__lib > .nav__libbtn'));
+const LIB_NAV = new Set(['library', 'theory', 'lab', 'tasks', 'tests', 'glossary', 'more']);
+
 export function initNav() {
   const nav = $('#nav'), pill = $('.nav__pill', nav);
-  const links = $$('a', nav);
   const place = (a, instant) => {
     if (!a) { pill.style.opacity = 0; return; }
     const nr = nav.getBoundingClientRect(), r = a.getBoundingClientRect();
@@ -32,15 +37,71 @@ export function initNav() {
     pill.style.width = r.width + 'px'; pill.style.transform = `translateX(${r.left - nr.left}px)`; pill.style.opacity = 1;
     if (instant) { void pill.offsetWidth; pill.style.transition = ''; }
   };
-  const cur = () => links.find((a) => a.getAttribute('aria-current') === 'page');
+  const cur = () => topItems(nav).find((a) => a.getAttribute('aria-current') === 'page');
   let first = true;
   const sync = () => { place(cur(), first); first = false; };
-  links.forEach((a) => { a.addEventListener('pointerenter', () => place(a)); a.addEventListener('focus', () => place(a)); });
+  topItems(nav).forEach((a) => { a.addEventListener('pointerenter', () => place(a)); a.addEventListener('focus', () => place(a)); });
   nav.addEventListener('pointerleave', sync);
   nav.addEventListener('focusout', () => setTimeout(() => { if (!nav.contains(document.activeElement)) sync(); }, 0));
-  bus.on('nav', () => requestAnimationFrame(sync));
+  bus.on('nav', (n) => {
+    const lb = $('#lib-btn'); if (lb) { if (LIB_NAV.has(n)) lb.setAttribute('aria-current', 'page'); else lb.removeAttribute('aria-current'); }
+    $$('#tabbar a').forEach((a) => { if (a.dataset.nav === n) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    requestAnimationFrame(sync);
+  });
   window.addEventListener('resize', () => place(cur(), true));
   document.fonts && document.fonts.ready.then(() => place(cur(), true));
+  bus.on('shell', () => requestAnimationFrame(() => place(cur(), true)));
+  initLibrary();
+  initRole();
+}
+
+function initLibrary() {
+  const wrap = $('#nav-lib'), btn = $('#lib-btn'), menu = $('#lib-menu'); if (!wrap) return;
+  let timer = 0;
+  const set = (on) => { clearTimeout(timer); wrap.classList.toggle('is-open', on); btn.setAttribute('aria-expanded', String(on)); };
+  const links = () => $$('a', menu);
+  btn.addEventListener('click', () => set(!wrap.classList.contains('is-open')));
+  wrap.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { clearTimeout(timer); set(true); } });
+  wrap.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') timer = setTimeout(() => set(false), 160); });
+  wrap.addEventListener('focusout', () => setTimeout(() => { if (!wrap.contains(document.activeElement)) set(false); }, 0));
+  wrap.addEventListener('keydown', (e) => {
+    const open = wrap.classList.contains('is-open'), ls = links(), i = ls.indexOf(document.activeElement);
+    if (e.key === 'Escape' && open) { e.preventDefault(); set(false); btn.focus(); }
+    else if (e.key === 'ArrowDown') { e.preventDefault(); if (!open) set(true); (ls[i + 1] || ls[0]).focus(); }
+    else if (e.key === 'ArrowUp' && open) { e.preventDefault(); (ls[i - 1] || ls[ls.length - 1]).focus(); }
+  });
+  menu.addEventListener('click', (e) => { if (e.target.closest('a')) set(false); });
+  bus.on('route', () => set(false));
+}
+
+/* роль «преподаватель» ставит «Преподавателю» первым пунктом (десктоп и меню) */
+function initRole() {
+  const apply = () => {
+    const teacher = S.data.role === 'teacher';
+    const nav = $('#nav'), t = $('a[data-nav="teach"]', nav), pill = $('.nav__pill', nav);
+    if (t) { if (teacher) nav.insertBefore(t, pill.nextSibling); else nav.append(t); }
+    const m = $('#menu'), sub = $('.menu__sub', m);
+    const mt = $('a[data-nav="teach"]', m), ml = $('a[data-nav="library"]', m), ms = $('a[data-nav="settings"]', m);
+    (teacher ? [mt, ml, ms] : [ml, mt, ms]).forEach((x) => x && m.insertBefore(x, sub));
+    bus.emit('shell');
+  };
+  apply();
+  let last = S.data.role;
+  sbus.on('change', (k) => { if (k === 'mx:v3' && S.data.role !== last) { last = S.data.role; apply(); } });
+}
+
+/* ── счётчик «к повторению»: число, не красная точка ──────────── */
+export function initDue() {
+  const render = (n) => $$('[data-due]').forEach((e) => {
+    const on = n > 0; e.hidden = !on;
+    if (on) { e.textContent = n > 99 ? '99+' : String(n); e.setAttribute('aria-label', 'к повторению: ' + n); e.title = 'К повторению сегодня: ' + n; }
+  });
+  let t = 0;
+  const upd = async () => { try { const c = await ctx(); render(countDue(c.bank)); bus.emit('shell'); } catch (e) { /* без данных счётчика нет */ } };
+  const sched = () => { clearTimeout(t); t = setTimeout(upd, 250); };
+  sbus.on('change', (k) => { if (k === 'mx:v3:sr' || k === 'mx:v3') sched(); });
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') sched(); });
+  return upd;
 }
 
 /* ── mobile menu ────────────────────────────────────────────── */
@@ -48,12 +109,14 @@ export function initMenu() {
   const b = $('#burger'), m = $('#menu');
   const set = (on) => {
     m.classList.toggle('is-open', on); b.setAttribute('aria-expanded', String(on)); m.setAttribute('aria-hidden', String(!on));
+    m.inert = !on;
     document.documentElement.style.overflow = on ? 'hidden' : '';
     b.innerHTML = on ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 5l14 14M19 5 5 19"/></svg>' : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 8h16M4 16h16"/></svg>';
   };
+  m.inert = true;
   b.addEventListener('click', () => set(!m.classList.contains('is-open')));
   m.addEventListener('click', (e) => { if (e.target.closest('a')) set(false); });
-  window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && m.classList.contains('is-open')) set(false); });
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && m.classList.contains('is-open')) { set(false); b.focus(); } });
   bus.on('route', () => set(false));
 }
 
@@ -102,9 +165,9 @@ export function renderFooter() {
       h('div.foot__grid',
         h('div', h('a.brand', { href: '#/', 'aria-label': 'Макро — на главную' }, h('span', h('span.brand__word', 'Макро'))),
           h('p.foot__about', { style: { marginTop: '1.1rem' } }, 'Электронный учебник по макроэкономике Северо-Казахстанского государственного университета имени Манаша Козыбаева — заново, для экрана.')),
-        col('Учебник', SECTIONS.slice(0, 4).map((s) => [s.label, s.href])),
-        col('Справка', [[SECTIONS[4].label, SECTIONS[4].href], ['СРО и приложения', '#/more/sro'], ['Источники', '#/more/sources'], ['Об учебнике', '#/more/about']]),
-        col('Ещё', [['Поиск по учебнику', '#/?k=1'], ['Классическая версия', 'classic/', true], ['Приложения', '#/more/appendix']]),
+        col('Курс', [['Сегодня', '#/today'], ['Карта курса', '#/course'], ['Повторение', '#/review'], ['Прогресс', '#/me']]),
+        col('Библиотека', [...SECTIONS.slice(0, 5).map((s) => [s.label, s.href]), ['Все разделы', '#/library']]),
+        col('Ещё', [['СРО и приложения', '#/more/sro'], ['Источники', '#/more/sources'], ['Об учебнике', '#/more/about'], ['Преподавателю', '#/teach'], ['Настройки и резервная копия', '#/settings'], ['Поиск по учебнику', '#/?k=1'], ['Классическая версия', 'classic/', true]]),
       ),
       h('div.foot__mega', { 'aria-hidden': 'true' }, 'Макро'),
       h('div.foot__legal', h('span', '© СКГУ им. М. Козыбаева · Макроэкономика · 2018'), h('span', 'Версия 2026 · тёмная и светлая темы · ' + (read ? 'прочитано лекций: ' + read : 'всё работает офлайн')))));

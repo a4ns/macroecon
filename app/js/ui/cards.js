@@ -13,7 +13,7 @@ export function topicStats(tp) {
 
 export function topicCard(tp) {
   const m = TOPICS[tp.n], s = topicStats(tp);
-  return h('a.card.tcard', { href: '#/theory/' + tp.n, style: { '--c': col(m.c) }, 'aria-label': 'Тема ' + tp.n + '. ' + tp.title },
+  return h('a.card.tcard', { href: '#/course/' + tp.n, style: { '--c': col(m.c) }, 'aria-label': 'Тема ' + tp.n + '. ' + tp.title },
     h('span.tcard__n', rub(tp.n)),
     h('span.tcard__ic', { html: icon(tp.n) }),
     h('div.tcard__body',

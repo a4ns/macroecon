@@ -1,0 +1,109 @@
+/* ─────────────────────────────────────────────────────────────
+   Печатные листы (#/print/…) — префикс sh-
+   На экране лист — «бумага» (белая, чёрный текст) на фоне темы; в печати — только лист: A4, serif 11 pt, поля 15 мм,
+   без шапки/меню/фонов. Чёрно-белое по определению печати: литеральные #000/#fff допустимы только здесь.
+   ───────────────────────────────────────────────────────────── */
+.sh-view { --pp-ink: #000; --pp-bg: #fff; --pp-soft: #555; padding-top: calc(var(--top-h) + 1.5rem); padding-bottom: 4rem; }
+.sh-bar { display: grid; gap: .9rem; margin-bottom: 1.6rem; }
+.sh-bar__r { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1rem; }
+.sh-bar__s { margin-top: .4rem; max-width: 62ch; color: var(--ink-2); font: 400 .95rem/1.5 var(--f-sans); }
+.sh-bar__a { display: flex; flex-wrap: wrap; gap: .6rem; }
+.sh-bar__t { color: var(--ink-3); font: 400 .84rem/1.5 var(--f-sans); }
+.sh-sheets { page: sheet; display: grid; gap: 1.6rem; justify-items: center; }
+.sh-miss { color: var(--ink-3); font: italic 300 1.1rem/1.4 var(--f-serif); padding: 2rem 0; }
+
+/* бумага на экране */
+.sh-pg, .sh-cards { background: var(--pp-bg); color: var(--pp-ink); box-shadow: 0 1px 0 var(--line-2), 0 18px 50px -20px rgb(0 0 0 / .45); }
+.sh-pg { width: min(210mm, 100%); border-collapse: separate; border-spacing: 0; padding: clamp(.9rem, 4vw, 15mm); table-layout: fixed; font: 400 11pt/1.38 "Literata", "Times New Roman", Times, serif; font-variation-settings: "opsz" 11; }
+.sh-pg td, .sh-pg th { padding: 0; text-align: left; font-weight: inherit; vertical-align: top; }
+.sh-pg > thead, .sh-pg > tbody { display: table-row-group; }
+.sh-pg > thead { display: table-header-group; }
+.sh-run { display: flex; justify-content: space-between; gap: 1rem; padding-bottom: 1.5mm; margin-bottom: 4mm; border-bottom: .6pt solid var(--pp-ink); font: 400 8.5pt/1.3 "Literata", "Times New Roman", serif; color: var(--pp-ink); }
+.sh-run__r { margin-left: auto; padding-left: 1rem; }
+
+.sh-head { display: grid; gap: 3mm; margin-bottom: 4mm; }
+.sh-h { font: 700 17pt/1.15 "Literata", "Times New Roman", serif; letter-spacing: 0; }
+.sh-hn { display: inline-block; min-width: 1.2em; text-align: center; border: 1.2pt solid var(--pp-ink); border-radius: 3px; padding: 0 .25em; }
+.sh-h2 { font: 700 12pt/1.2 "Literata", "Times New Roman", serif; margin-bottom: 2mm; }
+.sh-rule { font: italic 400 9.5pt/1.4 "Literata", "Times New Roman", serif; color: var(--pp-ink); margin-bottom: 4mm; }
+.sh-note { font: italic 400 9.5pt/1.4 "Literata", "Times New Roman", serif; margin-bottom: 3mm; }
+.sh-fio { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 3mm 6mm; font-size: 10pt; }
+.sh-fio > span { display: flex; align-items: flex-end; gap: 2mm; }
+.sh-fio > span:first-child { flex: 1 1 70mm; }
+.sh-fio .sh-ln { flex: 1; min-width: 16mm; }
+.sh-var { font-size: 11pt; }
+.sh-ln { display: inline-block; height: 1.05em; border-bottom: .6pt solid var(--pp-ink); }
+.sh-ln--a { width: 30mm; margin: 0 1mm; vertical-align: baseline; }
+.sh-ln--w { min-width: 50mm; } .sh-ln--s { min-width: 22mm; } .sh-ln--m { min-width: 40mm; }
+
+/* вопросы */
+.sh-qr, .sh-tr, .sh-blr, .sh-ktr { break-inside: avoid; page-break-inside: avoid; }
+.sh-q { display: grid; grid-template-columns: 8mm minmax(0, 1fr); padding-bottom: 3.2mm; break-inside: avoid; page-break-inside: avoid; }
+.sh-n { font-weight: 700; }
+.sh-qt { font-weight: 600; margin-bottom: 1mm; text-wrap: pretty; }
+.sh-qt i { font-weight: 400; }
+.sh-o { list-style: none; display: grid; gap: .6mm; padding: 0; }
+.sh-o li { display: grid; grid-template-columns: 6mm minmax(0, 1fr); }
+.sh-l { font-weight: 700; }
+
+/* бланк ответов */
+.sh-blank { border: .8pt solid var(--pp-ink); padding: 3mm 4mm 2mm; margin-top: 2mm; break-inside: avoid; }
+.sh-blank .sh-note { margin-bottom: 2.5mm; }
+.sh-bub { display: grid; grid-template-columns: repeat(var(--c, 2), minmax(0, 1fr)); gap: 0 6mm; }
+.sh-brow { display: flex; align-items: center; gap: 1.6mm; height: 7.4mm; border-bottom: .3pt dotted var(--pp-ink); }
+.sh-bn { width: 6mm; text-align: right; font: 700 9pt/1 "Literata", "Times New Roman", serif; margin-right: 1mm; }
+.sh-bo { display: inline-grid; place-items: center; width: 5.2mm; height: 5.2mm; border: .6pt solid var(--pp-ink); border-radius: 50%; font: 400 7pt/1 "Literata", "Times New Roman", serif; }
+.sh-blank--big { padding: 5mm 6mm 3mm; }
+.sh-blank--big .sh-brow { height: 9mm; }
+.sh-blank--big .sh-bo { width: 6.4mm; height: 6.4mm; font-size: 8.5pt; }
+.sh-score { display: flex; flex-wrap: wrap; gap: 4mm 8mm; margin-top: 8mm; font-size: 10pt; }
+.sh-score > span { display: flex; align-items: flex-end; gap: 2mm; }
+.sh-score .sh-ln { flex: 1; }
+
+/* ключ */
+.sh-key { width: 100%; border-collapse: collapse; font-size: 10pt; table-layout: fixed; }
+.sh-key th, .sh-key td { border: .5pt solid var(--pp-ink); padding: .6mm 1mm; text-align: center !important; font-weight: 700; }
+.sh-key thead th { font-size: 9.5pt; background: none; }
+.sh-key tbody th { font-weight: 400; width: 9mm; }
+.sh-kr { break-inside: avoid; }
+
+/* рабочий лист */
+.sh-task { padding-bottom: 5mm; break-inside: avoid; }
+.sh-tb p { margin-bottom: 1.6mm; text-wrap: pretty; }
+.sh-tb table { border-collapse: collapse; margin: 1.5mm 0 2.5mm; max-width: 100%; font-size: 10pt; }
+.sh-tb th, .sh-tb td { border: .5pt solid var(--pp-ink); padding: .6mm 1.6mm; text-align: center; vertical-align: middle; font-weight: 400; }
+.sh-tb caption { font-weight: 700; margin-bottom: 1mm; text-align: left; }
+.sh-tb sub, .sh-tb sup { font-size: .7em; line-height: 0; }
+.sh-tb img, .sh-tb svg { max-width: 100%; height: auto; }
+.sh-sol { margin-top: 2mm; }
+.sh-solh { font: italic 400 9pt/1 "Literata", "Times New Roman", serif; }
+.sh-sl { display: block; height: 8.5mm; border-bottom: .4pt solid var(--pp-ink); }
+
+/* карточки А–Д */
+.sh-cards { width: min(180mm, 100%); display: grid; grid-template-columns: 1fr 1fr; padding: 0; }
+.sh-card { container-type: size; aspect-ratio: 90 / 129; display: grid; place-items: center; align-content: center; gap: 2mm; border: 1pt dashed var(--pp-ink); color: var(--pp-ink); position: relative; overflow: hidden; }
+.sh-cl { font: 800 82cqw/1 "Sofia Sans", Arial, Helvetica, sans-serif; letter-spacing: 0; transform: translateY(-2%); }
+.sh-cs { width: 62cqw; height: 62cqw; }
+.sh-cw { position: absolute; left: 0; right: 0; bottom: 6cqw; text-align: center; font: 700 12cqw/1 "Sofia Sans", Arial, Helvetica, sans-serif; }
+.sh-card:has(.sh-cs) .sh-cs { margin-top: -8cqw; }
+
+@media (max-width: 640px) {
+  .sh-pg { font-size: 10.5pt; }
+  .sh-bar__a { width: 100%; }
+}
+
+/* ── печать ─────────────────────────────────────────────────── */
+@page sheet { size: A4; margin: 15mm; @bottom-center { content: counter(page); font: 400 8.5pt "Literata", "Times New Roman", serif; } }
+@media print {
+  html.print-view, html.print-view body { background: #fff !important; color: #000 !important; }
+  html.print-view #top, html.print-view #menu, html.print-view #tabbar, html.print-view #foot, html.print-view #toasts, html.print-view #overlays, html.print-view #cursor, html.print-view #grain, html.print-view #progress, html.print-view .skip, html.print-view .sh-bar { display: none !important; }
+  html.print-view #main, html.print-view .sh-view { padding: 0 !important; margin: 0 !important; width: auto !important; max-width: none !important; }
+  .sh-view { padding: 0; }
+  .sh-sheets { display: block; }
+  .sh-pg { width: 100%; padding: 0; box-shadow: none; background: none; font-size: 11pt; table-layout: fixed; break-after: page; page-break-after: always; }
+  .sh-pg:last-child { break-after: auto; page-break-after: auto; }
+  .sh-cards { width: 180mm; margin: 0 auto; box-shadow: none; background: none; break-after: page; page-break-after: always; }
+  .sh-cards:last-child { break-after: auto; page-break-after: auto; }
+  .sh-card { height: 129mm; width: 90mm; aspect-ratio: auto; }
+  * { -webkit-print-color-adjust: economy; print-color-adjust: economy; animation: none !important; transition: none !important; }
+}

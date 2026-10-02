@@ -1,13 +1,15 @@
 /* simulator frame: title, task checklist, toolbar, and the per-exercise module mounted into it */
-import { h, $, toast, plural, bus } from '../core/dom.js';
+import { h, $, toast, plural, bus, loadCSS } from '../core/dom.js';
 import { index } from '../core/data.js';
 import { store } from '../core/store.js';
 import { enhance } from '../core/motion.js';
 import { TOPICS, LABS, icon, rub } from '../data/topics.js';
 import { button } from '../ui/controls.js';
 import { labArt } from '../ui/cards.js';
+import { mountPredict } from '../ui/predict.js';
 
 export async function load(ctx) {
+  await loadCSS('app/css/v-predict.css');
   const ix = await index();
   const lab = ix.labs.get(ctx.params.id);
   if (!lab) throw new Error('Нет такой модели: ' + ctx.params.id);
@@ -53,12 +55,14 @@ export function mount(el, ctx, { ix, lab, mod }) {
   const bFs = button({ label: 'Во весь экран', sm: true, onClick: () => { const t = $('.simview__frame', el); if (document.fullscreenElement) document.exitFullscreen(); else t.requestFullscreen && t.requestFullscreen(); } });
 
   const frame = h('div.simview__frame', stage);
+  const predHost = h('div.pr-host');
   el.append(h('article.wrap.simview.sim-' + lab.id,
     h('div.simview__top', h('nav.crumbs', { 'aria-label': 'Навигация' }, h('a', { href: '#/lab' }, 'Лаборатория'), h('i', '/'), h('a', { href: '#/theory/' + lab.topic }, 'Тема ' + lab.topic)), tools),
     h('header.simview__head',
       h('div', h('p.eyebrow.eyebrow--dot', 'Модель ' + rub(pos + 1) + ' · тема ' + lab.topic), h('h1.h1.simview__t', L.short), h('p.lede.simview__lede', L.tag)),
       h('div.simview__ic', { html: icon(lab.topic), style: { '--c': 'var(--' + tm.c + ')' } })),
     taskBox,
+    predHost,
     frame,
     h('section.simview__rel',
       h('h2.eyebrow', 'Теория к этой модели'),
@@ -85,9 +89,23 @@ export function mount(el, ctx, { ix, lab, mod }) {
   } else {
     stage.append(h('div.simview__soon', h('div.simview__soon-art', { html: labArt(lab.id), style: { '--c': 'var(--' + tm.c + ')', '--c2': 'var(--d2)' } }), h('p.lede', 'Эта модель ещё настраивается. Загляните чуть позже.'), h('a.btn', { href: '#/lab' }, 'Ко всем моделям')));
   }
+  /* «Предскажи, затем проверь»: панель над моделью (после блока задания); ?predict=1 — раскрыта и «обязательна» */
+  let pred = null;
+  try {
+    pred = mountPredict({
+      stage, frame, labId: lab.id, inst, lectures: tp.lectures || [], required: ctx.query && ctx.query.predict === '1',
+      /* при фиксации прогноза прежние кривые остаются пунктиром — как кнопка «Сравнить» */
+      onFix: () => {
+        if (!inst) return;
+        (inst.compare ? inst.compare() : (inst.charts || []).forEach((c) => c.snapshot()));
+        ghost = true; bCmp.classList.add('is-on'); bCmp.lastChild.textContent = 'Убрать след';
+      },
+    });
+    predHost.append(pred.el);
+  } catch (e) { console.error(e); }
   const cleanEnh = enhance(el);
   return {
     title: L.short,
-    destroy() { try { inst && inst.destroy && inst.destroy(); } catch (e) { console.error(e); } cleanEnh && cleanEnh(); },
+    destroy() { try { pred && pred.destroy(); } catch (e) { console.error(e); } try { inst && inst.destroy && inst.destroy(); } catch (e) { console.error(e); } cleanEnh && cleanEnh(); },
   };
 }

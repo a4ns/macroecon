@@ -15,7 +15,7 @@ export function schedule(card, key) { const [b, , r] = card; const iv = interval
 /** результат: 'ok' | 'bad' | 'hard' | 'easy'; type — тип вопроса ('mc','ms','tf','term'); guess — ответ с уверенностью «Угадываю» */
 export function grade(key, result, { type = 'mc', guess = false } = {}) {
   const c = SR.data.c[key] || (SR.data.c[key] = [0, dayNum(), 0, 0, 0]);
-  const cap = type === 'tf' && c[2] < 2 ? CAP.tf : CAP[type] || 5;
+  const cap = type === 'tf' ? (c[2] < 2 ? CAP.tf : 5) : CAP[type] || 5;   // tf: потолок 3 снимается после двух верных подряд
   if (result === 'bad') { c[0] = 1; c[3]++; c[2] = 0; }
   else if (result === 'hard') { c[2]++; if (c[0] === 0) c[0] = 1; }
   else if (result === 'easy') { c[0] = Math.min(cap, c[0] + 2); c[2]++; }
@@ -34,7 +34,7 @@ export function seed(key, ok, type) { if (!ok) grade(key, 'bad', { type }); else
 export function retention(card, now = Date.now()) { if (!card || !card[4]) return 0; const days = (now - card[4]) / 864e5; return Math.pow(0.9, days / Math.max(1, intervalDays(card[0]))); }
 
 /** Очередь на сегодня.
- * @param {{bank:object, glossary:object[], topics?:number[], unlocked?:(topic:number|null)=>boolean, limits?:{rev:number,nw:number}, mix?:'q'|'t'|'all'}} o
+ * @param {{bank:object, glossary:object[], topics?:number[], unlocked?:(topic:number|null)=>boolean, limits?:{rev:number,nw:number}, mix?:'q'|'t'|'all', dry?:boolean}} o  (dry — только посчитать, карточки не сдвигать)
  * @returns {{due:string[], fresh:string[], overdue:number, catchup:boolean, shifted:number}} */
 export function buildQueue(o) {
   const set = S.data.set, lim = o.limits || { rev: set.revPerDay, nw: set.newPerDay };
@@ -46,8 +46,8 @@ export function buildQueue(o) {
   const overdue = due.length; let shifted = 0, catchup = false;
   if (overdue > 2 * lim.rev) {
     catchup = true; const rest = due.slice(lim.rev);
-    rest.forEach((k) => { c[k][1] = today + 1 + Math.floor(seeded(k + today)() * 3); shifted++; });
-    due = due.slice(0, lim.rev); SR.save();
+    rest.forEach((k) => { if (!o.dry) c[k][1] = today + 1 + Math.floor(seeded(k + today)() * 3); shifted++; });
+    due = due.slice(0, lim.rev); if (!o.dry) SR.save();
   } else due = due.slice(0, lim.rev);
   const unlocked = o.unlocked || (() => true);
   const pool = [];
@@ -55,7 +55,8 @@ export function buildQueue(o) {
   const terms = (o.mix === 'q' ? [] : (o.glossary || []).filter((g) => !c[g.id] && unlocked(null)).map((g) => ({ k: g.id, t: 0 })));
   const rand = seeded('new:' + today);
   const q = shuffled(pool, rand), t = shuffled(terms, rand), fresh = [];
-  while (fresh.length < lim.nw && (q.length || t.length)) { for (let i = 0; i < 2 && q.length && fresh.length < lim.nw; i++) fresh.push(q.shift().k); if (t.length && fresh.length < lim.nw) fresh.push(t.shift().k); }
+  const nw = catchup ? 0 : lim.nw;   // в режиме наверстывания новые карточки не вводим: сначала разбираем накопленное
+  while (fresh.length < nw && (q.length || t.length)) { for (let i = 0; i < 2 && q.length && fresh.length < nw; i++) fresh.push(q.shift().k); if (t.length && fresh.length < nw) fresh.push(t.shift().k); }
   return { due: spread(due, topicOf), fresh, overdue, catchup, shifted };
 }
 /* не более двух подряд карточек одной темы, где возможно */

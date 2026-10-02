@@ -10,6 +10,7 @@ import { store } from '../core/store.js';
 import { enhance } from '../core/motion.js';
 import { TOPICS, icon, rub } from '../data/topics.js';
 import { callout } from '../ui/controls.js';
+import * as track from '../core/track.js';
 
 const svgIn = (inner, sw = 2) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
 const ico = (inner) => h('svg', { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', html: inner });
@@ -32,7 +33,7 @@ const INP = (k, extra = '') => `<input class="ans ans--inline" data-k="${k}" inp
 /* price/quantity tables lost their two-level header (and 2.3/2.4 have a junk row) */
 const priceTbl = (s) => s.replace(/<tr><th>([^<]+)<\/th><th>([^<]+)<\/th><th>([^<]+)<\/th><\/tr><tr><td>(цена[^<]*)<\/td><td>(количество[^<]*)<\/td><td>цена[^<]*<\/td><td>количество[^<]*<\/td>(?:<td>.*?)?<\/tr>/,
   (m, a, b, c, p, q) => `<thead><tr><th rowspan="2">${a}</th><th colspan="2">${b}</th><th colspan="2">${c}</th></tr><tr><th>${p}</th><th>${q}</th><th>${p}</th><th>${q}</th></tr></thead>`);
-const PATCH = {
+export const PATCH = {
   '2.2': priceTbl, '2.3': priceTbl, '2.4': priceTbl,
   '8.1': (s) => s.replace('<th>Норма обязательного', '<th rowspan="2">Норма обязательного').replace('<th>Денежный мультипликатор', '<th rowspan="2">Денежный мультипликатор').replace('<th>Максимальный объем', '<th colspan="2">Максимальный объем'),
   '1.2': (s) => s.replace(/<p>г\) Объем НД:<\/p>\s*<p>ден\. единиц<\/p>/, `<p>г) Объем НД: ${INP('v4')} ден. единиц</p>`),
@@ -56,7 +57,7 @@ const PATCH = {
   },
 };
 /* the source has 1850 for the second «Всего» of the new balance; both totals are 2100 */
-const ANSWER_FIX = { '9.1': { v11: 2100 } };
+export const ANSWER_FIX = { '9.1': { v11: 2100 } };
 
 /* ── answer checking ─────────────────────────────────────────── */
 export function parseNum(t) {
@@ -335,7 +336,7 @@ function taskCard(t, { topic, onChange, items, nextT, m }) {
     });
     setCount(ok);
     if (!ok && !bad) { say('warn', 'Поля пустые', 'Впишите хотя бы один ответ. Десятичные дроби можно писать и через запятую.'); const f = inputs.find((i) => !i.value.trim()); f && f.focus(); return; }
-    st.n++; persist();
+    st.n++; persist(); track.taskCheck(t.id, ok, inputs.length);
     if (ok === inputs.length) {
       const first = !isDone(t.id);
       store.set('tasks.done.' + kid(t.id), Date.now()); setStatus(true);
@@ -366,7 +367,7 @@ function taskCard(t, { topic, onChange, items, nextT, m }) {
     btn.setAttribute('aria-expanded', String(open)); btn.classList.toggle('is-on', open);
     if (open) { box.hidden = false; void box.offsetWidth; box.classList.add('is-open'); } else { box.classList.remove('is-open'); later(() => { if (!box.classList.contains('is-open')) box.hidden = true; }, reduced() ? 0 : 420); }
   };
-  bHint.addEventListener('click', () => fold(hintBox, bHint, !hintBox.classList.contains('is-open')));
+  bHint.addEventListener('click', () => { const open = !hintBox.classList.contains('is-open'); if (open) track.taskHint(t.id); fold(hintBox, bHint, open); });
 
   /* solution: answers + steps revealed one by one */
   let steps = null, shown = 0, built = false;
@@ -404,6 +405,7 @@ function taskCard(t, { topic, onChange, items, nextT, m }) {
   }
   bSol.addEventListener('click', () => {
     const open = !solBox.classList.contains('is-open');
+    if (open) track.taskSolution(t.id);
     if (open && !built) { buildSolution(); if (!st.s) { st.s = 1; saveSt(t.id, st); } }
     fold(solBox, bSol, open);
     if (open && !reduced()) later(() => solBox.scrollIntoView({ block: 'nearest', behavior: 'smooth' }), 120);

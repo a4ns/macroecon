@@ -26,6 +26,8 @@ export function symHTML(str) {
   return esc(str).replace(/_\{([^}]*)\}|_([^\s_^{<]+?)(?=$|[\s,.;:)=+\-−*/^_]|&)|\^\{([^}]*)\}|\^([^\s_^{<]+?)(?=$|[\s,.;:)=+\-−*/^_]|&)/g,
     (m, a, b, c, d) => (a != null || b != null) ? `<sub>${a ?? b}</sub>` : `<sup>${c ?? d}</sup>`);
 }
+/* plain text of a symbol: "Y_0" → "Y0" (for data-label, aria, screen readers) */
+const symPlain = (str) => String(str == null ? '' : str).replace(/[_^{}]/g, '');
 const symEl = (str) => h('i.sym', { html: symHTML(str) });
 const decimalsOf = (step) => { const s = String(step); return s.includes('.') ? s.split('.')[1].length : 0; };
 const parseNum = (t) => parseFloat(String(t).replace(/[\s  ]/g, '').replace(/[−–—]/g, '-').replace(',', '.'));
@@ -47,7 +49,7 @@ export function slider(o = {}) {
   const unit = O.unit ? h('em.sl__unit', O.unit) : null;
   const notch = h('i.sl__def', { 'aria-hidden': 'true', title: 'Исходное значение' });
   const lab = h('label.sl__lab', { for: id }, O.sym ? h('span.sl__sym', symEl(O.sym)) : null, O.label ? h('span.sl__name', O.label) : null);
-  const el = h('div.sl', { style: { '--c': O.color } },
+  const el = h('div.sl', { style: { '--c': O.color }, 'data-mx': 'slider', 'data-label': O.label || symPlain(O.sym) || 'параметр', 'data-v': String(val) },
     h('div.sl__top', lab, h('div.sl__val', num, unit)),
     h('div.sl__track', range, notch),
     O.help ? h('p.sl__help', O.help) : null);
@@ -58,6 +60,7 @@ export function slider(o = {}) {
     notch.style.setProperty('--dp', pos(def).toFixed(4));
     notch.hidden = Math.abs(pos(def) - p) < 0.012;
     range.setAttribute('aria-valuetext', f(val) + (O.unit ? ' ' + O.unit : ''));
+    el.dataset.v = String(val);
   };
   const emit = (fromUser) => fns.forEach((fn) => fn(val, fromUser));
   const set = (v, { silent = false, fromUser = false } = {}) => {
@@ -97,8 +100,10 @@ export function seg(o = {}) {
   const name = uid('sg');
   const btns = O.options.map((op, i) => h('button.seg__b', { type: 'button', role: 'radio', 'data-v': String(op.v), title: op.hint || null, onclick: () => set(op.v, { fromUser: true }) }, op.label));
   const el = h('div.seg', { role: 'radiogroup', 'aria-label': O.label || null, style: { '--n': O.options.length, '--i': 0 } }, h('i.seg__thumb'), ...btns);
+  let root = null;
   const paint = () => {
     const i = Math.max(0, O.options.findIndex((x) => x.v === val));
+    if (root) { root.dataset.v = String(val); root.dataset.vl = O.options[i] ? O.options[i].label : String(val); }
     el.style.setProperty('--i', i);
     btns.forEach((b, k) => { b.setAttribute('aria-checked', k === i ? 'true' : 'false'); b.tabIndex = k === i ? 0 : -1; });
   };
@@ -110,6 +115,8 @@ export function seg(o = {}) {
   });
   paint();
   const wrap = O.label ? h('div.seg-wrap', h('span.seg__lab', O.label), el) : el;
+  wrap.dataset.mx = 'seg'; wrap.dataset.label = O.label || O.options.map((x) => x.label).join(' / ');
+  root = wrap; paint();
   return { el: wrap, seg: el, get value() { return val; }, set, on(fn) { fns.add(fn); } };
 }
 
@@ -118,9 +125,9 @@ export function toggle(o = {}) {
   const O = Object.assign({ value: false }, o);
   let val = !!O.value; const fns = new Set(); if (O.onChange) fns.add(O.onChange);
   const inp = h('input.tg__in', { type: 'checkbox', role: 'switch', checked: val });
-  const el = h('label.tg', { style: O.color ? { '--c': O.color } : null }, inp, h('span.tg__sw', h('i')), h('span.tg__lab', O.label, O.hint ? h('small', O.hint) : null));
-  inp.addEventListener('change', () => { val = inp.checked; fns.forEach((fn) => fn(val, true)); });
-  return { el, get value() { return val; }, set(v, { silent = false } = {}) { val = !!v; inp.checked = val; if (!silent) fns.forEach((fn) => fn(val, false)); }, on(fn) { fns.add(fn); } };
+  const el = h('label.tg', { style: O.color ? { '--c': O.color } : null, 'data-mx': 'toggle', 'data-label': O.label || 'переключатель', 'data-v': val ? '1' : '0' }, inp, h('span.tg__sw', h('i')), h('span.tg__lab', O.label, O.hint ? h('small', O.hint) : null));
+  inp.addEventListener('change', () => { val = inp.checked; el.dataset.v = val ? '1' : '0'; fns.forEach((fn) => fn(val, true)); });
+  return { el, get value() { return val; }, set(v, { silent = false } = {}) { val = !!v; inp.checked = val; el.dataset.v = val ? '1' : '0'; if (!silent) fns.forEach((fn) => fn(val, false)); }, on(fn) { fns.add(fn); } };
 }
 
 /* ── stat (animated number) ─────────────────────────────────── */
@@ -130,7 +137,7 @@ export function stat(o = {}) {
   let cur = O.value, tgt = O.value, raf = 0, baseV = null;
   const numEl = h('b.st__num', f(cur));
   const dEl = h('span.st__d');
-  const el = h('div.st.st--' + O.size, { style: O.color ? { '--c': O.color } : null },
+  const el = h('div.st.st--' + O.size, { style: O.color ? { '--c': O.color } : null, 'data-mx': 'stat', 'data-label': O.label || symPlain(O.sym) || 'показатель', 'data-v': String(O.value), 'data-dec': String(O.dec), 'data-unit': O.unit || '' },
     h('span.st__lab', O.sym ? h('span.st__sym', symEl(O.sym)) : null, O.label ? h('span', O.label) : null),
     h('span.st__val', numEl, O.unit ? h('em', O.unit) : null), dEl);
   const showDelta = () => {
@@ -148,6 +155,7 @@ export function stat(o = {}) {
   return {
     el, get() { return tgt; },
     set(v) {
+      el.dataset.v = String(v);
       if (!Number.isFinite(v)) { tgt = v; cur = v; numEl.textContent = '—'; return; }
       if (v === tgt && raf === 0) { numEl.textContent = f(v); showDelta(); return; }
       const prev = Number.isFinite(cur) ? cur : v; tgt = v; showDelta();
@@ -157,7 +165,7 @@ export function stat(o = {}) {
       raf = requestAnimationFrame(tick(performance.now(), prev));
     },
     base(v) { baseV = v; showDelta(); },
-    setUnit(u) { const e = el.querySelector('.st__val em'); if (e) e.textContent = u; },
+    setUnit(u) { const e = el.querySelector('.st__val em'); if (e) e.textContent = u; el.dataset.unit = u || ''; },
   };
 }
 
@@ -180,7 +188,7 @@ export function panel(o = {}, ...kids) {
 export function presets(list, o = {}) {
   const el = h('div.pre', { role: 'group', 'aria-label': o.label || 'Сценарии' });
   if (o.title !== false) el.append(h('span.pre__t', o.title || 'Сценарии'));
-  list.forEach((p) => el.append(h('button.chip.pre__b', { type: 'button', title: p.hint || null, onclick: () => { p.apply(); o.onApply && o.onApply(p); } }, p.color ? h('i', { style: { '--c': p.color } }) : null, p.label)));
+  list.forEach((p) => el.append(h('button.chip.pre__b', { type: 'button', title: p.hint || null, 'data-mx': 'preset', 'data-label': p.label, onclick: () => { p.apply(); o.onApply && o.onApply(p); } }, p.color ? h('i', { style: { '--c': p.color } }) : null, p.label)));
   return el;
 }
 

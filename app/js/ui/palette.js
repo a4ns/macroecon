@@ -8,8 +8,20 @@ let root, input, list, box, open = false, items = [], sel = 0, corpus = null, lo
 
 const norm = (s) => String(s || '').toLowerCase().replace(/ё/g, 'е');
 const stem = (w) => (w.length > 6 ? w.slice(0, w.length - 2) : w.length > 4 ? w.slice(0, -1) : w);
-const GROUPS = { lec: 'Лекции', gl: 'Глоссарий', task: 'Задачи', test: 'Тесты', lab: 'Модели', sro: 'СРО', app: 'Приложения', nav: 'Разделы' };
-const GLYPH = { lec: 'Л', gl: 'Г', task: 'З', test: 'Т', lab: 'М', sro: 'С', app: 'П', nav: '→' };
+const GROUPS = { cmd: 'Команды', lec: 'Лекции', gl: 'Глоссарий', task: 'Задачи', test: 'Тесты', lab: 'Модели', sro: 'СРО', app: 'Приложения', nav: 'Разделы' };
+const GLYPH = { cmd: '⌘', lec: 'Л', gl: 'Г', task: 'З', test: 'Т', lab: 'М', sro: 'С', app: 'П', nav: '→' };
+
+/* команды оболочки: переходы и быстрые действия */
+const CMDS = [
+  { id: 'today', title: 'Сегодня', sub: 'Что делать прямо сейчас', href: '#/today', kw: 'сегодня план шаг дальше что делать' },
+  { id: 'review', title: 'Повторить карточки', sub: 'Интервальное повторение: очередь на сегодня', href: '#/review', kw: 'повторить повторение карточки очередь интервальное' },
+  { id: 'topic', title: 'Тема N…', sub: 'Введите номер или название темы', fill: 'тема ', kw: 'тема номер' },
+  { id: 'exam', title: 'Пробный экзамен', sub: 'Рубежный контроль и экзамен по таймеру', href: '#/exam', kw: 'пробный экзамен рк рубежный контроль подготовка' },
+  { id: 'course', title: 'Карта курса', sub: '14 тем и ваш прогресс', href: '#/course', kw: 'курс карта темы траектория' },
+  { id: 'me', title: 'Прогресс', sub: 'Освоение, пробелы, ошибки', href: '#/me', kw: 'прогресс освоение ошибки заметки справка' },
+  { id: 'teach', title: 'Преподавателю', sub: 'Презентация, варианты, задания, печать', href: '#/teach', kw: 'преподавателю преподаватель презентация варианты печать' },
+  { id: 'settings', title: 'Настройки', sub: 'Роль, календарь, резервная копия', href: '#/settings', kw: 'настройки роль календарь резервная копия сброс лимиты' },
+];
 
 async function ensure() {
   if (corpus) return corpus;
@@ -27,8 +39,9 @@ async function ensure() {
       o.nt = norm(o.title); o.nx = norm(o.text);
       return o;
     });
+    CMDS.forEach((c) => corpus.push({ t: 'cmd', id: 'cmd-' + c.id, title: c.title, sub: c.sub, href: c.href, fill: c.fill, nt: norm(c.title + ' ' + c.kw), nx: '' }));
     SECTIONS.forEach((s) => corpus.push({ t: 'nav', id: s.id, title: s.label, sub: s.sub, href: s.href, nt: norm(s.label + ' ' + s.id), nx: '' }));
-    TOPICS && Object.keys(TOPICS).forEach((n) => corpus.push({ t: 'nav', id: 'topic' + n, title: 'Тема ' + n + '. ' + TOPICS[n].short, sub: TOPICS[n].tag, href: '#/theory/' + n, nt: norm('тема ' + n + ' ' + TOPICS[n].short + ' ' + TOPICS[n].tag), nx: '' }));
+    TOPICS && Object.keys(TOPICS).forEach((n) => corpus.push({ t: 'nav', id: 'topic' + n, title: 'Тема ' + n + '. ' + TOPICS[n].short, sub: TOPICS[n].tag, href: '#/course/' + n, nt: norm('тема ' + n + ' ' + TOPICS[n].short + ' ' + TOPICS[n].tag), nx: '' }));
     return corpus;
   });
   return loading;
@@ -43,7 +56,7 @@ function score(doc, toks) {
     if (ti >= 0) s += 8 + (ti === 0 || doc.nt[ti - 1] === ' ' ? 6 : 0) + (doc.nt.length < 30 ? 2 : 0);
     if (xi >= 0) s += 2;
   }
-  if (doc.t === 'gl') s += 2; if (doc.t === 'lab') s += 1.5; if (doc.t === 'nav') s += 1;
+  if (doc.t === 'cmd') s += 3; if (doc.t === 'gl') s += 2; if (doc.t === 'lab') s += 1.5; if (doc.t === 'nav') s += 1;
   return s;
 }
 
@@ -62,9 +75,10 @@ const mark = (str, toks) => {
 
 function defaultItems() {
   const out = [];
+  CMDS.filter((c) => ['today', 'review', 'topic', 'exam', 'settings'].includes(c.id)).forEach((c) => out.push({ g: 'Команды', t: 'cmd', title: c.title, sub: c.sub, href: c.href, fill: c.fill, glyph: '⌘' }));
   const last = store.get('last');
   if (last && last.route) out.push({ g: 'Продолжить', t: 'lec', title: last.title || 'Последнее прочитанное', sub: 'Вернуться к месту, где вы остановились', href: last.route, glyph: '↺' });
-  SECTIONS.forEach((s) => out.push({ g: 'Разделы', t: 'nav', title: s.label, sub: s.sub, href: s.href }));
+  SECTIONS.forEach((s) => out.push({ g: 'Библиотека', t: 'nav', title: s.label, sub: s.sub, href: s.href }));
   ['ex6-1', 'ex10-3', 'ex3-1'].forEach((id) => out.push({ g: 'Популярные модели', t: 'lab', title: LABS[id].short, sub: LABS[id].tag, href: '#/lab/' + id }));
   return out;
 }
@@ -79,7 +93,7 @@ async function run(q) {
   res.sort((a, b) => b[0] - a[0]);
   const per = {}; const out = [];
   for (const [, d] of res) { per[d.t] = (per[d.t] || 0) + 1; if (per[d.t] <= (d.t === 'lec' ? 6 : 4)) out.push(d); if (out.length >= 24) break; }
-  const order = ['nav', 'lab', 'lec', 'gl', 'task', 'test', 'sro', 'app'];
+  const order = ['cmd', 'nav', 'lab', 'lec', 'gl', 'task', 'test', 'sro', 'app'];
   out.sort((a, b) => order.indexOf(a.t) - order.indexOf(b.t));
   items = out.map((d) => Object.assign({ g: GROUPS[d.t], hl: toks, snip: snippet(d, toks) }, d));
   render(toks);
@@ -92,7 +106,7 @@ function render(toks = []) {
   items.forEach((it, i) => {
     if (it.g !== g) { g = it.g; list.append(h('div.pal__g', g)); }
     const t = h('div.pal__t', h('b', { html: toks.length ? mark(it.title, toks) : esc(it.title) }), h('span', { html: toks.length && it.snip && it.t !== 'nav' ? mark(it.snip, toks) : esc(it.sub || '') }));
-    const r = h('div.pal__r', { role: 'option', id: 'pal-' + i, 'aria-selected': i === sel ? 'true' : 'false', 'data-i': i }, h('span.pal__ic', it.glyph || GLYPH[it.t] || '·'), t, h('span.pal__k', it.t === 'lec' ? 'лекция' : it.t === 'gl' ? 'термин' : it.t === 'lab' ? 'модель' : it.t === 'task' ? 'задача' : it.t === 'test' ? 'тест' : ''));
+    const r = h('div.pal__r', { role: 'option', id: 'pal-' + i, 'aria-selected': i === sel ? 'true' : 'false', 'data-i': i }, h('span.pal__ic', it.glyph || GLYPH[it.t] || '·'), t, h('span.pal__k', it.t === 'lec' ? 'лекция' : it.t === 'gl' ? 'термин' : it.t === 'lab' ? 'модель' : it.t === 'task' ? 'задача' : it.t === 'test' ? 'тест' : it.t === 'cmd' ? 'команда' : ''));
     list.append(r);
   });
   sel = Math.min(sel, items.length - 1);
@@ -104,6 +118,7 @@ function mark1() {
 }
 function go(i) {
   const it = items[i]; if (!it) return;
+  if (it.fill) { input.value = it.fill; sel = 0; run(it.fill); input.focus(); return; }
   closePalette();
   if (location.hash === it.href) location.hash = ''; // force re-navigation
   setTimeout(() => { location.hash = it.href.replace(/^#/, ''); }, 10);

@@ -11,6 +11,9 @@ import { store } from '../core/store.js';
 import { enhance } from '../core/motion.js';
 import { TOPICS, icon, rub } from '../data/topics.js';
 import { seg, callout } from '../ui/controls.js';
+import { bank as loadBank, findQ } from '../core/qid.js';
+import { S as ST, MODE } from '../core/state.js';
+import * as qa from '../core/qa.js';
 
 const NB = ' ';
 const LETTERS = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'К'];
@@ -51,10 +54,10 @@ const mmss = (ms) => { const s = Math.round(ms / 1000); return Math.floor(s / 60
 /* ── route ───────────────────────────────────────────────────── */
 export async function load(ctx) {
   await loadCSS('app/css/v-tests.css');
-  const [ix, data] = await Promise.all([index(), tests()]);
+  const [ix, data, bk] = await Promise.all([index(), tests(), loadBank()]);
   const topic = ctx.params.topic;
   if (topic !== 'all' && !data[topic]) throw new Error('Нет такого теста: ' + topic);
-  return { ix, data, topic };
+  return { ix, data, topic, bk };
 }
 
 export function mount(el, ctx, d) {
@@ -66,7 +69,7 @@ export function mount(el, ctx, d) {
 }
 
 /* ── the quiz itself ─────────────────────────────────────────── */
-export function mountQuiz(root, ctx, { ix, data, topic }) {
+export function mountQuiz(root, ctx, { ix, data, topic, bk }) {
   const isAll = topic === 'all';
   const tnum = isAll ? 0 : +topic;
   const meta = isAll ? { short: 'Смешанный тест', tag: 'Вопросы из всех четырнадцати тем вперемешку', c: 'accent' } : TOPICS[tnum];
@@ -78,12 +81,16 @@ export function mountQuiz(root, ctx, { ix, data, topic }) {
   let timers = [], offs = [];
   const later = (fn, ms) => { const id = setTimeout(fn, ms); timers.push(id); return id; };
 
+  /* тест до чтения лекций темы — диагностика: ответы пишем как MODE.diag, в освоение не засчитываются */
+  const diag = !isAll && !!tp && !tp.lectures.some((l) => (ST.data.lec[l.id] || {}).o);
+  const MODE_NOW = diag ? MODE.diag : MODE.test;
   const stage = h('div.qz__stage');
   root.append(
     h('div.qz__wrap',
       h('div.qz__top',
         h('nav.crumbs', { 'aria-label': 'Навигация' }, h('a', { href: '#/tests' }, 'Тесты'), h('i', '/'), h('span', isAll ? 'Смешанный' : 'Тема ' + tnum)),
         tp ? h('a.btn.btn--sm.btn--quiet', { href: '#/theory/' + tnum }, 'Теория темы', svg(P_R)) : null),
+      diag ? callout({ tone: 'info', text: 'Вы ещё не читали лекции темы. Тест можно пройти как диагностику — результат не засчитается в освоение.' }) : null,
       stage));
   root.style.setProperty('--c', color);
 
@@ -159,7 +166,7 @@ export function mountQuiz(root, ctx, { ix, data, topic }) {
   function question() {
     const { qs, i } = S;
     const q = qs[i];
-    S.locked = false; S.sel = new Set();
+    S.locked = false; S.sel = new Set(); S.qt = Date.now();
     setBar(S.res.length);
     const multi = q.type === 'ms';
     const kind = q.type === 'tf' ? 'Верно или неверно' : multi ? 'Несколько ответов' : 'Один ответ';
@@ -224,6 +231,7 @@ export function mountQuiz(root, ctx, { ix, data, topic }) {
       else el.classList.add('is-dim');
     });
     S.res.push({ q, sel: [...sel], ok });
+    if (!S.practice && bk) { const Q = findQ(bk, q); if (Q) qa.record({ Q, ok, mode: MODE_NOW, ms: Date.now() - (S.qt || Date.now()), sel: [...sel] }); }
     card.classList.add(ok ? 'is-right' : 'is-wrong');
     if (bCheck) bCheck.hidden = true;
     const right = q.a.filter((o) => o.ok).map((o) => (q.type === 'tf' ? tfLabel(o.t) : o.t));
@@ -261,6 +269,7 @@ export function mountQuiz(root, ctx, { ix, data, topic }) {
     const score = res.filter((r) => r.ok).length, n = qs.length, pct = Math.round((score / n) * 100);
     const prev = resultOf(topic);
     let record = false;
+    if (!practice && !isAll && n) qa.session({ topic: tnum, ok: score, n, mode: MODE_NOW });
     if (!practice) {
       const prevBest = prev && prev.attempts ? prev.best : -1;
       record = pct > prevBest && prevBest >= 0;

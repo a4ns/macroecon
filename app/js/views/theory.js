@@ -16,7 +16,7 @@ export function mount(el, ctx, { ix }) {
       h('p.eyebrow.eyebrow--dot', 'Теория'),
       h('h1.display', { html: 'Курс <em>целиком</em>' }),
       h('p.lede', total + ' ' + plural(total, ['лекция', 'лекции', 'лекций']) + ' в ' + ix.topics.length + ' темах — примерно ' + Math.round(mins / 6) / 10 + ' ч чтения. Прочитано: ' + read + '.'),
-      h('div.tp__cta', next ? h('a.btn.btn--primary', { href: '#/read/' + next.id }, read ? 'Продолжить с ' + next.id : 'Начать с 1.1') : null)),
+      h('div.tp__cta', next ? h('a.btn.btn--primary', { href: '#/read/' + next.id }, read ? 'Продолжить с ' + next.id : 'Начать с 1.1') : null, h('a.btn', { href: '#/course' }, 'Карта курса'))),
     ...secs.map((s) => h('section.th__sec', s.title ? h('h2.eyebrow', s.title) : null,
       h('div.th__grid', ...(s.topics || []).map((n) => ix.byTopic.get(n)).filter(Boolean).map(topicCard))))));
   const c = enhance(el);
