@@ -100,7 +100,7 @@ function panelBody(step, tr, c) {
   if (step.k === 'lab') {
     if (step.state === 'na') {
       const rec = step.rec || [];
-      return [h('p.tr__note', 'В этой теме своей модели нет, шаг не нужен для «Освоена».'),
+      return [h('p.tr__note', 'Шаг не нужен для «Освоена».'),
         rec.length ? h('div', h('p.tr__note', 'Похожий механизм показывают модели:'), ul(...rec.map((id) => { const lab = c.ix.labs.get(id); return h('li', mark('todo'), h('a', { href: '#/lab/' + id }, (LABS[id] || {}).short || id, h('span.chip.tr__chip', 'похожий механизм')), h('span.tr__r', lab ? 'тема ' + lab.topic : '')); }))) : null];
     }
     return [ul(...step.labs.map((id) => { const pr = S.data.pr[id], f = labTaskFrac(id, c), na = PREDICT_NA.has(id);

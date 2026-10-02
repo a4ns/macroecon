@@ -18,7 +18,7 @@ export function how(text, label = 'как посчитано') {
 export function quarter(v) {
   if (v == null) return '<svg class="q" viewBox="0 0 20 20" aria-hidden="true"><circle class="q__r q__na" cx="10" cy="10" r="7.5"/></svg>';
   const k = v <= 0 ? 0 : v < .375 ? 1 : v < .625 ? 2 : v < .875 ? 3 : 4;
-  const sector = ['', 'M10 10V2.5A7.5 7.5 0 0 1 17.5 10z', 'M10 10V2.5A7.5 7.5 0 0 1 10 17.5z', 'M10 10V2.5A7.5 7.5 0 0 1 2.5 10 7.5 7.5 0 0 1 10 17.5z', ''][k];
+  const sector = ['', 'M10 10V2.5A7.5 7.5 0 0 1 17.5 10z', 'M10 10V2.5A7.5 7.5 0 0 1 10 17.5z', 'M10 10V2.5A7.5 7.5 0 1 1 2.5 10z', ''][k];
   return `<svg class="q" viewBox="0 0 20 20" aria-hidden="true"><circle class="q__r" cx="10" cy="10" r="7.5"/>${k === 4 ? '<circle class="q__f" cx="10" cy="10" r="7.5"/>' : k ? `<path class="q__f" d="${sector}"/>` : ''}</svg>`;
 }
 const QW = ['пусто', 'четверть', 'половина', 'три четверти', 'полностью'];

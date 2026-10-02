@@ -82,7 +82,7 @@ export function mount(el, ctx, { ix, lec, html, gl }) {
       h('h1.rd__title', lec.title),
       h('p.rd__meta.mono', lec.min + ' мин · ' + lec.words + ' ' + plural(lec.words, ['слово', 'слова', 'слов']))),
     h('div.rd__grid.wrap', h('aside.rd__side', toc), h('div.rd__main', body, labs.length ? h('div.rd__labs', ...labs) : null,
-      h('div.rd__tasks', tp.tasks && tp.tasks.length ? h('a.btn.btn--sm', { href: '#/tasks/' + lec.topic }, 'Задачи темы') : null, tp.test ? h('a.btn.btn--sm', { href: '#/tests/' + lec.topic }, 'Тест по теме') : null),
+      h('div.rd__tasks', tp.tasks && tp.tasks.length ? h('a.btn.btn--sm', { href: '#/tasks/' + lec.topic }, 'Задачи темы') : null, tp.test ? h('a.btn.btn--sm', { href: '#/tests/' + lec.topic }, 'Тест по теме') : null, h('a.btn.btn--sm', { href: '#/present/' + lec.id, title: 'Показать лекцию на проекторе по шагам' }, 'Презентация'), h('a.btn.btn--sm', { href: '#/course/' + lec.topic }, 'Траектория темы')),
       doneBox,
       h('nav.rd__pn', nav(lec.prev, 'prev'), nav(lec.next, 'next'))))));
 

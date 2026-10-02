@@ -68,7 +68,7 @@ export function mount(el, ctx, data) {
   const root = h('div.rw');
   el.append(root);
   const topic = +ctx.query.topic || 0;
-  const f = { topic: topic >= 1 && topic <= 14 ? topic : 0, mix: ctx.query.mix === 'q' || ctx.query.mix === 't' ? ctx.query.mix : 'all', short: ctx.query.short === '1', errors: ctx.query.errors === '1' };
+  const f = { topic: topic >= 1 && topic <= 14 ? topic : 0, mix: ctx.query.mix === 'q' || ctx.query.mix === 't' ? ctx.query.mix : 'all', short: ctx.query.short === '1' || ctx.query.n === '5', errors: ctx.query.errors === '1' };
   const inst = ctx.params.stage === 'run' ? runView(root, env, f) : hubView(root, env, f);
   const off = enhance(el);
   return { title: 'Повторение', destroy() { inst.destroy(); off && off(); } };
@@ -258,7 +258,7 @@ function runView(root, env, f) {
         let again = false;
         if (!retry) {
           sr.grade(it.key, ok ? 'ok' : 'bad', { type: typeOfQ(Q), guess: conf === 0 });
-          qa.record({ Q, ok, mode: MODE.review, conf, ms, sel });
+          qa.record({ Q, ok, mode: MODE.review, conf, ms, sel: sel.map((k) => (Q.a[k] ? Q.a[k].i : k)) });
           count(it, ok);
           if (!ok) again = requeue(it);
         } else if (!ok) again = requeue(it);

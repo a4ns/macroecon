@@ -125,7 +125,8 @@
 .tr__sub { margin: 0; color: var(--ink-2); font: 500 .95rem/1.4 var(--f-serif); }
 .tr__note { margin: 0; color: var(--ink-3); font: 400 .86rem/1.5 var(--f-sans); }
 .tr__co { width: 100%; }
-.tr__ul { list-style: none; margin: 0; padding: 0; width: 100%; display: grid; }
+.tr__ul { list-style: none; margin: 0; padding: 0; width: 100%; justify-self: stretch; display: grid; }
+.tr__p > div { justify-self: stretch; }
 .tr__ul li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: .2rem .7rem; align-items: baseline; padding: .5rem 0; border-bottom: 1px solid var(--line); font: 400 .94rem/1.4 var(--f-sans); }
 .tr__ul li:last-child { border-bottom: 0; }
 .tr__ul a { color: var(--ink); text-decoration: none; } .tr__ul a:hover { color: var(--c); }

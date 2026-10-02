@@ -74,12 +74,16 @@ export function mount(el, ctx, { ix, lec, steps, gl }) {
   bTheme.textContent = pref.theme === 'light' ? 'Paper' : 'Night';
   const bFs = mk('', 'F', 'Во весь экран', () => toggleFs()); bFs.innerHTML = ICON_FS; bFs.setAttribute('aria-label', 'Во весь экран');
   const bHelp = mk('?', '?', 'Все клавиши', () => toggleOv('help'), '.pz__b--sq');
-  const bRead = h('a.pz__b', { href: '#/read/' + lec.id, title: 'Открыть читалку (Esc)' }, 'Открыть читалку');
+  const bRead = h('a.pz__b', { href: '#/read/' + lec.id, title: 'Открыть читалку (Esc)' }, 'Читалка');
   const bExit = mk('', 'Esc', 'Выйти', () => { location.hash = '#/read/' + lec.id; }, '.pz__b--sq'); bExit.innerHTML = ICON_X; bExit.setAttribute('aria-label', 'Выйти из презентации');
   const bClean = mk('', 'F', 'Вернуть панель', () => toggleFs(), '.pz__clean'); bClean.innerHTML = ICON_X; bClean.setAttribute('aria-label', 'Выйти из режима «во весь экран»');
 
+  const ICON_MENU = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+  const bMenu = mk('', '', 'Панель инструментов', () => toggleTools(), '.pz__menu'); bMenu.innerHTML = ICON_MENU + '<span>Панель</span>'; bMenu.setAttribute('aria-controls', 'pz-tools'); bMenu.setAttribute('aria-expanded', 'false');
   const title = h('div.pz__title', h('b.mono', lec.id), h('span', lec.short || lec.title));
-  const bar = h('header.pz__bar', title, h('div.pz__tools', bMap, bModel, bVote, bTimer, bTerms, h('span.pz__sep'), bMinus, lvl, bPlus, bMode, bTheme, bFs, bHelp, h('span.pz__sep'), bRead, bExit));
+  const tools = h('div.pz__tools', { id: 'pz-tools', role: 'toolbar', 'aria-label': 'Инструменты презентации' }, bMap, bModel, bVote, bTimer, bTerms, h('span.pz__sep'), bMinus, lvl, bPlus, bMode, bTheme, bFs, bHelp, h('span.pz__sep'), bRead);
+  const bar = h('header.pz__bar', title, bMenu, tools, bExit);
+  function toggleTools(force) { const on = force != null ? force : !root.classList.contains('tools-open'); root.classList.toggle('tools-open', on); bMenu.setAttribute('aria-expanded', String(on)); }
 
   /* ── нижняя панель ── */
   const cnt = h('span.pz__cnt.mono');
@@ -356,6 +360,7 @@ export function mount(el, ctx, { ix, lec, steps, gl }) {
     if (key === 'Escape') {
       e.preventDefault();
       if (ov) closeOv();
+      else if (root.classList.contains('tools-open')) toggleTools(false);
       else if (panels.timer || panels.terms) { ['timer', 'terms'].forEach((n) => panels[n] && togglePanel(n)); relayout(); }
       else if (root.classList.contains('is-clean')) root.classList.remove('is-clean');
       else location.hash = '#/read/' + lec.id;
@@ -396,6 +401,7 @@ export function mount(el, ctx, { ix, lec, steps, gl }) {
   stage.addEventListener('click', (e) => {
     if (swiped) { swiped = false; return; }
     if (e.target.closest('a,button,input,summary')) return;
+    if (root.classList.contains('tools-open')) { toggleTools(false); return; }
     const sel = window.getSelection && String(window.getSelection()); if (sel) return;
     if (e.shiftKey) prev(); else next();
   });

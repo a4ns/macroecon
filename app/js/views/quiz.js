@@ -231,7 +231,7 @@ export function mountQuiz(root, ctx, { ix, data, topic, bk }) {
       else el.classList.add('is-dim');
     });
     S.res.push({ q, sel: [...sel], ok });
-    if (!S.practice && bk) { const Q = findQ(bk, q); if (Q) qa.record({ Q, ok, mode: MODE_NOW, ms: Date.now() - (S.qt || Date.now()), sel: [...sel] }); }
+    if (!S.practice && bk) { const Q = findQ(bk, q); if (Q) qa.record({ Q, ok, mode: MODE_NOW, ms: Date.now() - (S.qt || Date.now()), sel: [...sel].map((k) => (q.a[k] && q.a[k].i != null ? q.a[k].i : k)) }); }
     card.classList.add(ok ? 'is-right' : 'is-wrong');
     if (bCheck) bCheck.hidden = true;
     const right = q.a.filter((o) => o.ok).map((o) => (q.type === 'tf' ? tfLabel(o.t) : o.t));

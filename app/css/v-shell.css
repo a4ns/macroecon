@@ -109,3 +109,9 @@
 
 /* роутер переводит фокус на <main> после перехода — рамку вокруг всей страницы не рисуем */
 #main:focus, #main:focus-visible { outline: none; }
+
+/* главная на телефоне: обложка не прячется под нижней панелью */
+@media (max-width: 900px) {
+  .hero__intro { padding-bottom: calc(clamp(2.2rem, 7vh, 5rem) + 4.6rem + env(safe-area-inset-bottom, 0px)); }
+  .hero__rail, .hero__cue { bottom: calc(clamp(1.4rem, 5vh, 3rem) + 4.6rem + env(safe-area-inset-bottom, 0px)); }
+}

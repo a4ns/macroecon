@@ -12,7 +12,12 @@ import { topicCard, labCard } from '../ui/cards.js';
 import { STORY, TOPICS, icon, rub } from '../data/topics.js';
 import { getTheme } from '../core/theme.js';
 
-export const load = () => index();
+import { S } from '../core/state.js';
+import * as plan from '../core/plan.js';
+import { actionLabel, miniMap } from './today.js';
+
+let CTX = null;                                    // контекст данных оболочки (для кнопки героя и миникарты)
+export function load() { CTX = plan.ctx().catch(() => null); return index(); }
 
 const P0 = .085, PEND = .94;           // scroll fractions where the scene tour starts / ends
 
@@ -160,6 +165,27 @@ export function mount(el, ctx, ix) {
     const chip = h('a.resume', { href: last.route }, h('span.resume__dot'), h('span', h('small', 'Продолжить'), h('b', last.title || 'Последняя лекция')), h('svg', { viewBox: '0 0 24 24', html: '<path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' }));
     $('.hero__side', el).append(chip);
   }
+
+  /* ── состояние оболочки: кнопка героя по прогрессу и миникарта в «Продолжить» ── */
+  const myCtx = CTX;
+  let alive = true; offs.push(() => { alive = false; });
+  myCtx && myCtx.then((c) => {
+    if (!c || !alive) return;
+    let T; try { T = plan.today(c); } catch (e) { return; }
+    const setBtn = (b, label, href) => { if (!b) return; b.setAttribute('href', href); if (b.firstChild && b.firstChild.nodeType === 3) b.firstChild.nodeValue = label + ' '; };
+    const a = T.cards[0];
+    const [label, href] = T.first ? ['Начать курс', '#/start'] : a ? ['Сегодня: ' + actionLabel(a), a.href] : ['Открыть «Сегодня»', '#/today'];
+    setBtn($('.hero__cta .btn--primary', el), label, href);
+    setBtn($('.cta__row .btn--primary', el), label, href);
+    if (S.data.role === 'teacher') { const lab = $('.hero__cta .btn:not(.btn--primary)', el); if (lab) { lab.setAttribute('href', '#/teach'); lab.textContent = 'Преподавателю'; } }
+    if (!T.first) {
+      const side = $('.hero__side', el); if (!side) return;
+      const wrap = h('div.resume-wrap');
+      const chip = $('.resume', side); if (chip) wrap.append(chip);
+      wrap.append(h('div.resume-map', h('div.resume-map__h', h('span', 'Карта курса'), h('a', { href: '#/course' }, 'Открыть')), miniMap(c, { cur: T.topic })));
+      side.append(wrap);
+    }
+  });
 
   /* ── atlas & lab rails ───────────────────────────────────── */
   const grid = $('#atlas-grid', el);

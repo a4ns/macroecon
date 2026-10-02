@@ -131,6 +131,28 @@ function step(kind, html, extra) {
   return Object.assign({ kind, html, words: text ? text.split(' ').length : 0, firstWords: text.split(' ').slice(0, 6).join(' '), text }, extra);
 }
 
+/** Длинная формула с несколькими знаками «=» на верхнем уровне: переносим строку перед каждым «=», кроме первого
+ *  (каждая строка — свой <math>, содержимое то же). Так формула не мельчает до нечитаемого размера. */
+const EQ_LONG = 45;
+function splitEq(html) {
+  if (textOf(html).replace(/\s+/g, '').length < EQ_LONG) return html;
+  const m = /^([\s\S]*?)(<math[^>]*>)<mrow>([\s\S]*)<\/mrow><\/math>([\s\S]*)$/.exec(html);
+  if (!m || /<math/.test(m[3])) return html;
+  const inner = m[3], toks = tokenize(inner), cuts = [];
+  let depth = 0, pos = 0;
+  for (let i = 0; i < toks.length; i++) {
+    const k = toks[i];
+    if (depth === 0 && k.t === 's' && k.name === 'mo' && toks[i + 1] && toks[i + 1].t === 'x' && toks[i + 1].s.trim() === '=' && toks[i + 2] && toks[i + 2].t === 'e') cuts.push(pos);
+    if (k.t === 's') depth++; else if (k.t === 'e') depth--;
+    pos += k.s.length;
+  }
+  if (cuts.length < 2) return html;
+  const parts = []; let from = 0;
+  for (const c of cuts.slice(1)) { parts.push(inner.slice(from, c)); from = c; }
+  parts.push(inner.slice(from));
+  return m[1] + parts.map((pt) => m[2] + '<mrow>' + pt + '</mrow></math>').join('') + m[4];
+}
+
 /** @param {string} html — содержимое app/data/lec/<id>.html
  *  @returns {Array<{kind:'p'|'def'|'fig'|'eq'|'list', html:string, words:number, firstWords:string, text:string, cont?:boolean}>} */
 export function chunkLecture(html) {
@@ -140,7 +162,7 @@ export function chunkLecture(html) {
     const cl = classOf(b.open), name = b.name;
     if (name === 'figure' || name === 'img') { steps.push(step('fig', b.html)); continue; }
     if (name === 'math' || cl.includes('eq')) {
-      steps.push(step('eq', name === 'math' ? '<div class="eq">' + b.html + '</div>' : b.html)); continue;
+      steps.push(step('eq', splitEq(name === 'math' ? '<div class="eq">' + b.html + '</div>' : b.html))); continue;
     }
     if (name === 'p' || name === '#text' || name === 'div' || name === 'ul' || name === 'ol') {
       let kind = 'p', openTag = '<p>', inner, wrapOpen = '', wrapClose = '';

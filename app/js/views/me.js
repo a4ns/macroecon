@@ -101,8 +101,8 @@ export function mount(el, ctx, d) {
   /* (5) калибровка */
   const cal = calibration(log), nConf = log.filter((r) => r[5] === 2 && [0, 1, 2, 3].includes(r[4])).length;
   const calSec = cal == null ? null : h('section.me__sec.rv', h('div.me__sh', h('h2.eyebrow', 'Калибровка'), how([`Среди ${nConf} ответов, где вы выбрали «Уверен», верными были ${pct(cal)}. Считается от 20 таких ответов.`, 'Если процент заметно ниже ста, уверенность стоит проверять: именно такие ошибки («Опасные заблуждения») полезнее всего разбирать.'])),
-    h('p.me__cal', nb(`Когда вы пишете «Уверен», вы правы в `), h('b.num', pct(cal)), nb(' случаев.')),
-    cal < .8 ? h('a.btn.btn--sm', { href: '#/me/errors' }, 'Разобрать уверенные ошибки') : h('p.muted', 'Ваша уверенность в целом оправдана.'));
+    h('p.me__cal', nb(`Когда вы пишете «Уверен», вы правы в `), h('b.num', pct(cal)), NB + 'случаев.'),
+    cal < .8 ? h('a.btn.btn--sm.me__bt', { href: '#/me/errors' }, 'Разобрать уверенные ошибки') : h('p.muted', 'Ваша уверенность в целом оправдана.'));
 
   /* (6) активность по неделям */
   const mon = new Date(); mon.setHours(0, 0, 0, 0); mon.setDate(mon.getDate() - ((mon.getDay() + 6) % 7));
@@ -120,7 +120,7 @@ export function mount(el, ctx, d) {
   Object.keys(cards).forEach((k) => { if (!isTerm(k) && !known.has(k)) return; const d = cards[k][1]; if (d <= today) load14[0]++; else if (d - today < 14) load14[d - today]++; });
   const sum14 = load14.reduce((a, b) => a + b, 0), peak = Math.max(...load14);
   const loadSec = h('section.me__sec.rv', h('div.me__sh', h('h2.eyebrow', 'Нагрузка повторений · 14 дней'), how(['Сколько карточек придёт на каждый учебный день, если ничего не менять. В «сегодня» входят и просроченные.', 'Дни начинаются в 04:00. Если накопилось много, повторение само раскидывает остаток на ближайшие дни.'])),
-    sum14 ? h('div', columns(load14.map((v, i) => { const dd = dayToDate(today + i); return { v, l: i === 0 ? 'сегодня' : String(dd.getDate()), m: i === 0 || dd.getDate() === 1 ? dd.toLocaleDateString('ru-RU', { month: 'short' }).replace('.', '') : '', t: `${i === 0 ? 'Сегодня' : fd(dd)}: ${v} ${plural(v, ['карточка', 'карточки', 'карточек'])}`, hi: i === 0 }; }), 'карточек'),
+    sum14 ? h('div', columns(load14.map((v, i) => { const dd = dayToDate(today + i); return { v, l: String(dd.getDate()), m: i === 0 ? 'сегодня' : dd.getDate() === 1 ? dd.toLocaleDateString('ru-RU', { month: 'short' }).replace('.', '') : '', t: `${i === 0 ? 'Сегодня' : fd(dd)}: ${v} ${plural(v, ['карточка', 'карточки', 'карточек'])}`, hi: i === 0 }; }), 'карточек'),
       h('p.me__ln', nb(`Всего на ближайшие 14 дней — ${sum14}, пик — ${peak} за день.`), load14[0] ? h('a.btn.btn--sm', { href: '#/review' }, `Повторить сегодняшние (${Math.min(load14[0], S.data.set.revPerDay)})`) : null))
       : h('p.muted', 'Карточки появятся после первых ответов на вопросы.'));
 

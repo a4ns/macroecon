@@ -26,6 +26,7 @@ const ymd = (t) => iso(t).replace(/-/g, '');
 const when = (t) => new Date(t).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
 
 export const load = () => loadCSS('app/css/v-settings.css');
+let FLASH = null;                                  // сообщение, переживающее пересборку страницы после загрузки копии
 
 export function mount(el) {
   const offs = [];
@@ -143,7 +144,7 @@ export function mount(el) {
   /* ── резервная копия ── */
   const bkMsg = h('p.stg-msg', { role: 'status', 'aria-live': 'polite' });
   const lastBk = h('p.stg-last');
-  const paintLast = () => { lastBk.textContent = S.data.seen.backup ? 'Последняя копия скачана ' + when(S.data.seen.backup) + '.' : 'Копию ещё не скачивали.'; };
+  const paintLast = () => { lastBk.textContent = S.data.seen.backup ? 'Последняя копия скачана ' + when(S.data.seen.backup) : 'Копию ещё не скачивали.'; };
   paintLast();
   const download = () => {
     try {
@@ -217,7 +218,8 @@ export function mount(el) {
     secs = enhance(el);
   }
   // после загрузки копии значения в полях устарели: пересобираем страницу
-  const rerender = () => { cleanup && cleanup(); clearTimeout(pt); el.replaceChildren(); const r = mount(el); inst.destroy = r.destroy; };
+  const rerender = () => { FLASH = [bkMsg.className, bkMsg.textContent]; cleanup && cleanup(); clearTimeout(pt); el.replaceChildren(); const r = mount(el); inst.destroy = r.destroy; };
+  if (FLASH) { bkMsg.className = FLASH[0]; bkMsg.textContent = FLASH[1]; FLASH = null; }
   let cleanup = null; const inst = {};
   build(); cleanup = secs;
   Object.assign(inst, { title: 'Настройки', destroy() { clearTimeout(pt); clearTimeout(fadeT); if (nameI.value.trim() !== (S.data.prof.name || '') || grpI.value.trim() !== (S.data.prof.grp || '')) { S.data.prof.name = nameI.value.trim(); S.data.prof.grp = grpI.value.trim(); S.save(); } cleanup && cleanup(); offs.forEach((f) => f()); } });
