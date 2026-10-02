@@ -1,98 +1,59 @@
 /* ─────────────────────────────────────────────────────────────
-   Home — a scroll-driven story over a WebGL particle hero
+   Home — сдержанная титульная страница учебника
    ───────────────────────────────────────────────────────────── */
-import { h, $, $$, clamp, lerp, smooth, smoother, bus, fmt, plural, reduced, isTouch, toast } from '../core/dom.js';
+import { h, $, fmt, bus } from '../core/dom.js';
 import { index } from '../core/data.js';
 import { store } from '../core/store.js';
-import { onScroll, enhance } from '../core/motion.js';
-import { createHero } from '../gl/hero.js';
+import { enhance } from '../core/motion.js';
 import { createChart } from '../ui/plot.js';
-import { slider, stat, presets, figure, legend, symHTML } from '../ui/controls.js';
+import { slider, stat, presets, figure } from '../ui/controls.js';
 import { topicCard, labCard } from '../ui/cards.js';
-import { STORY, TOPICS, icon, rub } from '../data/topics.js';
-import { getTheme } from '../core/theme.js';
 
 import { S } from '../core/state.js';
 import * as plan from '../core/plan.js';
 import { actionLabel, miniMap } from './today.js';
 
-let CTX = null;                                    // контекст данных оболочки (для кнопки героя и миникарты)
+let CTX = null;                                    // контекст данных оболочки (для кнопки и миникарты)
 export function load() { CTX = plan.ctx().catch(() => null); return index(); }
 
-const P0 = .085, PEND = .94;           // scroll fractions where the scene tour starts / ends
+const ARR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
 export function mount(el, ctx, ix) {
   const offs = [];
   const nLect = ix.lectures.length, nTopics = ix.topics.length, nLabs = ix.labList.length;
   const nQ = 510;
+  const minutes = ix.topics.reduce((a, t) => a + t.lectures.reduce((b, l) => b + l.min, 0), 0);
 
   el.innerHTML = `
-  <section class="hero" id="hero" aria-label="Обложка">
-    <div class="hero__pin">
-      <canvas class="hero__cv" aria-hidden="true"></canvas>
-      <div class="hero__vig" aria-hidden="true"></div>
-
-      <div class="hero__intro">
-        <p class="eyebrow eyebrow--dot hero__eye">Интерактивный учебник · СКГУ им. М. Козыбаева</p>
-        <h1 class="display hero__title" aria-label="Макроэкономика">
-          <span class="split-line" style="--d:.1s"><span>Макро</span></span>
-          <span class="split-line" style="--d:.22s"><span class="outline">экономика</span></span>
-        </h1>
-        <div class="hero__side">
-          <p class="lede hero__lede">Кругооборот, ВВП, рост, цикл, IS–LM — <em>живыми моделями</em>, а не формулами на бумаге.</p>
-          <div class="hero__cta">
-            <a class="btn btn--primary" href="#/theory" data-magnetic="0.25">Начать читать <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-            <a class="btn" href="#/lab" data-magnetic="0.25">В лабораторию</a>
-          </div>
-        </div>
+  <section class="cover wrap">
+    <div class="cover__main">
+      <p class="eyebrow">Учебное пособие · Северо-Казахстанский университет им. М. Козыбаева</p>
+      <h1 class="cover__title">Макроэкономика</h1>
+      <p class="cover__lede">Электронный учебник: лекции, интерактивные модели, задачи с проверкой и тесты. Курс построен как последовательность из четырнадцати тем — от предмета науки до внешней торговли.</p>
+      <div class="cover__cta">
+        <a class="btn btn--primary btn--lg" href="#/start">Начать курс ${ARR}</a>
+        <a class="btn btn--lg" href="#/course">Содержание</a>
       </div>
-
-      <div class="hero__story" aria-live="off">
-        ${STORY.map((s, i) => `
-        <article class="story" data-i="${i}" style="--c:var(--${s.c})">
-          <div class="story__n"><b>${rub(i + 1)}</b><i></i><span>${rub(STORY.length)}</span></div>
-          <p class="eyebrow story__k">${s.k}</p>
-          <h2 class="h1 story__h">${s.h}</h2>
-          <p class="story__p">${s.p}</p>
-          <a class="story__a" href="${s.to}">Перейти к теме <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </article>`).join('')}
-      </div>
-
-      <ol class="hero__rail" aria-label="Сцены">
-        ${STORY.map((s, i) => `<li><button type="button" data-go="${i}" style="--c:var(--${s.c})" aria-label="${s.k}"><i></i><span>${s.k}</span></button></li>`).join('')}
-      </ol>
-
-      <div class="hero__hud mono" aria-hidden="true"><span data-hud="scene">СЦЕНА 01 / 07</span><span data-hud="n"></span><span data-hud="fps"></span></div>
-      <div class="hero__cue" aria-hidden="true"><span>листайте</span><i></i></div>
     </div>
-  </section>
-
-  <section class="marq" aria-hidden="true">
-    <div class="marquee" data-speed=".5"><div class="marquee__track">${marqueeRow(['ВВП', 'Инфляция', 'Безработица', 'Мультипликатор', 'Ставка процента', 'Платёжный баланс', 'Совокупный спрос', 'Модель Солоу'], false)}${marqueeRow(['ВВП', 'Инфляция', 'Безработица', 'Мультипликатор', 'Ставка процента', 'Платёжный баланс', 'Совокупный спрос', 'Модель Солоу'], false)}</div></div>
-    <div class="marquee" data-dir="r" data-speed=".4"><div class="marquee__track">${marqueeRow(['Кругооборот', 'Дефлятор', 'Денежная масса', 'Бюджетный дефицит', 'Валютный курс', 'Кривая IS', 'Кривая LM', 'Экономический цикл'], true)}${marqueeRow(['Кругооборот', 'Дефлятор', 'Денежная масса', 'Бюджетный дефицит', 'Валютный курс', 'Кривая IS', 'Кривая LM', 'Экономический цикл'], true)}</div></div>
-  </section>
-
-  <section class="section stats wrap">
-    <p class="eyebrow rv">Внутри</p>
-    <div class="stats__grid">
-      ${[[nTopics, 'тем', 'от предмета науки до торговой политики'], [nLect, 'лекций', 'с формулами, схемами и терминами на лету'], [nLabs, 'живых моделей', 'каждая — с ползунками и графиками'], [nQ, 'тестовых вопросов', 'выбирайте, проверяйте, повторяйте']].map(([n, l, s], i) => `
-      <div class="stat rv" style="--d:${i * .08}s"><b class="stat__n display" data-count="${n}" data-dur="1900">0</b><span class="stat__l">${l}</span><span class="stat__s">${s}</span></div>`).join('')}
-    </div>
-  </section>
-
-  <section class="section manifesto">
-    <div class="wrap wrap--narrow">
-      <p class="manifesto__t h1" data-lit>Макроэкономика — это не формулы на бумаге. Это <em>потоки</em>, которые можно увидеть, <em>рычаги</em>, которые можно потянуть, и <em>кривые</em>, которые движутся под пальцами.</p>
-    </div>
+    <aside class="cover__side" id="cover-side" aria-label="Состав курса">
+      <dl class="facts">
+        <div><dt>Тем</dt><dd>${nTopics}</dd></div>
+        <div><dt>Лекций</dt><dd>${nLect}</dd></div>
+        <div><dt>Интерактивных моделей</dt><dd>${nLabs}</dd></div>
+        <div><dt>Задач с проверкой</dt><dd>41</dd></div>
+        <div><dt>Тестовых вопросов</dt><dd>${nQ}</dd></div>
+        <div><dt>Терминов в глоссарии</dt><dd>83</dd></div>
+      </dl>
+    </aside>
   </section>
 
   <section class="section atlas wrap" id="atlas">
     <header class="sec-head">
       <div>
-        <p class="eyebrow rv">Атлас тем</p>
-        <h2 class="h1 rv" style="--d:.06s">Четырнадцать тем — <em>один маршрут</em></h2>
+        <p class="eyebrow">Содержание</p>
+        <h2 class="h1">Темы курса</h2>
       </div>
-      <p class="sec-head__side rv" style="--d:.12s" id="atlas-prog"></p>
+      <p class="sec-head__side" id="atlas-prog"></p>
     </header>
     <div class="atlas__grid" id="atlas-grid"></div>
   </section>
@@ -101,12 +62,12 @@ export function mount(el, ctx, ix) {
     <div class="wrap">
       <div class="demo__grid">
         <div class="demo__text">
-          <p class="eyebrow rv">Живая модель</p>
-          <h2 class="h1 rv" style="--d:.06s">Потяните рычаг — <em>экономика ответит</em></h2>
-          <p class="lede rv" style="--d:.12s">Перед вами кейнсианский крест: расходы фирм, семей и государства сходятся с доходом в одной точке. Сдвиньте автономные расходы — и увидите мультипликатор в действии.</p>
-          <div class="demo__ctl rv" id="demo-ctl" style="--d:.18s"></div>
+          <p class="eyebrow">Пример модели</p>
+          <h2 class="h1">Кейнсианский крест</h2>
+          <p class="lede">Совокупные расходы складываются из автономной части и доли дохода, которая тратится. Равновесие достигается там, где расходы равны доходу. Измените параметры и проследите за сдвигом равновесия и мультипликатором.</p>
+          <div class="demo__ctl" id="demo-ctl"></div>
         </div>
-        <div class="demo__viz rv" style="--d:.1s" id="demo-viz"></div>
+        <div class="demo__viz" id="demo-viz"></div>
       </div>
     </div>
   </section>
@@ -115,58 +76,53 @@ export function mount(el, ctx, ix) {
     <div class="wrap">
       <header class="sec-head">
         <div>
-          <p class="eyebrow rv">Лаборатория</p>
-          <h2 class="h1 rv" style="--d:.06s">Пятнадцать моделей, <em>которые можно трогать</em></h2>
+          <p class="eyebrow">Лаборатория</p>
+          <h2 class="h1">Интерактивные модели</h2>
         </div>
-        <a class="btn rv" style="--d:.12s" href="#/lab" data-magnetic="0.25">Все модели <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn" href="#/lab">Все модели ${ARR}</a>
       </header>
     </div>
     <div class="lab__rail" id="lab-rail" tabindex="0" aria-label="Список моделей — прокрутите горизонтально"></div>
   </section>
 
   <section class="section trio wrap">
-    <p class="eyebrow rv">Как это работает</p>
+    <p class="eyebrow">Как устроена работа</p>
     <div class="trio__grid">
-      <article class="trio__c rv">
-        <b class="trio__n display">01</b>
-        <h3 class="h3">Читайте</h3>
-        <p>Лекции набраны заново: формулы — настоящие, схемы — перерисованы. Любой термин раскрывается подсказкой прямо в тексте.</p>
-        <div class="mock mock--read"><p>Совокупный спрос определяется как сумма расходов на <span class="gloss">потребление</span>, инвестиции и государственные закупки…</p><div class="mock__pop"><i>термин</i><b>Потребление</b><span>Расходы домохозяйств на товары и услуги текущего периода.</span></div></div>
+      <article class="trio__c">
+        <b class="trio__n">1</b>
+        <h3 class="h3">Чтение</h3>
+        <p>Лекции с формулами и схемами. Каждый термин раскрывается подсказкой прямо в тексте.</p>
       </article>
-      <article class="trio__c rv" style="--d:.1s">
-        <b class="trio__n display">02</b>
-        <h3 class="h3">Считайте</h3>
-        <p>Задачи проверяются по каждому полю отдельно: видно, где ошибка, есть подсказка и подробное решение.</p>
-        <div class="mock mock--task"><p>Располагаемый доход</p><div><span class="ans is-ok">415</span><em>✓</em></div><p>Амортизационный фонд</p><div><span class="ans is-bad">55</span><em>✗</em></div></div>
+      <article class="trio__c">
+        <b class="trio__n">2</b>
+        <h3 class="h3">Практика</h3>
+        <p>Задачи проверяются по каждому полю отдельно: видно, где допущена ошибка, есть подсказка и подробное решение.</p>
       </article>
-      <article class="trio__c rv" style="--d:.2s">
-        <b class="trio__n display">03</b>
-        <h3 class="h3">Проверяйте</h3>
-        <p>Тесты по каждой теме собираются из случайных вопросов — можно проходить снова и снова.</p>
-        <div class="mock mock--quiz"><p>К инструментам макроэкономики не относится:</p><ul><li>Денежная политика</li><li class="is-on">Кадровая политика</li><li>Кредитная политика</li></ul></div>
+      <article class="trio__c">
+        <b class="trio__n">3</b>
+        <h3 class="h3">Контроль</h3>
+        <p>Тесты по темам, повторение по интервалам и итоговый экзамен. Ошибки сохраняются для работы над ними.</p>
       </article>
     </div>
   </section>
 
   <section class="section cta">
     <div class="wrap">
-      <p class="eyebrow rv">Поехали</p>
-      <h2 class="cta__t display rv">Начнём?</h2>
-      <div class="cta__row rv" style="--d:.1s">
-        <a class="btn btn--primary btn--lg" href="#/read/1.1" data-magnetic="0.3">Открыть первую лекцию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <button class="btn btn--lg" type="button" id="cta-search" data-magnetic="0.3">Найти что-нибудь <kbd class="kbd">⌘K</kbd></button>
+      <div class="cta__row">
+        <a class="btn btn--primary btn--lg" href="#/read/1.1">Открыть первую лекцию ${ARR}</a>
+        <button class="btn btn--lg" type="button" id="cta-search">Поиск по учебнику <kbd class="kbd">⌘K</kbd></button>
       </div>
     </div>
   </section>`;
 
-  /* ── continue where you stopped ──────────────────────────── */
+  /* ── продолжить с того места, где остановились ───────────── */
+  const side = $('#cover-side', el);
   const last = store.get('last');
   if (last && last.route) {
-    const chip = h('a.resume', { href: last.route }, h('span.resume__dot'), h('span', h('small', 'Продолжить'), h('b', last.title || 'Последняя лекция')), h('svg', { viewBox: '0 0 24 24', html: '<path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' }));
-    $('.hero__side', el).append(chip);
+    side.append(h('a.resume', { href: last.route }, h('span.resume__dot'), h('span', h('small', 'Продолжить'), h('b', last.title || 'Последняя лекция')), h('svg', { viewBox: '0 0 24 24', html: '<path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' })));
   }
 
-  /* ── состояние оболочки: кнопка героя по прогрессу и миникарта в «Продолжить» ── */
+  /* ── состояние оболочки: кнопка по прогрессу и карта курса ── */
   const myCtx = CTX;
   let alive = true; offs.push(() => { alive = false; });
   myCtx && myCtx.then((c) => {
@@ -175,27 +131,18 @@ export function mount(el, ctx, ix) {
     const setBtn = (b, label, href) => { if (!b) return; b.setAttribute('href', href); if (b.firstChild && b.firstChild.nodeType === 3) b.firstChild.nodeValue = label + ' '; };
     const a = T.cards[0];
     const [label, href] = T.first ? ['Начать курс', '#/start'] : a ? ['Сегодня: ' + actionLabel(a), a.href] : ['Открыть «Сегодня»', '#/today'];
-    setBtn($('.hero__cta .btn--primary', el), label, href);
-    setBtn($('.cta__row .btn--primary', el), label, href);
-    if (S.data.role === 'teacher') { const lab = $('.hero__cta .btn:not(.btn--primary)', el); if (lab) { lab.setAttribute('href', '#/teach'); lab.textContent = 'Преподавателю'; } }
+    setBtn($('.cover__cta .btn--primary', el), label, href);
+    if (S.data.role === 'teacher') { const b = $('.cover__cta .btn:not(.btn--primary)', el); if (b) { b.setAttribute('href', '#/teach'); b.textContent = 'Преподавателю'; } }
     if (!T.first) {
-      const side = $('.hero__side', el); if (!side) return;
-      const wrap = h('div.resume-wrap');
-      const chip = $('.resume', side); if (chip) wrap.append(chip);
-      wrap.append(h('div.resume-map', h('div.resume-map__h', h('span', 'Карта курса'), h('a', { href: '#/course' }, 'Открыть')), miniMap(c, { cur: T.topic })));
-      side.append(wrap);
+      side.append(h('div.resume-map', h('div.resume-map__h', h('span', 'Карта курса'), h('a', { href: '#/course' }, 'Открыть')), miniMap(c, { cur: T.topic })));
     }
   });
 
-  /* ── atlas & lab rails ───────────────────────────────────── */
+  /* ── темы и модели ───────────────────────────────────────── */
   const grid = $('#atlas-grid', el);
   ix.topics.forEach((tp) => grid.append(topicCard(tp)));
-  grid.append(h('a.card.atlas__end', { href: '#/lab', 'data-spot': '' },
-    h('p.eyebrow', 'А дальше'), h('h3.h2', { html: 'Закрепите теорию <em>руками</em>' }),
-    h('p', 'Перейдите в лабораторию — для каждой темы там есть модель, задачи и тест.'),
-    h('span.btn.btn--sm', 'В лабораторию', h('svg', { viewBox: '0 0 24 24', html: '<path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' }))));
   const readN = store.readCount();
-  $('#atlas-prog', el).innerHTML = readN ? `Прочитано <b class="num">${readN}</b> из ${nLect} лекций` : `${nLect} лекций, ${ix.topics.reduce((a, t) => a + t.lectures.reduce((b, l) => b + l.min, 0), 0)} минут чтения — от первой до последней`;
+  $('#atlas-prog', el).innerHTML = readN ? `Прочитано <b class="num">${readN}</b> из ${nLect} лекций` : `${nLect} лекций, около ${Math.round(minutes / 60)} ч чтения`;
   const rail = $('#lab-rail', el);
   ix.labList.forEach((lab, i) => rail.append(labCard(lab, i)));
   rail.append(h('div.lab__pad', { 'aria-hidden': 'true' }));
@@ -204,114 +151,15 @@ export function mount(el, ctx, ix) {
   $('#cta-search', el).addEventListener('click', () => $('#open-palette').click());
   const kb = $('#cta-search .kbd', el); if (kb) kb.textContent = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? '⌘K' : 'Ctrl K';
 
-  /* ── hero ────────────────────────────────────────────────── */
-  const heroEl = $('#hero', el), pin = $('.hero__pin', el), cv = $('.hero__cv', el);
-  const stories = $$('.story', el), rails = $$('.hero__rail button', el);
-  const intro = $('.hero__intro', el), cue = $('.hero__cue', el);
-  const hud = { scene: $('[data-hud="scene"]', el), n: $('[data-hud="n"]', el), fps: $('[data-hud="fps"]', el) };
-  let hero = null, heroOK = false, sceneNow = 0, visible = true;
-  try {
-    hero = createHero(cv, { theme: getTheme() });
-    // createHero may swap the canvas for a fresh one when WebGL is unavailable
-    heroOK = true;
-    window.__hero = hero;
-    hero.resize(); hero.setLayoutMix(0); hero.snap(); hero.start();
-    hud.n.textContent = hero.count ? fmt(hero.count) + ' частиц' : '';
-  } catch (e) { console.warn('hero failed', e); }
-  requestAnimationFrame(() => requestAnimationFrame(() => { pin.classList.add('is-ready'); intro.classList.add('in'); }));
-
-  const onTheme = (t) => hero && hero.setTheme(t);
-  offs.push(bus.on('theme', onTheme));
-  const onResize = () => { hero && hero.resize(); update(true); };
-  window.addEventListener('resize', onResize); offs.push(() => window.removeEventListener('resize', onResize));
-
-  // pointer → particles
-  const onMove = (e) => {
-    if (!hero || e.pointerType === 'touch') return;
-    const r = pin.getBoundingClientRect();
-    hero.setPointer(((e.clientX - r.left) / r.width) * 2 - 1, 1 - ((e.clientY - r.top) / r.height) * 2, true);
-  };
-  const onLeave = () => hero && hero.setPointer(0, 0, false);
-  const onDown = (e) => {
-    if (!hero || e.target.closest('a, button')) return;
-    const r = pin.getBoundingClientRect(); hero.shock(((e.clientX - r.left) / r.width) * 2 - 1, 1 - ((e.clientY - r.top) / r.height) * 2);
-  };
-  pin.addEventListener('pointermove', onMove); pin.addEventListener('pointerleave', onLeave); pin.addEventListener('pointerdown', onDown);
-
-  // pause when off-screen
-  const io = new IntersectionObserver(([en]) => { visible = en.isIntersecting; hero && hero.setVisible(visible); }, { threshold: 0 });
-  io.observe(heroEl); offs.push(() => io.disconnect());
-
-  const holdScene = (p) => {
-    const f = clamp((p - P0) / (PEND - P0)) * (STORY.length - 1);
-    const i = Math.min(STORY.length - 2, Math.floor(f)), u = f - i;
-    return i + smoother(clamp((u - .28) / .6));
-  };
-
-  let lastKey = '';
-  function update(force) {
-    const r = heroEl.getBoundingClientRect();
-    const L = Math.max(1, r.height - innerHeight);
-    const p = clamp(-r.top / L);
-    const s = holdScene(p);
-    sceneNow = s;
-    const introV = 1 - smooth((p - .012) / .06);
-    const mix = smoother(clamp((p - .012) / .09));
-    if (heroOK) { hero.setScene(s); hero.setLayoutMix(mix); }
-    const key = p.toFixed(4) + '|' + innerWidth;
-    if (key === lastKey && !force) return; lastKey = key;
-    intro.style.opacity = introV.toFixed(3);
-    intro.style.transform = `translate3d(0, ${(-(1 - introV) * 34).toFixed(1)}px, 0)`;
-    intro.style.filter = introV < .99 ? `blur(${((1 - introV) * 10).toFixed(1)}px)` : 'none';
-    intro.style.pointerEvents = introV < .3 ? 'none' : '';
-    cue.style.opacity = clamp(1 - p * 14).toFixed(3);
-    const fade = 1 - smooth((p - .96) / .04);
-    stories.forEach((st, i) => {
-      const d = Math.abs(s - i);
-      const v = clamp(1 - d / .46) * smooth((p - .072) / .05) * fade;
-      const dir = Math.sign(i - s);
-      st.style.opacity = v.toFixed(3);
-      st.style.transform = `translate3d(0, ${(dir * (1 - v) * 46).toFixed(1)}px, 0)`;
-      st.style.filter = v < .99 ? `blur(${((1 - v) * 8).toFixed(1)}px)` : 'none';
-      st.style.visibility = v < .01 ? 'hidden' : 'visible';
-      st.classList.toggle('is-on', v > .6);
-    });
-    const cur = Math.round(s);
-    rails.forEach((b, i) => { b.classList.toggle('is-on', i === cur); b.setAttribute('aria-current', i === cur ? 'true' : 'false'); });
-    $('.hero__rail', el).style.opacity = smooth((p - .05) / .06) * fade;
-    hud.scene.textContent = 'СЦЕНА ' + rub(cur + 1) + ' / ' + rub(STORY.length);
-    pin.style.setProperty('--sc', `var(--${STORY[cur].c})`);
-  }
-  update(true);
-  offs.push(onScroll(() => update()));
-
-  rails.forEach((b) => b.addEventListener('click', () => {
-    const i = +b.dataset.go; const r = heroEl.getBoundingClientRect();
-    const L = r.height - innerHeight; const p = P0 + (PEND - P0) * (i / (STORY.length - 1)) + .003;
-    window.scrollTo({ top: window.scrollY + r.top + p * L, behavior: reduced() ? 'auto' : 'smooth' });
-  }));
-  cue.addEventListener('click', () => window.scrollBy({ top: innerHeight * .9, behavior: 'smooth' }));
-
-  // fps read-out
-  let fr = 0, ft = performance.now(), fraf = 0;
-  const fpsLoop = (t) => { fr++; if (t - ft > 700) { if (visible) hud.fps.textContent = Math.round((fr * 1000) / (t - ft)) + ' fps'; fr = 0; ft = t; } fraf = requestAnimationFrame(fpsLoop); };
-  fraf = requestAnimationFrame(fpsLoop); offs.push(() => cancelAnimationFrame(fraf));
-
-  /* ── live Keynesian cross ────────────────────────────────── */
   offs.push(initDemo($('#demo-viz', el), $('#demo-ctl', el)));
-
   offs.push(enhance(el));
   return {
     title: '',
-    destroy() { offs.forEach((f) => { try { f && f(); } catch (e) {} }); hero && hero.destroy && hero.destroy(); },
+    destroy() { offs.forEach((f) => { try { f && f(); } catch (e) {} }); },
   };
 }
 
 /* ── helpers ──────────────────────────────────────────────────── */
-function marqueeRow(words, outline) {
-  return `<span class="marquee__set ${outline ? 'is-out' : ''}">${words.map((w) => `<span>${w}</span><i></i>`).join('')}</span>`;
-}
-
 function dragScroll(rail) {
   let down = false, sx = 0, sl = 0, moved = 0;
   rail.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') return; down = true; moved = 0; sx = e.clientX; sl = rail.scrollLeft; rail.classList.add('is-drag'); });

@@ -1,7 +1,7 @@
 /* «Макро» service worker — fresh-first, works offline after a visit.
    Scope: / (the classic build lives in /classic/ with its own worker). */
-const V = 'macro-m3';
-const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'app/css/tokens.css', 'app/css/base.css', 'app/css/ui.css', 'app/css/views.css', 'app/css/v-shell.css', 'app/js/main.js', 'app/data/toc.json', 'app/data/glossary.json'];
+const V = 'macro-f1';
+const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'app/css/tokens.css', 'app/css/base.css', 'app/css/ui.css', 'app/css/views.css', 'app/css/v-shell.css', 'app/css/formal.css', 'app/js/main.js', 'app/data/toc.json', 'app/data/glossary.json'];
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();

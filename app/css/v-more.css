@@ -123,7 +123,7 @@
 
 /* СРО / приложения */
 .sro__h, .apx__h { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: end; gap: clamp(.9rem, 2.4vw, 1.8rem); margin-bottom: clamp(1.1rem, 3vw, 1.8rem); }
-.sro__n, .apx__n { font-size: clamp(3.8rem, 8.6vw, 6.6rem); line-height: .78; color: transparent; -webkit-text-stroke: 1.4px var(--c); transition: color .6s var(--ease); }
+.sro__n, .apx__n { font-size: clamp(3.8rem, 8.6vw, 6.6rem); line-height: .78; color: color-mix(in oklab, var(--c) 60%, var(--bg)); -webkit-text-stroke: 0; transition: color .6s var(--ease); }
 .sro:hover .sro__n, .apx:hover .apx__n, .sro.is-done .sro__n { color: color-mix(in oklab, var(--c) 28%, transparent); }
 .sro.is-done .sro__n { color: var(--c); }
 .sro__t, .apx__t { display: grid; gap: .6rem; min-width: 0; }
@@ -207,7 +207,7 @@
 .author div span { display: block; margin-top: .3rem; font: 400 .88rem/1.45 var(--f-sans); color: var(--ink-3); text-wrap: pretty; }
 .struct { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .9rem; }
 .struct__c { --c: var(--accent); display: grid; gap: .4rem; align-content: start; min-height: 11rem; padding: 1.3rem 1.4rem 3.6rem; }
-.struct__n { font-size: 3rem; line-height: .8; color: transparent; -webkit-text-stroke: 1.2px var(--c); margin-bottom: .6rem; }
+.struct__n { font-size: 3rem; line-height: .8; color: color-mix(in oklab, var(--c) 60%, var(--bg)); -webkit-text-stroke: 0; margin-bottom: .6rem; }
 .struct__c b { font: 500 1.3rem/1.15 var(--f-serif); letter-spacing: -.012em; }
 .struct__c span:not(.struct__n) { font: 400 .88rem/1.4 var(--f-sans); color: var(--ink-3); }
 .struct__c i { position: absolute; right: 1.2rem; bottom: 1.1rem; display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; border: 1px solid var(--line-2); transition: background-color .3s, color .3s, transform .45s var(--ease); }

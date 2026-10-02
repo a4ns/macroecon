@@ -54,7 +54,7 @@
 .story { position: absolute; left: 0; top: 50%; translate: 0 -50%; width: 100%; will-change: transform, opacity, filter; }
 .story.is-on { pointer-events: auto; }
 .story__n { display: flex; align-items: center; gap: .9rem; font: 500 .8rem/1 var(--f-mono); color: var(--ink-3); letter-spacing: .1em; }
-.story__n b { font: 900 clamp(3.4rem, 6.4vw, 5.6rem)/.8 var(--f-display); color: transparent; -webkit-text-stroke: 1.4px var(--c); letter-spacing: .01em; }
+.story__n b { font: 500 clamp(3.4rem, 6.4vw, 5.6rem)/.8 var(--f-display); color: color-mix(in oklab, var(--c) 60%, var(--bg)); -webkit-text-stroke: 0; letter-spacing: .01em; }
 .story__n i { width: 2.6rem; height: 1px; background: var(--line-3); }
 .story__k { color: var(--c); margin: 1.6rem 0 .9rem; }
 .story__h { font-size: clamp(2.2rem, 4.3vw, 3.9rem); max-width: 12ch; }
@@ -96,9 +96,9 @@
 .marq { padding-block: clamp(1.6rem, 4vw, 3.4rem); overflow: hidden; border-block: 1px solid var(--line); background: var(--bg-2); display: grid; gap: .4rem; }
 .marquee { overflow: hidden; }
 .marquee__track { display: flex; width: max-content; will-change: transform; }
-.marquee__set { display: flex; align-items: center; gap: clamp(1.4rem, 3vw, 3rem); padding-right: clamp(1.4rem, 3vw, 3rem); font: 900 clamp(2.8rem, 8.5vw, 7.5rem)/1.04 var(--f-display); text-transform: uppercase; white-space: nowrap; }
+.marquee__set { display: flex; align-items: center; gap: clamp(1.4rem, 3vw, 3rem); padding-right: clamp(1.4rem, 3vw, 3rem); font: 500 clamp(2.8rem, 8.5vw, 7.5rem)/1.04 var(--f-display); white-space: nowrap; }
 .marquee__set i { width: .3em; height: .3em; border-radius: 50%; background: var(--accent); flex: none; }
-.marquee__set.is-out span { color: transparent; -webkit-text-stroke: 1.3px var(--ink-3); }
+.marquee__set.is-out span { color: color-mix(in oklab, var(--ink-3) 60%, var(--bg)); -webkit-text-stroke: 0; }
 .marquee__set.is-out i { background: transparent; border: 1.5px solid var(--ink-3); }
 
 /* ── stats ──────────────────────────────────────────────────── */
@@ -121,7 +121,7 @@
 .tcard { --c: var(--accent); grid-column: span 3; min-height: 22rem; padding: 1.4rem 1.4rem 1.3rem; display: flex; flex-direction: column; gap: 1rem; cursor: pointer; }
 .tcard::after { background: radial-gradient(480px circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklab, var(--c) 20%, transparent), transparent 62%); }
 .tcard:hover { transform: translateY(-5px); border-color: color-mix(in oklab, var(--c) 55%, transparent); }
-.tcard__n { font: 900 5.6rem/.8 var(--f-display); color: transparent; -webkit-text-stroke: 1.3px var(--line-3); letter-spacing: .01em; transition: color .5s, -webkit-text-stroke-color .5s; }
+.tcard__n { font: 500 5.6rem/.8 var(--f-display); color: var(--line-3); -webkit-text-stroke: 0; letter-spacing: .01em; transition: color .5s, -webkit-text-stroke-color .5s; }
 .tcard:hover .tcard__n { color: var(--c); -webkit-text-stroke-color: var(--c); }
 .tcard__ic { position: absolute; right: 1.3rem; top: 1.3rem; width: 3.4rem; height: 3.4rem; color: var(--c); }
 .tic { width: 100%; height: 100%; overflow: visible; }
@@ -200,7 +200,7 @@
 .trio__grid { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 2rem; border-top: 1px solid var(--line-2); }
 .trio__c { padding: 2rem 2rem 1rem 0; display: grid; gap: .8rem; align-content: start; }
 .trio__c + .trio__c { padding-left: 2rem; border-left: 1px solid var(--line); }
-.trio__n { font-size: 5.4rem; line-height: .8; color: transparent; -webkit-text-stroke: 1.3px var(--accent); }
+.trio__n { font-size: 5.4rem; line-height: .8; color: color-mix(in oklab, var(--accent) 60%, var(--bg)); -webkit-text-stroke: 0; }
 .trio__c p { color: var(--ink-2); max-width: 34ch; text-wrap: pretty; }
 .mock { margin-top: 1.2rem; padding: 1.1rem 1.2rem; border-radius: var(--r-m); background: var(--surface); border: 1px solid var(--line); font: 400 .92rem/1.5 var(--f-serif); position: relative; }
 .mock .gloss { border-bottom: 1.5px dotted var(--accent); color: var(--accent); }
@@ -227,7 +227,7 @@
 
 /* ── error ──────────────────────────────────────────────────── */
 .err { padding-top: calc(var(--top-h) + 6rem); padding-bottom: 6rem; min-height: 80dvh; display: grid; align-content: center; gap: 1.4rem; justify-items: start; }
-.err__t { font-size: clamp(8rem, 30vw, 24rem); line-height: .8; color: transparent; -webkit-text-stroke: 2px var(--ink); }
+.err__t { font-size: clamp(8rem, 30vw, 24rem); line-height: .8; color: color-mix(in oklab, var(--ink) 60%, var(--bg)); -webkit-text-stroke: 0; }
 .err__row { display: flex; gap: .8rem; flex-wrap: wrap; }
 
 /* ── simulator frame ────────────────────────────────────────── */

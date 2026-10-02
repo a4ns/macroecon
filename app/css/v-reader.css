@@ -6,8 +6,8 @@
 .tp__cta { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: .6rem; }
 .tp__head { display: grid; gap: 1rem; padding-bottom: 2.5rem; max-width: 62rem; position: relative; }
 .tp__hero { display: flex; align-items: center; gap: 1.5rem; }
-.tp__big { font: 900 clamp(5rem, 16vw, 11rem)/.8 var(--f-display); color: transparent; -webkit-text-stroke: 1.5px var(--c); letter-spacing: -.02em; }
-.tp__ic { width: clamp(4rem, 9vw, 6.5rem); aspect-ratio: 1; color: var(--c); filter: drop-shadow(0 0 28px color-mix(in oklab, var(--c) 45%, transparent)); }
+.tp__big { font: 500 clamp(5rem, 16vw, 11rem)/.8 var(--f-display); color: color-mix(in oklab, var(--c) 60%, var(--bg)); -webkit-text-stroke: 0; letter-spacing: -.02em; }
+.tp__ic { width: clamp(4rem, 9vw, 6.5rem); aspect-ratio: 1; color: var(--c); }
 .tp__ic svg { width: 100%; height: 100%; }
 .tp__title { font: 500 clamp(1.8rem, 4.4vw, 3.4rem)/1.08 var(--f-serif); font-variation-settings: "opsz" 60; text-wrap: balance; margin: 0; }
 .tp__list { display: grid; gap: .7rem; padding-bottom: 3rem; max-width: 62rem; }

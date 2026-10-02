@@ -118,7 +118,7 @@ export function whenVisible(el, fn, opts = { rootMargin: '0px 0px -8% 0px', thre
 const _css = new Map();
 export function loadCSS(href) {
   if (_css.has(href)) return _css.get(href);
-  const p = new Promise((res) => { const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = href; l.onload = l.onerror = () => res(); document.head.append(l); });
+  const p = new Promise((res) => { const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = href; l.onload = l.onerror = () => res(); const f = document.getElementById('formal'); if (f) f.before(l); else document.head.append(l); });
   _css.set(href, p); return p;
 }
 

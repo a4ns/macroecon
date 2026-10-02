@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="ru" data-theme="dark" class="no-js">
+<html lang="ru" data-theme="light" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Макро — интерактивный учебник макроэкономики</title>
 <meta name="description" content="Интерактивный учебник «Макроэкономика»: 38 лекций, 14 тем, 15 живых моделей, задачи с проверкой и тесты. СКГУ им. М. Козыбаева.">
-<meta name="theme-color" content="#07090d" id="meta-theme">
+<meta name="theme-color" content="#f7f6f2" id="meta-theme">
 <meta name="color-scheme" content="dark light">
 <meta property="og:title" content="Макро — интерактивный учебник макроэкономики">
 <meta property="og:description" content="Кругооборот, ВВП, рост, цикл, IS–LM, мультипликатор — живыми моделями, а не формулами на бумаге.">
@@ -13,7 +13,6 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="app/img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="app/img/apple-touch-icon.png">
-<link rel="preload" href="app/fonts/sofia-xc.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="app/fonts/literata.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="app/fonts/sofia.woff2" as="font" type="font/woff2" crossorigin>
 <script>
@@ -21,10 +20,10 @@
 (function () {
   var d = document.documentElement; d.classList.remove('no-js');
   var t = null; try { t = localStorage.getItem('mx:theme'); } catch (e) {}
-  if (t !== 'light' && t !== 'dark') t = (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+  if (t !== 'light' && t !== 'dark') t = 'light';
   d.dataset.theme = t;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduce');
-  var m = document.getElementById('meta-theme'); if (m) m.content = t === 'light' ? '#f2ece0' : '#07090d';
+  var m = document.getElementById('meta-theme'); if (m) m.content = t === 'light' ? '#f7f6f2' : '#0f1319';
 })();
 </script>
 <link rel="stylesheet" href="app/css/tokens.css">
@@ -32,6 +31,7 @@
 <link rel="stylesheet" href="app/css/ui.css">
 <link rel="stylesheet" href="app/css/views.css">
 <link rel="stylesheet" href="app/css/v-shell.css">
+<link id="formal" rel="stylesheet" href="app/css/formal.css">
 </head>
 <body>
 <a class="skip" href="#main">К содержимому</a>
@@ -107,8 +107,6 @@
 
 <div id="overlays"></div>
 <div id="toasts" role="status" aria-live="polite"></div>
-<div id="cursor" aria-hidden="true"><i></i><b></b></div>
-<div id="grain" aria-hidden="true"></div>
 
 <noscript>
   <p style="padding:6rem 2rem;text-align:center;font:1.1rem/1.6 system-ui">Для работы учебника нужен JavaScript. Откройте <a href="classic/">классическую версию</a>.</p>

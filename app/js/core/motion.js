@@ -81,6 +81,7 @@ export function counters(root = document) {
 
 /* ── magnetic buttons ───────────────────────────────────────── */
 export function magnetic(root = document) {
+  return () => {}; // formal: disabled
   if (isTouch() || reduced()) return () => {};
   const offs = [];
   $$('[data-magnetic]', root).forEach((el) => {
@@ -98,6 +99,7 @@ export function magnetic(root = document) {
 /* ── card spotlight (global, cheap) ─────────────────────────── */
 let spot = false;
 export function spotlight() {
+  return; // formal: disabled
   if (spot || isTouch()) return; spot = true;
   let raf = 0, ev;
   window.addEventListener('pointermove', (e) => {

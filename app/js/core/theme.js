@@ -6,7 +6,7 @@ export const getTheme = () => document.documentElement.dataset.theme;
 export function setTheme(t, persist = true) {
   document.documentElement.dataset.theme = t;
   if (persist) { try { localStorage.setItem('mx:theme', t); } catch (e) {} }
-  const m = meta(); if (m) m.content = t === 'light' ? '#f2ece0' : '#07090d';
+  const m = meta(); if (m) m.content = t === 'light' ? '#f7f6f2' : '#0f1319';
   bus.emit('theme', t);
 }
 

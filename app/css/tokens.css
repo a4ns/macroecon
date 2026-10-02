@@ -1,6 +1,6 @@
 /* ─────────────────────────────────────────────────────────────
    «Макро» — design tokens
-   Night Atlas (dark, default) · Paper (light)
+   Academic: Paper (light, default) · Graphite (dark)
    ───────────────────────────────────────────────────────────── */
 
 @font-face { font-family: "Literata"; src: url(../fonts/literata.woff2) format("woff2"); font-weight: 300 800; font-style: normal; font-display: swap; }
@@ -18,7 +18,7 @@
   /* type */
   --f-serif: "Literata", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
   --f-sans: "Sofia Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --f-display: "Sofia Sans XC", "Sofia Sans", "Arial Narrow", Impact, sans-serif;
+  --f-display: "Literata", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
   --f-mono: "JetBrains Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
   --f-math: "MX Math", "Latin Modern Math", "STIX Two Math", "Cambria Math", "Literata", serif;
 
@@ -29,7 +29,7 @@
   --top-h: 68px;
 
   /* radii */
-  --r-xs: 6px; --r-s: 10px; --r-m: 16px; --r-l: 24px; --r-xl: 36px; --r-pill: 999px;
+  --r-xs: 2px; --r-s: 3px; --r-m: 5px; --r-l: 6px; --r-xl: 8px; --r-pill: 999px;
 
   /* motion */
   --ease: cubic-bezier(.22, 1, .36, 1);
@@ -43,92 +43,91 @@
   --z-top: 40; --z-pop: 60; --z-modal: 80; --z-cursor: 100;
 }
 
-/* ── Night Atlas (dark) ─────────────────────────────────────── */
-:root, :root[data-theme="dark"] {
-  color-scheme: dark;
-  --bg: #07090d;
-  --bg-2: #0a0d13;
-  --bg-sunk: #05070a;
-  --surface: #0e131b;
-  --surface-2: #141b25;
-  --surface-3: #1b2431;
-  --line: rgb(255 255 255 / .085);
-  --line-2: rgb(255 255 255 / .16);
-  --line-3: rgb(255 255 255 / .28);
+/* ── Academic (по умолчанию светлая «Бумага», тёмная — «Графит») ── */
+:root, :root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f7f6f2;
+  --bg-2: #f1efe9;
+  --bg-sunk: #eae7df;
+  --surface: #ffffff;
+  --surface-2: #ffffff;
+  --surface-3: #f3f1eb;
+  --line: rgb(20 30 45 / .12);
+  --line-2: rgb(20 30 45 / .22);
+  --line-3: rgb(20 30 45 / .4);
 
-  --ink: #ece8dd;
-  --ink-2: #b9b6ab;
-  --ink-3: #828a98;
-  --ink-4: #555d6b;
-  --ink-inv: #07090d;
+  --ink: #1b2430;
+  --ink-2: #3d4856;
+  --ink-3: #66707d;
+  --ink-4: #99a1ab;
+  --ink-inv: #ffffff;
 
-  --accent: #ffb547;
-  --accent-ink: #1a1204;
-  --accent-soft: rgb(255 181 71 / .14);
+  --accent: #1e4a8a;
+  --accent-ink: #ffffff;
+  --accent-soft: rgb(30 74 138 / .09);
 
-  --d1: #ffb547; /* amber   — деньги, доходы */
-  --d2: #4fe3c1; /* mint    — товары, рост   */
-  --d3: #ff6a55; /* coral   — шоки, дефицит */
-  --d4: #8f80ff; /* violet  — сбережения    */
-  --d5: #5bb3ff; /* sky     — госсектор     */
-  --d6: #c8f06b; /* lime    — внешний сектор*/
-  --d1-soft: rgb(255 181 71 / .16); --d2-soft: rgb(79 227 193 / .16); --d3-soft: rgb(255 106 85 / .16);
-  --d4-soft: rgb(143 128 255 / .18); --d5-soft: rgb(91 179 255 / .16); --d6-soft: rgb(200 240 107 / .16);
+  --d1: #1e4a8a; /* синий    */
+  --d2: #17695f; /* бирюза   */
+  --d3: #a3402c; /* кирпич   */
+  --d4: #5a4a8a; /* пурпур   */
+  --d5: #946414; /* охра     */
+  --d6: #55702a; /* олива    */
+  --d1-soft: rgb(30 74 138 / .1); --d2-soft: rgb(23 105 95 / .1); --d3-soft: rgb(163 64 44 / .1);
+  --d4-soft: rgb(90 74 138 / .1); --d5-soft: rgb(148 100 20 / .1); --d6-soft: rgb(85 112 42 / .1);
 
-  --ok: #4fe3a1; --warn: #ffb547; --bad: #ff6a55;
+  --ok: #1d6b44; --warn: #946100; --bad: #a3321f;
 
-  --glow: 0 0 0 1px rgb(255 255 255 / .06), 0 10px 40px -10px rgb(0 0 0 / .8);
-  --shadow-1: 0 1px 0 rgb(255 255 255 / .05) inset, 0 12px 32px -12px rgb(0 0 0 / .7);
-  --shadow-2: 0 1px 0 rgb(255 255 255 / .07) inset, 0 28px 70px -24px rgb(0 0 0 / .9);
-  --plate: #f4efe3;       /* paper plates for legacy figures */
-  --plate-ink: #15120c;
-  --grain-op: .055;
-  --hero-fade: #07090d;
-  --sel: rgb(255 181 71 / .35);
+  --glow: 0 1px 2px rgb(20 30 45 / .06);
+  --shadow-1: 0 1px 2px rgb(20 30 45 / .06);
+  --shadow-2: 0 6px 20px -8px rgb(20 30 45 / .22);
+  --plate: #ffffff;
+  --plate-ink: #1b2430;
+  --grain-op: 0;
+  --hero-fade: #f7f6f2;
+  --sel: rgb(30 74 138 / .22);
 }
 
-/* ── Paper (light) ──────────────────────────────────────────── */
-:root[data-theme="light"] {
-  color-scheme: light;
-  --bg: #f2ece0;
-  --bg-2: #ece5d6;
-  --bg-sunk: #e6dfcf;
-  --surface: #faf6ec;
-  --surface-2: #fffdf7;
-  --surface-3: #f0e9da;
-  --line: rgb(23 20 15 / .12);
-  --line-2: rgb(23 20 15 / .22);
-  --line-3: rgb(23 20 15 / .4);
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0f1319;
+  --bg-2: #12171e;
+  --bg-sunk: #0b0e13;
+  --surface: #161c24;
+  --surface-2: #1b222c;
+  --surface-3: #212a35;
+  --line: rgb(255 255 255 / .09);
+  --line-2: rgb(255 255 255 / .17);
+  --line-3: rgb(255 255 255 / .3);
 
-  --ink: #17140f;
-  --ink-2: #4a463c;
-  --ink-3: #7e786a;
-  --ink-4: #aaa493;
-  --ink-inv: #f7f2e7;
+  --ink: #e6e9ee;
+  --ink-2: #b5bcc7;
+  --ink-3: #8791a0;
+  --ink-4: #5d6674;
+  --ink-inv: #0f1319;
 
-  --accent: #d8401c;
-  --accent-ink: #fff7ee;
-  --accent-soft: rgb(216 64 28 / .12);
+  --accent: #7fa7e0;
+  --accent-ink: #0b1220;
+  --accent-soft: rgb(127 167 224 / .13);
 
-  --d1: #d8401c; /* vermilion */
-  --d2: #0c7a6b; /* teal      */
-  --d3: #b97a08; /* ochre     */
-  --d4: #4a4fc4; /* indigo    */
-  --d5: #1f74b8; /* blue      */
-  --d6: #6b8a1c; /* olive     */
-  --d1-soft: rgb(216 64 28 / .12); --d2-soft: rgb(12 122 107 / .13); --d3-soft: rgb(185 122 8 / .14);
-  --d4-soft: rgb(74 79 196 / .12); --d5-soft: rgb(31 116 184 / .12); --d6-soft: rgb(107 138 28 / .14);
+  --d1: #7fa7e0;
+  --d2: #5fc2b2;
+  --d3: #e08a74;
+  --d4: #a896d8;
+  --d5: #d6a64e;
+  --d6: #a3c26a;
+  --d1-soft: rgb(127 167 224 / .14); --d2-soft: rgb(95 194 178 / .14); --d3-soft: rgb(224 138 116 / .14);
+  --d4-soft: rgb(168 150 216 / .14); --d5-soft: rgb(214 166 78 / .14); --d6-soft: rgb(163 194 106 / .14);
 
-  --ok: #0c7a52; --warn: #b97a08; --bad: #c4321a;
+  --ok: #5fc28f; --warn: #d6a64e; --bad: #e08a74;
 
-  --glow: 0 0 0 1px rgb(23 20 15 / .06), 0 10px 40px -12px rgb(60 40 10 / .25);
-  --shadow-1: 0 1px 0 rgb(255 255 255 / .8) inset, 0 12px 30px -14px rgb(60 40 10 / .28);
-  --shadow-2: 0 1px 0 rgb(255 255 255 / .8) inset, 0 30px 70px -26px rgb(60 40 10 / .4);
-  --plate: #fffdf6;
-  --plate-ink: #17140f;
-  --grain-op: .09;
-  --hero-fade: #f2ece0;
-  --sel: rgb(216 64 28 / .25);
+  --glow: 0 1px 2px rgb(0 0 0 / .4);
+  --shadow-1: 0 1px 2px rgb(0 0 0 / .4);
+  --shadow-2: 0 8px 24px -10px rgb(0 0 0 / .7);
+  --plate: #f4f2ec;
+  --plate-ink: #1b2430;
+  --grain-op: 0;
+  --hero-fade: #0f1319;
+  --sel: rgb(127 167 224 / .3);
 }
 
 @media (prefers-reduced-motion: reduce) {

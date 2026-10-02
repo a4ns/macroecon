@@ -93,7 +93,7 @@
 @media (max-width: 700px) { .st-offer__grid { grid-template-columns: minmax(0, 1fr); } }
 .st-offer__stats { display: flex; gap: clamp(1.2rem, 3vw, 2.4rem); padding: 1.3rem 1.8rem; border-radius: var(--r-l); background: var(--surface); border: 1px solid var(--line-2); box-shadow: var(--shadow-1); }
 .st-offer__stats p { display: grid; gap: .3rem; }
-.st-offer__stats b { font: 900 clamp(3.2rem, 8vw, 5.4rem)/.85 var(--f-display); color: var(--accent); font-variant-numeric: tabular-nums; }
+.st-offer__stats b { font: 500 clamp(3.2rem, 8vw, 5.4rem)/.85 var(--f-display); color: var(--accent); font-variant-numeric: tabular-nums; }
 .st-offer__stats span { font: 500 .78rem/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
 .st-offer__txt .lede { max-width: 36rem; }
 .st-offer__cta { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: clamp(1.4rem, 3vw, 2.2rem); }
